@@ -2,33 +2,9 @@ import React, {useState} from 'react'
 import {View, Text, Button} from 'react-native'
 import { NavigationContainer } from "@react-navigation/native"
 import { createStackNavigator } from "@react-navigation/stack"
+import { MainScreen } from './screens/main/MainScreen'
+import { SignUpScreen } from './screens/main/SignUpScreen'
 
-
-// this is the demo main screen
-// will be moved to a different file
-function MainScreen({navigation}){
-    return (
-        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-            <Text>Main screen</Text>
-            <Button 
-                title="Sign Up" 
-                onPress={() => navigation.navigate('SignUp')}/>
-        </View>
-    );
-}
-
-// this is the demo signup screen
-// will be moved to a different file
-function SignUpScreen({navigation}){
-    return (
-        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-            <Text>Sign Up bro</Text>
-            <Button 
-                title="Go back" 
-                onPress={() => navigation.goBack()} />
-        </View>
-    );
-}
 
 
 // here
