@@ -95,7 +95,7 @@ function StarshipDetails({ starship }) {
       </View>
 
       <View style={styles.section}>
-        <Text style={styles.label}>Operational abilities</Text>
+        <Text style={styles.label}>AAAAAAAAALOOOOOOOOOOOOO</Text>
         <Text>- {starship.crew} crew members</Text>
         <Text>- {starship.consumables} without restocking</Text>
       </View>
