@@ -4,6 +4,7 @@ import { NavigationContainer } from "@react-navigation/native"
 import { createStackNavigator } from "@react-navigation/stack"
 import { MainScreen } from './screens/main/MainScreen'
 import { SignUpScreen } from './screens/main/SignUpScreen'
+import { LoginScreen } from './screens/main/LoginScreen';
 
 
 
@@ -33,7 +34,15 @@ export default function App(){
                             headerTransparent: true
                             }}
                 />
-                                  
+                {/*Login Screen stack*/}
+                 <Stack.Screen 
+                    name="Login" 
+                    component={LoginScreen}
+                    options={{ 
+                            title: 'Log In',
+                            headerTransparent: true
+                            }}
+                />
               
             </Stack.Navigator>
         </NavigationContainer>
