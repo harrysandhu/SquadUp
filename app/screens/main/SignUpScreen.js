@@ -10,6 +10,10 @@ export function SignUpScreen({navigation}){
                 <Text style={{color:"white"}}>SIGN UP</Text>
             </TopText>
             <Button 
+                title="Profile Completion" 
+                onPress={() => navigation.navigate('Completion')} />
+
+            <Button 
                 title="Go back" 
                 onPress={() => navigation.goBack()} />
         </View>

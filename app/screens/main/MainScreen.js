@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {View, Text, Button} from 'react-native'
-import { RedButton, ButtonPrimary, ButtonSecondary, ButtonView } from '../../components/styled/components';
+import { ButtonPrimary, ButtonSecondary, ButtonView } from '../../components/styled/components';
 
 
 export function MainScreen({navigation}){

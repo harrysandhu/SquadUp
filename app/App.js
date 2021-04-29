@@ -5,6 +5,7 @@ import { createStackNavigator } from "@react-navigation/stack"
 import { MainScreen } from './screens/main/MainScreen'
 import { SignUpScreen } from './screens/main/SignUpScreen'
 import { LoginScreen } from './screens/main/LoginScreen';
+import { CompletionScreen } from './screens/main/CompletionScreen';
 
 
 
@@ -30,7 +31,7 @@ export default function App(){
                     name="SignUp" 
                     component={SignUpScreen}
                     options={{ 
-                            title: 'Sign Up',
+                            title: '',
                             headerTransparent: true
                             }}
                 />
@@ -39,7 +40,16 @@ export default function App(){
                     name="Login" 
                     component={LoginScreen}
                     options={{ 
-                            title: 'Log In',
+                            title: '',
+                            headerTransparent: true
+                            }}
+                />
+                {/*Profile Completion Screen stack*/}
+                <Stack.Screen 
+                    name="Completion" 
+                    component={CompletionScreen}
+                    options={{ 
+                            title: '',
                             headerTransparent: true
                             }}
                 />

@@ -12,17 +12,12 @@ import { Button,
 const primary_color = "#FF005C";
 const secondary_color = "#2B4FC1";
 
-export const FlexView = styled.View`
-    flex: 1;
-    align-items: center;
-`;
-
 export const TopText = styled.Text`
     position: absolute;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    top: 5%;
+    top: 8%;
 `;
 
 export const ButtonView = styled.View`
@@ -62,5 +57,11 @@ export const ButtonSecondary = styled.TouchableOpacity`
     opacity:${props => (props.disabledStyle === true) ? '0.5': '1'}; 
     background-color: ${props => (props.disabledStyle === true) ? secondary_color : secondary_color};
 `;
+
+export const InputtingText = styled.TextInput`
+    width: 375px;
+    height: 55px;
+    
+`
 
 
