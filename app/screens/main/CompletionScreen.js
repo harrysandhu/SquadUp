@@ -1,13 +1,13 @@
 import React, {useState} from 'react'
-import { View, Text, Button } from 'react-native'
-import { TopText, InputView, Inputs } from '../../components/styled/components';
+import {View, Text, Button} from 'react-native'
+import { TopText } from '../../components/styled/components';
 
 
-export function LoginScreen({navigation}){
+export function CompletionScreen({navigation}){
     return (
         <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#070A1E'}}>
             <TopText>
-                <Text style={{color:"white"}}>LOGIN</Text>
+                <Text style={{color:"white"}}>PROFILE COMPLETION</Text>
             </TopText>
 
             <Button 
@@ -16,4 +16,3 @@ export function LoginScreen({navigation}){
         </View>
     );
 }
-

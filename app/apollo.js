@@ -9,7 +9,7 @@ uncomment the code below in case you are using a GraphQL API that requires some 
 authentication. asyncAuthLink will run every time your request is made and use the token
 you provide while making the request.
 
-
+<
 const TOKEN = '';
 const asyncAuthLink = setContext(async () => {
   return {
