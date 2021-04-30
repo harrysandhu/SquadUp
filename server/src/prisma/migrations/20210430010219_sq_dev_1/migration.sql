@@ -13,7 +13,7 @@ CREATE TABLE `Auth` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `uid` VARCHAR(191) NOT NULL,
     `userId` VARCHAR(100),
-    `idToken` LONGTEXT,
+    `idToken` VARCHAR(1024),
     `email` VARCHAR(256) NOT NULL,
     `password` VARCHAR(100),
     `authStage` ENUM('SIGNUP', 'USERNAME', 'SUB', 'FINAL') NOT NULL DEFAULT 'SIGNUP',
