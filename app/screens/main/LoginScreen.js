@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import { View, Text, Button } from 'react-native'
-import { TopText, InputView, Inputs } from '../../components/styled/components';
+import { TopText, InputView, Inputs, BackArrow } from '../../components/styled/components';
+import Icon from 'react-native-vector-icons/FontAwesome'
 
 
 export function LoginScreen({navigation}){
@@ -10,9 +11,9 @@ export function LoginScreen({navigation}){
                 <Text style={{color:"white"}}>LOGIN</Text>
             </TopText>
 
-            <Button 
-                title="Go back" 
-                onPress={() => navigation.goBack()} />
+            <BackArrow onPress={() => navigation.goBack()}>
+                <Icon name='angle-left' size={25} style={{color:"white"}}/>
+            </BackArrow>
         </View>
     );
 }

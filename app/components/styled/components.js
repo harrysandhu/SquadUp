@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { Icon } from 'react-native-vector-icons/MaterialIcons';
 import { Button, 
         Text, 
         View, 
@@ -43,8 +44,33 @@ export const TopText = styled.Text`
     top: 8%;
 `;
 
+export const BackArrow = styled.TouchableOpacity`
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    top: 7.5%;
+    right: 10%;
+`;
 
-export const InputTF = styled.TextInput `
+
+export const InputTF = styled.TextInput`
+    width: 80%;
+    height: 48px;
+    background: ${props => (props.active === true)? 'rgba(216, 205, 208, 0.2)' : 'rgba(216, 205, 208, 0.2)'};
+    border-radius: 10px;
+    padding-left: 25px;
+    color: #fff;
+    border: ${props => (props.active) ? '2px solid #E1DDDD': 'none'};
+    font-size:20px;
+    margin-top:20px;
+    text-align:left;
+    ${'' /* box-shadow: ${props => (props.active === true) ? '0px 0px 10px rgba(0, 0, 0, 0.15)' : '0px 0px 0px rgba(0, 0, 0, 0)'} */}
+`
+
+export const InputDOB = styled.TextInput`
     width: 80%;
     height: 48px;
     background: ${props => (props.active === true)? 'rgba(216, 205, 208, 0.2)' : 'rgba(216, 205, 208, 0.2)'};
@@ -75,8 +101,7 @@ export const AtLabel = styled.Text`
     font-size: 30px;
     padding-right: 10px;
     margin-top: 15px;
-
-`
+`;
 
 export const ButtonPrimary = styled.TouchableOpacity`
     width: 375px;
