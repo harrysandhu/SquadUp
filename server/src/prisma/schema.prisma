@@ -25,6 +25,7 @@ model User{
   authStage   AuthStage   @default(SIGNUP)
   authType    AuthType    @default(GOOGLE)
   createdAt   DateTime    @default(now())
+  dob         DateTime    
   device      Device      @relation(fields: [dID], references:[id])
   dID         Int
   profile     Profile?
@@ -35,6 +36,7 @@ model Profile{
   name        String?     @db.VarChar(100)
   username    String?     @db.VarChar(100) @unique
   avatarUrl   String      @db.VarChar(1024)  @default("https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/default-avatar.png")
+  bio         String?     @db.VarChar(200)
   user        User        @relation(fields: [uID], references:[id])
   uID         String 
 }
