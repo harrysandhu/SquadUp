@@ -3,4 +3,4 @@ node_js:
   - "stable"
 
 script: 
-  - yarn start
+  - cd server && yarn start && cd ..
