@@ -1,0 +1,52 @@
+datasource db {
+  provider = "mysql"
+  // TODO seperate for dev and prod
+  url      = env("MYSQL_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+
+model Device{
+  id          Int         @default(autoincrement()) @id
+  deviceId    String      @db.VarChar(100) @unique
+  createdAt   DateTime    @default(now())
+}
+
+
+model Auth{
+  id          Int         @id @default(autoincrement())
+  user        User        @relation(fields: [uid], references:[id])
+  uid         String   
+  userId      String?     @db.VarChar(100) @unique
+  idToken     String?     @db.LongText
+  email       String      @db.VarChar(256) @unique
+  password    String?     @db.VarChar(100)
+  authStage   AuthStage   @default(SIGNUP)
+  authType    AuthType    @default(GOOGLE)
+}
+
+model User{
+  id          String      @id @default(uuid())
+  name        String?     @db.VarChar(100)
+  username    String?     @db.VarChar(100) @unique
+  createdAt   DateTime    @default(now())
+  auth        Auth?
+}
+
+
+
+enum AuthType{
+  GOOGLE
+  FACEBOOK
+  EMAIL
+}
+
+enum AuthStage{
+  SIGNUP
+  USERNAME
+  SUB
+  FINAL
+}
