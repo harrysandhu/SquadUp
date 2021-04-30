@@ -82,8 +82,7 @@ export const InputDOB = styled.TextInput`
     margin-top:20px;
     text-align:left;
     ${'' /* box-shadow: ${props => (props.active === true) ? '0px 0px 10px rgba(0, 0, 0, 0.15)' : '0px 0px 0px rgba(0, 0, 0, 0)'} */}
-`
-
+`;
 
 export const ButtonView = styled.View`
     width: 100%;
@@ -94,6 +93,19 @@ export const ButtonView = styled.View`
     justify-content: center;
     align-items: center;
     bottom: 5%;
+`;
+
+export const ProfileView = styled.TouchableOpacity`
+    width: 150px;
+    height: 150px;
+    border: 2px white;
+    border-radius: 50px;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    top: 20%;
+    align-items: center;
 `;
 
 export const AtLabel = styled.Text`
@@ -131,4 +143,14 @@ export const ButtonSecondary = styled.TouchableOpacity`
 `;
 
 
-
+export const ImageSelectorTouchable = styled.TouchableOpacity`
+    height: 150px;
+    width: 150px;
+    border-radius: 40px;
+    overflow:hidden;
+    background-color: rgba(216, 205, 208, 0.2);
+    bottom: 7%;
+    border: 0.8px grey;
+    justify-content: center;
+    align-items: center;
+`;

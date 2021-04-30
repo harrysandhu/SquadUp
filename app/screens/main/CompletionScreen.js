@@ -1,7 +1,9 @@
-import React, {useState} from 'react'
-import { View, Text, Button } from 'react-native'
-import { TopText, FlexView, InputTF, HFlex, AtLabel, BackArrow, InputDOB, ButtonPrimary, ButtonView } from '../../components/styled/components';
+import React, {useState, useEffect} from 'react'
+import { View, Text, Button, Image } from 'react-native'
+import { TopText, FlexView, InputTF, VFlex, HFlex, AtLabel, 
+    BackArrow, InputDOB, ButtonPrimary, ButtonView, ImageSelectorTouchable } from '../../components/styled/components';
 import Icon from 'react-native-vector-icons/FontAwesome'
+import * as ImagePicker from 'expo-image-picker';
 
 export function CompletionScreen({navigation}){
 
@@ -10,6 +12,41 @@ export function CompletionScreen({navigation}){
 
     const [DOB, setDOB] = useState("")
     const [DOBIsActive, setDOBIsActive] = useState(false)
+
+    const [image, setImage] = useState(null);
+
+    useEffect(() => {
+        (async () => {
+          if (Platform.OS !== 'web') {
+            const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+            if (status !== 'granted') {
+              alert('Sorry, we need camera roll permissions to make this work!');
+            }
+          }
+        })();
+      }, []);
+
+    const pickImage = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+            base64: true,
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality: 1,
+        });
+    
+    
+        if (!result.cancelled) {
+          setImage(result.uri);
+          console.log(result.base64);
+        }
+        
+        console.log("Result:::", result)
+
+    };
+
+    // imageData(base64)  --->  firebase save (base64) : returns -> url -----> console.log(url) END
+    // https://firebase-cdn.com/appid/assets/abc123/images/avatar.jpg
 
     return (
         <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#070A1E'}}>
@@ -21,7 +58,11 @@ export function CompletionScreen({navigation}){
                 <Icon name='angle-left' size={25} style={{color:"white"}}/>
             </BackArrow>
 
-            <FlexView>
+            <ImageSelectorTouchable title="Choose Image from Camera Roll" onPress={pickImage} >
+                {image && <Image source={{ uri: image }} style={{width: 200, height: 200 }} />}
+            </ImageSelectorTouchable>
+
+            <FlexView style={{paddingTop: "3%"}}>
                 <HFlex>
                     <AtLabel active={usernameIsActive}>@</AtLabel>
                     <InputTF
@@ -64,8 +105,8 @@ export function CompletionScreen({navigation}){
             </FlexView>
 
             <ButtonView>
-                <ButtonPrimary style={{bottom: "-15%"}} onPress={() => navigation.navigate('#')}>
-                    <Text style={{color:"white"}}>CONTINUTE</Text>
+                <ButtonPrimary style={{bottom: "-15%"}}>
+                    <Text style={{color:"white"}}>CONTINUE</Text>
                 </ButtonPrimary>
             </ButtonView>
 
@@ -74,9 +115,3 @@ export function CompletionScreen({navigation}){
 }
 
 
-
-/**
- * name, email, dob, profile picture, grab a
- * 
- * 
- */
