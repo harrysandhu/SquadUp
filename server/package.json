@@ -2,13 +2,13 @@
     "name": "server",
     "version": "1.0.0",
     "description": "",
-    "main": "index.js",
+    "main": "app.js",
     "scripts": {
         "watch": "tsc -w",
-        "dev": "nodemon dist/index.js",
-        "start": "node dist/index.js",
-        "dev2": "nodemon --exec ts-node src/index.ts",
-        "start2": "ts-node src/index.ts",
+        "dev": "nodemon dist/app.js",
+        "start": "node dist/app.js",
+        "dev2": "nodemon --exec ts-node src/app.ts",
+        "start2": "ts-node src/app.ts",
         "lint": "eslint ."
     },
     "keywords": [],
@@ -27,6 +27,7 @@
         "express": "^4.17.1",
         "fs": "^0.0.1-security",
         "graphql": "^15.5.0",
+        "graphql-iso-date": "^3.6.1",
         "graphql-subscriptions": "^1.2.1",
         "graphql-tools": "^7.0.4",
         "joi": "^17.4.0",
@@ -43,12 +44,12 @@
         "ws": "^7.4.4"
     },
     "devDependencies": {
-        "nodemon": "^2.0.7",
-        "ts-node": "^9.1.1",
         "@types/morgan": "^1.9.2",
         "@types/node": "^14.14.41",
         "http-proxy-middleware": "^1.1.0",
+        "nodemon": "^2.0.7",
         "prisma": "2.21.2",
+        "ts-node": "^9.1.1",
         "typescript": "^4.2.4"
     }
 }
