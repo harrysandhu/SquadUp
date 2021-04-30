@@ -105,13 +105,16 @@ export const schema = gql `
 
 const directiveResolvers:any = {
     isAuth: (next:any, src:any, args:any, ctx:any) => {
-        console.log(`SRC${src} \n\n\n ARGS: ${args} \n\n\n CTX: ${ctx}`)
-        next()
+        console.dir(`SRC${src} \n\n\n ARGS: ${args} \n\n\n CTX: ${ctx}`)
+        return next().then((str:any) => {
+            return str
+        })
+    
     }
 }
 
 const deviceData:any = {
-    "111.111.111": {
+    "abc123": {
         id: "abc123",
         deviceId: "111.111.111",
         createdAt: "2018-05-28T10:26:39.359Z"
@@ -160,6 +163,15 @@ const resolvers:any = {
         profile: (root:any, {username}: any, ctx: any): any => {
             console.log(`root${root} , CTX: ${ctx}`)
             return profileData[username]
+        }
+    },
+    User: {
+        device: ({device}: any) : any =>{
+            console.log("this ran", device)
+            return deviceData[device]
+        },
+        profile: ({profile}:any) :any =>{
+            return profileData[profile]
         }
     }
 }
