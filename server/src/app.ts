@@ -28,6 +28,7 @@ const server = new ApolloServer({
 
 
 app.get("/custom", (req:any, res:any) =>{
+    console.log("inital: ", req)
     res.json({message: "hello"})
 })
 
