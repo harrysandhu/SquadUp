@@ -1,6 +1,7 @@
 import { gql } from "apollo-server-core";
 import {
-    GraphQLDateTime
+    GraphQLDateTime,
+    GraphQLDate
 } from 'graphql-iso-date'
 
 import { makeExecutableSchema } from "graphql-tools"
@@ -15,6 +16,7 @@ import { makeExecutableSchema } from "graphql-tools"
 export const schema = gql `
 
     scalar DateTime
+    scalar Date
     directive @isAuth on FIELD_DEFINITION
 
     schema{
@@ -58,6 +60,7 @@ export const schema = gql `
         authStage: AuthStage!
         authType: AuthType!
         createdAt: DateTime!
+        dob: DateTime @isAuth
         device: Device!
         profile: Profile!
     }
@@ -98,3 +101,72 @@ export const schema = gql `
 
 
 `
+
+
+const directiveResolvers:any = {
+    isAuth: (next:any, src:any, args:any, ctx:any) => {
+        console.log(`SRC${src} \n\n\n ARGS: ${args} \n\n\n CTX: ${ctx}`)
+        next()
+    }
+}
+
+const deviceData:any = {
+    "111.111.111": {
+        id: "abc123",
+        deviceId: "111.111.111",
+        createdAt: "2018-05-28T10:26:39.359Z"
+    }
+}
+
+
+const userData:any = {
+    "user123": {
+        id: "user123",
+        userId: "userid123123123",
+        idToken: "bruhh",
+        email: "hras@gmail.com",
+        authStage: 'SUB',
+        authType: 'GOOGLE',
+        createdAt: "2018-05-28T10:26:39.359Z",
+        dob:  "1999-05-28T10:26:39.359Z",
+        device: 'abc123',
+        profile: "profile123"
+    }
+}
+
+const profileData:any = {
+    "profile123": {
+        id: "profile123",
+        name: "Harry",
+        username: "harryxsandhu",
+        avatar_url: "http://wef3ec.com/ttt.png",
+        bio: "hi whats up",
+        user: "user123"
+    }
+}
+
+const resolvers:any = {
+    DateTime: GraphQLDateTime,
+    Date: GraphQLDate,
+    Query: {
+        device: (root:any, {deviceId} : any, ctx:any): any => {
+            console.log(`root${root} , CTX: ${ctx}`)
+            return deviceData[deviceId]
+        },
+        user: (root:any, {id}: any, ctx: any): any => {
+            console.log(`root${root} , CTX: ${ctx}`)
+            return userData[id]
+        },
+        profile: (root:any, {username}: any, ctx: any): any => {
+            console.log(`root${root} , CTX: ${ctx}`)
+            return profileData[username]
+        }
+    }
+}
+
+// export resolved schema
+export const squadup_schema_v1 = makeExecutableSchema({
+    typeDefs: [schema],
+    resolvers,
+    directiveResolvers
+})

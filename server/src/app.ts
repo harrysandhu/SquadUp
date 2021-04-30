@@ -5,7 +5,10 @@ import { ApolloServer } from 'apollo-server-express'
 import { createServer } from "http"
 import cors from "cors"
 // import schema from "./data/schema"
-import { btw_api_schema } from './data/schemax'
+// import { btw_api_schema } from './data/schemax'
+import { squadup_schema_v1 } from './schemas/schema';
+
+
 
 const app:express.Application = express()
 const PORT:number = 3030
@@ -18,7 +21,7 @@ app.use(bodyParser.urlencoded({ limit: '5mb', extended: false }))
 app.set('json spaces', 2);
 
 const server = new ApolloServer({
-    schema: btw_api_schema,
+    schema: squadup_schema_v1,
     subscriptions: { path: "/websockets" },
     context: ({ req }) => ({ req })
 })
