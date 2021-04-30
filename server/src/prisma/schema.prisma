@@ -13,29 +13,31 @@ model Device{
   id          Int         @default(autoincrement()) @id
   deviceId    String      @db.VarChar(100) @unique
   createdAt   DateTime    @default(now())
-}
-
-
-model Auth{
-  id          Int         @id @default(autoincrement())
-  user        User        @relation(fields: [uid], references:[id])
-  uid         String   
-  userId      String?     @db.VarChar(100) @unique
-  idToken     String?     @db.LongText
-  email       String      @db.VarChar(256) @unique
-  password    String?     @db.VarChar(100)
-  authStage   AuthStage   @default(SIGNUP)
-  authType    AuthType    @default(GOOGLE)
+  user        User?
 }
 
 model User{
   id          String      @id @default(uuid())
-  name        String?     @db.VarChar(100)
-  username    String?     @db.VarChar(100) @unique
+  userId      String?     @db.VarChar(100) @unique
+  idToken     String?     @db.VarChar(1024)
+  email       String      @db.VarChar(256) @unique
+  password    String?     @db.VarChar(100)
+  authStage   AuthStage   @default(SIGNUP)
+  authType    AuthType    @default(GOOGLE)
   createdAt   DateTime    @default(now())
-  auth        Auth?
+  device      Device      @relation(fields: [dID], references:[id])
+  dID         Int
+  profile     Profile?
 }
 
+model Profile{
+  id          String      @id @default(uuid())
+  name        String?     @db.VarChar(100)
+  username    String?     @db.VarChar(100) @unique
+  avatarUrl   String      @db.VarChar(1024)  @default("https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/default-avatar.png")
+  user        User        @relation(fields: [uID], references:[id])
+  uID         String 
+}
 
 
 enum AuthType{
