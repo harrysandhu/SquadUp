@@ -5,6 +5,9 @@ import {
 } from 'graphql-iso-date'
 
 import { makeExecutableSchema } from "graphql-tools"
+import {PrismaClient} from '@prisma/client'
+
+const prisma = new PrismaClient()
 
 /**
  * we would import other entities here and combine entities
@@ -31,7 +34,7 @@ export const schema = gql `
         signInGoogle(userId: ID!): AuthPayload
     }
 
-
+  
     type Mutation{
         registerDevice(deviceId: ID!): Device
         signUpGoogle(userInput: GoogleUserInput!): User
@@ -151,17 +154,45 @@ const resolvers:any = {
     DateTime: GraphQLDateTime,
     Date: GraphQLDate,
     Query: {
-        device: (root:any, {deviceId} : any, ctx:any): any => {
+        device: (
+            root:any, 
+            {deviceId} : any, 
+            ctx:any): any => {
+
             console.log(`root${root} , CTX: ${ctx}`)
             return deviceData[deviceId]
         },
-        user: (root:any, {id}: any, ctx: any): any => {
+        user: (
+            root:any, {id}: 
+            any, 
+            ctx: any): any => {
+
             console.log(`root${root} , CTX: ${ctx}`)
             return userData[id]
         },
-        profile: (root:any, {username}: any, ctx: any): any => {
+        profile: (
+            root:any, 
+            {username}: any, 
+            ctx: any): any => {
+
             console.log(`root${root} , CTX: ${ctx}`)
             return profileData[username]
+        }
+    },
+    Mutation: {
+        registerDevice: async (
+            root: any, 
+            {deviceId}: any, 
+            ctx: any) => {
+                
+            console.log(`root${root} , CTX: ${ctx}`)
+            let device = await prisma.device.create({
+                data: {
+                   deviceId: deviceId
+                }
+            }) 
+            console.log("Device created", device)
+            return device
         }
     },
     User: {
