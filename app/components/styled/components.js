@@ -154,3 +154,11 @@ export const ImageSelectorTouchable = styled.TouchableOpacity`
     justify-content: center;
     align-items: center;
 `;
+
+
+export const LogoImage = styled.Image`
+    flex: 1;
+    width: 100%;
+    resize-mode: contain;
+`;
+
