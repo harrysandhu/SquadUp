@@ -1,9 +1,13 @@
+// TODO : Clean up - fix indentation
 import React, {useState, useEffect} from 'react'
 import { View, Text, Button, Image } from 'react-native'
 import { TopText, FlexView, InputTF, VFlex, HFlex, AtLabel, 
-    BackArrow, InputDOB, ButtonPrimary, ButtonView, ImageSelectorTouchable } from '../../components/styled/components';
+    BackArrow, InputDOB, ButtonPrimary, ButtonView, ImageSelectorTouchable, TopTitle } from '../../components/styled/components';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import * as ImagePicker from 'expo-image-picker';
+import { Input as InputEl } from "react-native-elements";
+import { Header, Icon as Icc } from "react-native-elements";
+
 
 export function CompletionScreen({navigation}){
 
@@ -13,7 +17,7 @@ export function CompletionScreen({navigation}){
     const [DOB, setDOB] = useState("")
     const [DOBIsActive, setDOBIsActive] = useState(false)
 
-    const [image, setImage] = useState(null);
+    const [image, setImage] = useState("https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/default-avatar.png");
 
     useEffect(() => {
         (async () => {
@@ -50,23 +54,42 @@ export function CompletionScreen({navigation}){
 
     return (
         <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#070A1E'}}>
-            <TopText>
-                <Text style={{color:"white"}}>PROFILE COMPLETION</Text>
-            </TopText>
-
-            <BackArrow onPress={() => navigation.goBack()}>
-                <Icon name='angle-left' size={25} style={{color:"white"}}/>
-            </BackArrow>
-
+             <Header
+            barStyle="default"
+            centerComponent={
+                <VFlex>
+                <TopTitle>COMPLETE YOUR PROFILE</TopTitle>
+                </VFlex>
+                }
+            centerContainerStyle={{}}
+                containerStyle={{ width: '100%', 
+                backgroundColor: 'none', 
+                position:'absolute', 
+                top:0, 
+                borderBottomColor: "transparent"
+            }}
+            leftComponent={   
+                <BackArrow onPress={() => navigation.goBack()}>
+                    <Icon name='angle-left' size={25} style={{color:"white"}}/>
+                </BackArrow>
+                }
+            placement="center"
+            rightComponent={{}}
+            rightContainerStyle={{}}
+            
+            statusBarProps={{}}
+    />
             <ImageSelectorTouchable title="Choose Image from Camera Roll" onPress={pickImage} >
+                
                 {image && <Image source={{ uri: image }} style={{width: 200, height: 200 }} />}
             </ImageSelectorTouchable>
 
             <FlexView style={{paddingTop: "3%"}}>
                 <HFlex>
-                    <AtLabel active={usernameIsActive}>@</AtLabel>
-                    <InputTF
+                <Icon name='user' size={25} style={{color:"#a9a9a9", paddingTop: 20, paddingRight: 20}}/>
+                 <InputTF
                         placeholder="Username"
+                        placeholderTextColor="#a9a9a9"
                         active={usernameIsActive} 
                         value={usernameText}
                         autoCapitalize="none"
@@ -81,26 +104,7 @@ export function CompletionScreen({navigation}){
                             setUsernameText(value)
                             }}
 
-                    />
-                </HFlex>
-                <HFlex>
-                    <AtLabel active={DOBIsActive}><Icon name='calendar' size={30} style={AtLabel}/></AtLabel>
-                    <InputDOB 
-                    placeholder="MM/DD/YYYY"
-                    active={DOBIsActive} 
-                    value={DOB}
-                    autoCapitalize="none"
-                    onFocus={()=>{
-                        setDOBIsActive(true)
-                    }}
-
-                    onBlur={() =>{
-                        setDOBIsActive(false)
-                    }}
-                        onChangeText={(value) =>{
-                        setDOB(value)
-                        }}
-                    />
+                    /> 
                 </HFlex>
             </FlexView>
 
