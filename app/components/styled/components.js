@@ -52,7 +52,7 @@ export const BackArrow = styled.TouchableOpacity`
     flex-direction: column;
     justify-content: center;
     top: 7.5%;
-    right: 10%;
+    left: 10%;
 `;
 
 
@@ -64,7 +64,7 @@ export const InputTF = styled.TextInput`
     padding-left: 25px;
     color: #fff;
     border: ${props => (props.active) ? '2px solid #E1DDDD': 'none'};
-    font-size:20px;
+    font-size:15px;
     margin-top:20px;
     text-align:left;
     ${'' /* box-shadow: ${props => (props.active === true) ? '0px 0px 10px rgba(0, 0, 0, 0.15)' : '0px 0px 0px rgba(0, 0, 0, 0)'} */}
@@ -116,7 +116,7 @@ export const AtLabel = styled.Text`
 `;
 
 export const ButtonPrimary = styled.TouchableOpacity`
-    width: 375px;
+    width: 90%;
     height: 55px;
     display: flex;
     flex-direction: column;
@@ -124,13 +124,14 @@ export const ButtonPrimary = styled.TouchableOpacity`
     align-items: center;
     font-family: 'Roboto';
     margin-bottom: 4%;
+    border-radius:10px;
     opacity:${props => (props.disabledStyle === true) ? '0.5': '1'}; 
     background-color: ${props => (props.disabledStyle === true) ? primary_color : primary_color};
 
 `;
 
 export const ButtonSecondary = styled.TouchableOpacity`
-    width: 375px;
+    width: 90%;
     height: 55px;
     display: flex;
     flex-direction: column;
@@ -138,6 +139,7 @@ export const ButtonSecondary = styled.TouchableOpacity`
     align-items: center;
     font-family: 'Roboto';
     bottom: 0px;
+    border-radius:10px;
     opacity:${props => (props.disabledStyle === true) ? '0.5': '1'}; 
     background-color: ${props => (props.disabledStyle === true) ? secondary_color : secondary_color};
 `;
@@ -146,7 +148,7 @@ export const ButtonSecondary = styled.TouchableOpacity`
 export const ImageSelectorTouchable = styled.TouchableOpacity`
     height: 150px;
     width: 150px;
-    border-radius: 40px;
+    border-radius: 140px;
     overflow:hidden;
     background-color: rgba(216, 205, 208, 0.2);
     bottom: 7%;
@@ -162,3 +164,40 @@ export const LogoImage = styled.Image`
     resize-mode: contain;
 `;
 
+export const TopTitle = styled.Text `
+font-style: normal;
+font-weight: 400;
+padding-top: 7px;
+font-size: 15px;
+color: #fff;
+`
+
+export const ButtonGoogle = styled.TouchableOpacity`
+width: 90%;
+height: 55px;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+font-family: 'Roboto';
+margin-bottom: 4%;
+border-radius:10px;
+opacity:${props => (props.disabledStyle === true) ? '0.5': '1'}; 
+background-color: ${props => (props.disabledStyle === true) ? '#DB4437' : '#DB4437'};
+
+`
+
+export const ButtonFacebook = styled.TouchableOpacity`
+width: 90%;
+height: 55px;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+font-family: 'Roboto';
+margin-bottom: 4%;
+border-radius:10px;
+opacity:${props => (props.disabledStyle === true) ? '0.5': '1'}; 
+background-color: ${props => (props.disabledStyle === true) ? '#1877f2' : '#1877f2'};
+
+`
