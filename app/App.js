@@ -7,6 +7,10 @@ import { SignUpScreen } from './screens/main/SignUpScreen'
 import { LoginScreen } from './screens/main/LoginScreen';
 import { CompletionScreen } from './screens/main/CompletionScreen';
 
+import {ApolloProvider, useQuery, gql} from "@apollo/client"
+import {apolloClient} from "./apollo"
+
+
 
 
 // here
@@ -15,6 +19,7 @@ const Stack = createStackNavigator()
 // App component always stays here
 export default function App(){
     return (
+        <ApolloProvider client={apolloClient}>
         <NavigationContainer>
             <Stack.Navigator>
                 {/*Main Screen stack*/}
@@ -56,6 +61,7 @@ export default function App(){
               
             </Stack.Navigator>
         </NavigationContainer>
+        </ApolloProvider>
     )
 }
 
