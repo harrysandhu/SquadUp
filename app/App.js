@@ -9,6 +9,8 @@ import { CompletionScreen } from './screens/main/CompletionScreen';
 
 import {ApolloProvider, useQuery, gql} from "@apollo/client"
 import {apolloClient} from "./apollo"
+import { BackArrow } from './components/styled/components'
+import Icon from 'react-native-vector-icons/FontAwesome'
 
 
 
@@ -35,9 +37,12 @@ export default function App(){
                  <Stack.Screen 
                     name="SignUp" 
                     component={SignUpScreen}
-                    options={{ 
+                    options={{
                             title: '',
-                            headerTransparent: true
+                            headerLeft: () => (
+                                <View></View>
+                            ),
+                             headerTransparent: true
                             }}
                 />
                 {/*Login Screen stack*/}
@@ -53,14 +58,18 @@ export default function App(){
                 <Stack.Screen 
                     name="Completion" 
                     component={CompletionScreen}
-                    options={{ 
-                            title: '',
-                            headerTransparent: true
-                            }}
+                    options={{
+                        title: '',
+                        headerLeft: () => (
+                            <View></View>
+                        ),
+                         headerTransparent: true
+                        }}
                 />
               
             </Stack.Navigator>
         </NavigationContainer>
+     
         </ApolloProvider>
     )
 }
