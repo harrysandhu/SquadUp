@@ -1,0 +1,41 @@
+<svg width="1575" height="1264" viewBox="0 0 1575 1264" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g filter="url(#filter0_dddddd)">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M615.609 1205.03C603.839 1234.79 575.764 1254 544.059 1254C520.868 1254 499.144 1243.62 484.439 1225.5C469.521 1207.11 463.81 1183.22 468.721 1159.98L521.909 908.424C531.916 861.24 573.789 827 621.533 827H952.965C1000.71 827 1042.61 861.24 1052.59 908.424L1105.78 1159.98C1110.69 1183.22 1104.98 1207.11 1090.06 1225.5C1075.38 1243.62 1053.66 1254 1030.47 1254C998.761 1254 970.686 1234.78 959.21 1205.8L925.53 1129.74C924.41 1126.86 921.767 1125.02 918.832 1125.02L782.246 1115.04L655.693 1125.02C652.731 1125.02 650.115 1126.86 648.648 1130.49L615.609 1205.03ZM655.693 1084.99H918.832C938.34 1084.99 955.581 1096.76 962.466 1114.26L996.145 1190.32C1001.83 1204.68 1015.31 1213.97 1030.47 1213.97C1041.51 1213.97 1051.92 1208.98 1058.94 1200.28C1066.23 1191.31 1069 1179.62 1066.6 1168.25L1060.32 1138.55C1059.68 1137.3 1059.01 1136.07 1058.31 1134.84L986.36 1009.65C963.919 970.601 926.06 942.819 882.078 933.125L605.79 872.225C602.719 872.251 599.66 872.63 596.672 873.357L592.905 874.273C577.057 882.771 565.023 898.094 561.086 916.723L507.898 1168.28C505.496 1179.65 508.298 1191.34 515.557 1200.3C522.603 1209 532.984 1214 544.059 1214C559.244 1214 572.695 1204.68 578.7 1189.58L611.739 1115.04C618.944 1096.78 636.211 1084.99 655.693 1084.99ZM548.903 1121.53C545.74 1129.59 533.628 1125.85 535.563 1117.41L581.523 916.821C585.27 900.465 601.705 890.363 617.991 894.404L674.037 908.313L884.718 954.978C898.318 957.99 897.156 977.746 883.296 979.143C880.152 979.46 876.987 979.506 873.835 979.281L643.26 962.811C631.698 961.985 620.55 967.286 613.893 976.776L609.924 982.434L604.84 989.681C598.453 998.786 593.173 1008.62 589.113 1018.98L548.903 1121.53Z" fill="white"/>
+</g>
+<defs>
+<filter id="filter0_dddddd" x="0" y="-97" width="1574.5" height="1361" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
+<feOffset dy="-12.6464"/>
+<feGaussianBlur stdDeviation="6.46154"/>
+<feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 0.427451 0 0 0 0 0.87451 0 0 0 0.0562291 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
+<feOffset dy="-30.391"/>
+<feGaussianBlur stdDeviation="15.528"/>
+<feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 0.427451 0 0 0 0 0.87451 0 0 0 0.0807786 0"/>
+<feBlend mode="normal" in2="effect1_dropShadow" result="effect2_dropShadow"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
+<feOffset dy="-57.2235"/>
+<feGaussianBlur stdDeviation="29.2378"/>
+<feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 0.427451 0 0 0 0 0.87451 0 0 0 0.1 0"/>
+<feBlend mode="normal" in2="effect2_dropShadow" result="effect3_dropShadow"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
+<feOffset dy="-102.077"/>
+<feGaussianBlur stdDeviation="52.1553"/>
+<feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 0.427451 0 0 0 0 0.87451 0 0 0 0.119221 0"/>
+<feBlend mode="normal" in2="effect3_dropShadow" result="effect4_dropShadow"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
+<feOffset dy="-190.924"/>
+<feGaussianBlur stdDeviation="97.5507"/>
+<feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 0.427451 0 0 0 0 0.87451 0 0 0 0.143771 0"/>
+<feBlend mode="normal" in2="effect4_dropShadow" result="effect5_dropShadow"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
+<feOffset dy="-457"/>
+<feGaussianBlur stdDeviation="233.5"/>
+<feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 0.427451 0 0 0 0 0.87451 0 0 0 0.2 0"/>
+<feBlend mode="normal" in2="effect5_dropShadow" result="effect6_dropShadow"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect6_dropShadow" result="shape"/>
+</filter>
+</defs>
+</svg>
