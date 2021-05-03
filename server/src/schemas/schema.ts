@@ -154,13 +154,19 @@ const resolvers:any = {
     DateTime: GraphQLDateTime,
     Date: GraphQLDate,
     Query: {
-        device: (
+        device: async(
             root:any, 
             {deviceId} : any, 
-            ctx:any): any => {
-
+            ctx:any) => {
             console.log(`root${root} , CTX: ${ctx}`)
-            return deviceData[deviceId]
+            let device = await prisma.device.findUnique({
+                where : {
+                    deviceId: deviceId
+                }
+            })
+            
+            console.log("device get result: ", device)
+            return device
         },
         user: (
             root:any, {id}: 

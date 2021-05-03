@@ -7,9 +7,9 @@ import cors from "cors"
 // import schema from "./data/schema"
 // import { btw_api_schema } from './data/schemax'
 import { squadup_schema_v1 } from './schemas/schema';
-import {PrismaClient} from '@prisma/client'
+// import {PrismaClient} from '@prisma/client'
 
-const prisma = new PrismaClient()
+// const prisma = new PrismaClient()
 
 const validClient = "squadup69"
 
