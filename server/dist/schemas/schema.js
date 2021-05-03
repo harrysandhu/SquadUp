@@ -38,6 +38,7 @@ exports.schema = apollo_server_core_1.gql `
     type Mutation{
         registerDevice(deviceId: ID!): Device
         signUpGoogle(userInput: GoogleUserInput!): User
+        signUpUseruserInput: UserInputSignUp!): User
     }
 
 
@@ -87,7 +88,7 @@ exports.schema = apollo_server_core_1.gql `
         id: ID!
         name: String!
         username: String!
-        avatar_url: String!
+        avatarUrl: String!
         bio: String
         user: User @isAuth
     }
@@ -98,9 +99,16 @@ exports.schema = apollo_server_core_1.gql `
         name: String!
         email: String!
         dob: DateTime!
-        avatar_url: String!
+        avatarUrl: String!
     }
 
+    input UserInputSignUp{
+        userId: ID!
+        name: String!
+        email: String!
+        avatarUrl: String!
+        authType: AuthType!
+    }
 
 `;
 const directiveResolvers = {
@@ -137,7 +145,7 @@ const profileData = {
         id: "profile123",
         name: "Harry",
         username: "harryxsandhu",
-        avatar_url: "http://wef3ec.com/ttt.png",
+        avatarUrl: "http://wef3ec.com/ttt.png",
         bio: "hi whats up",
         user: "user123"
     }

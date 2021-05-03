@@ -38,6 +38,7 @@ export const schema = gql `
     type Mutation{
         registerDevice(deviceId: ID!): Device
         signUpGoogle(userInput: GoogleUserInput!): User
+        signUpUseruserInput: UserInputSignUp!): User
     }
 
 
@@ -87,7 +88,7 @@ export const schema = gql `
         id: ID!
         name: String!
         username: String!
-        avatar_url: String!
+        avatarUrl: String!
         bio: String
         user: User @isAuth
     }
@@ -98,9 +99,16 @@ export const schema = gql `
         name: String!
         email: String!
         dob: DateTime!
-        avatar_url: String!
+        avatarUrl: String!
     }
 
+    input UserInputSignUp{
+        userId: ID!
+        name: String!
+        email: String!
+        avatarUrl: String!
+        authType: AuthType!
+    }
 
 `
 
@@ -144,7 +152,7 @@ const profileData:any = {
         id: "profile123",
         name: "Harry",
         username: "harryxsandhu",
-        avatar_url: "http://wef3ec.com/ttt.png",
+        avatarUrl: "http://wef3ec.com/ttt.png",
         bio: "hi whats up",
         user: "user123"
     }
