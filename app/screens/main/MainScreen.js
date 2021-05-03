@@ -1,3 +1,4 @@
+// TODO : Clean up - fix indentation
 import React, {useState} from 'react'
 import {View, Text, Button, Image, ActivityIndicator} from 'react-native'
 import { ButtonPrimary, ButtonSecondary, ButtonView, VFlex, LogoImage } from '../../components/styled/components';
@@ -27,9 +28,9 @@ function DeviceDetails(){
                 <ActivityIndicator color="fff" size="small" />
             ) : (
                 <VFlex>
-                <Text style={{color:"white"}}>{data.id}</Text>
-                <Text style={{color:"white"}}>{data.deviceId}</Text>
-                <Text style={{color:"white"}}>{data.createdAt}</Text>
+                <Text style={{color:"white"}}>{data.device.id}</Text>
+                <Text style={{color:"white"}}>{data.device.deviceId}</Text>
+                <Text style={{color:"white"}}>{data.device.createdAt}</Text>
                 </VFlex>
             )}
 
@@ -38,10 +39,13 @@ function DeviceDetails(){
 }
 
 export function MainScreen({navigation}){
+
+
+   
     return (
         <View style={{flex: 1, backgroundColor: '#070A1E'}}>
             <VFlex style={{paddingTop:'15%'}}>
-                {/* <Image source={require("../../assets/images/logo2.png")} style={{height:360, width:360, resizeMode:"contain"}}/> */}
+                <Image source={require("../../assets/images/logo2.png")} style={{height:360, width:360, resizeMode:"contain"}}/>
                 <DeviceDetails />
             </VFlex>
             <ButtonView>
