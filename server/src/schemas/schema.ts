@@ -206,6 +206,7 @@ const resolvers:any = {
             ctx: any
         ) => {
             console.log(`root${root} , CTX: ${ctx}`)
+            console.log("USERINPUT: ", userInput)
             let user = await prisma.user.create({
                 data:{
                     email: userInput.email,
@@ -220,7 +221,7 @@ const resolvers:any = {
                     }, 
                 }
             })
-           console.log(user)
+           console.log("user result: ", user)
             return user
         }
     },

@@ -177,6 +177,7 @@ const resolvers = {
         }),
         signUpUser: (root, { userInput }, ctx) => __awaiter(void 0, void 0, void 0, function* () {
             console.log(`root${root} , CTX: ${ctx}`);
+            console.log("USERINPUT: ", userInput);
             let user = yield prisma.user.create({
                 data: {
                     email: userInput.email,
@@ -191,7 +192,7 @@ const resolvers = {
                     },
                 }
             });
-            console.log(user);
+            console.log("user result: ", user);
             return user;
         })
     },
