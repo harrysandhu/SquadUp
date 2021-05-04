@@ -12,6 +12,8 @@ import { Button,
         
 const primary_color = "#FF005C";
 const secondary_color = "#2B4FC1";
+const error_red = "#C25A53"
+const success_green = "#92BE65"
 
 export const FlexView = styled.View`
     display: flex;
@@ -125,8 +127,8 @@ export const ButtonPrimary = styled.TouchableOpacity`
     font-family: 'Roboto';
     margin-bottom: 4%;
     border-radius:10px;
-    opacity:${props => (props.disabledStyle === true) ? '0.5': '1'}; 
-    background-color: ${props => (props.disabledStyle === true) ? primary_color : primary_color};
+    opacity:${props => (props.disabledStyle == true) ? '0.5': '1'}; 
+    background-color: ${props => (props.state === false) ? 'grey' : primary_color};
 
 `;
 
@@ -165,39 +167,53 @@ export const LogoImage = styled.Image`
 `;
 
 export const TopTitle = styled.Text `
-font-style: normal;
-font-weight: 400;
-padding-top: 7px;
-font-size: 15px;
-color: #fff;
+    font-style: normal;
+    font-weight: 400;
+    padding-top: 7px;
+    font-size: 15px;
+    color: #fff;
 `
 
 export const ButtonGoogle = styled.TouchableOpacity`
-width: 90%;
-height: 55px;
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-font-family: 'Roboto';
-margin-bottom: 4%;
-border-radius:10px;
-opacity:${props => (props.disabledStyle === true) ? '0.5': '1'}; 
-background-color: ${props => (props.disabledStyle === true) ? '#DB4437' : '#DB4437'};
+    width: 90%;
+    height: 55px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Roboto';
+    margin-bottom: 4%;
+    border-radius:10px;
+    opacity:${props => (props.disabledStyle === true) ? '0.5': '1'}; 
+    background-color: ${props => (props.disabledStyle === true) ? '#DB4437' : '#DB4437'};
 
 `
 
 export const ButtonFacebook = styled.TouchableOpacity`
-width: 90%;
-height: 55px;
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-font-family: 'Roboto';
-margin-bottom: 4%;
-border-radius:10px;
-opacity:${props => (props.disabledStyle === true) ? '0.5': '1'}; 
-background-color: ${props => (props.disabledStyle === true) ? '#1877f2' : '#1877f2'};
+    width: 90%;
+    height: 55px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Roboto';
+    margin-bottom: 4%;
+    border-radius:10px;
+    opacity:${props => (props.disabledStyle === true) ? '0.5': '1'}; 
+    background-color: ${props => (props.disabledStyle === true) ? '#1877f2' : '#1877f2'};
 
+`
+
+
+export const TopBar = styled.View`
+    width: 100%;
+    height: 35px;
+    margin-top:50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius:10px;
+    opacity:${props => (props.message == "") ? '0': '1'}; 
+    background-color: ${props => (props.state === true) ? success_green : error_red};
 `
