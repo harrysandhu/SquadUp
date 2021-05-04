@@ -24,6 +24,13 @@ const GET_PROFILE = gql `
     }
 `
 
+const SET_USERNAME = gql`
+    mutation setUsername($data: SetUsername!){
+        setUsername(data: $data){
+            username
+        }
+    }
+`
 
 export function CompletionScreen({route, navigation}){
     const client = useApolloClient();
@@ -82,7 +89,27 @@ export function CompletionScreen({route, navigation}){
     };
 
     async function handleContinue(){
-        
+        console.log(user.profile.id)
+        try{
+            let data = {
+                username: usernameText,
+                profile_id: user.profile.id
+            }
+            let result = await client.mutate({
+                mutation: SET_USERNAME, 
+                variables: {
+                    data: data
+                }
+            })
+            if(result.data.setUsername.username != null){
+                user.profile.username = result.data.setUsername.username
+                setUser(user)
+            }
+            alert("success")
+            navigation.navigate('Home', {user: user})
+        }catch(e){
+            alert("Something went wrong")
+        }
     }
 
     async function handleUsernameValueChange(value) {
@@ -114,7 +141,6 @@ export function CompletionScreen({route, navigation}){
         style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#070A1E'}}
         >
         
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss} >
         <TopBar state={usernameState.state} message={usernameState.message}>
             <Text style={{color:"white"}}>{usernameState.message}</Text>
         </TopBar>
@@ -156,7 +182,7 @@ export function CompletionScreen({route, navigation}){
                         placeholderTextColor="#a9a9a9"
                         active={usernameIsActive} 
                         value={usernameText}
-                        autoCapitalize="none"
+                        autocorrect="false"
                         onFocus={()=>{
                             setUsernameIsActive(true)
                         }}
@@ -174,13 +200,13 @@ export function CompletionScreen({route, navigation}){
             </FlexView>
 
             <ButtonView>
-                <ButtonPrimary style={{bottom: "-15%"}} state={usernameState.state} onPress={() => handleContinue()}>
+                <ButtonPrimary style={{bottom: "-15%"}} state={usernameState.state} onPress={async () => await handleContinue()}>
                     <Text style={{color:"white"}}>CONTINUE</Text>
                 </ButtonPrimary>
             </ButtonView>
 
         </View>
-          </TouchableWithoutFeedback>
+    
           </KeyboardAvoidingView>
     );
 }
