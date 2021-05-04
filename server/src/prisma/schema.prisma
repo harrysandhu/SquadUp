@@ -11,7 +11,7 @@ generator client {
 
 model Device{
   id          Int         @default(autoincrement()) @id
-  deviceId    String      @db.VarChar(100) @unique
+  deviceId    String      @db.VarChar(100)
   createdAt   DateTime    @default(now())
   user        User?
 }

@@ -147,7 +147,7 @@ const resolvers:any = {
             {deviceId} : any, 
             ctx:any) => {
             console.log(`root${root} , CTX: ${ctx}`)
-            let d = await prisma.device.findUnique({
+            let d = await prisma.device.findFirst({
                 where : {
                     deviceId: deviceId
                 }
