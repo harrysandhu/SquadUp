@@ -11,6 +11,7 @@ import {ApolloProvider, useQuery, gql} from "@apollo/client"
 import {apolloClient} from "./apollo"
 import { BackArrow } from './components/styled/components'
 import Icon from 'react-native-vector-icons/FontAwesome'
+import { HomeScreen } from './screens/main/HomeScreen'
 
 
 
@@ -49,15 +50,29 @@ export default function App(){
                  <Stack.Screen 
                     name="Login" 
                     component={LoginScreen}
-                    options={{ 
-                            title: '',
-                            headerTransparent: true
-                            }}
+                    options={{
+                        title: '',
+                        headerLeft: () => (
+                            <View></View>
+                        ),
+                         headerTransparent: true
+                        }}
                 />
                 {/*Profile Completion Screen stack*/}
                 <Stack.Screen 
                     name="Completion" 
                     component={CompletionScreen}
+                    options={{
+                        title: '',
+                        headerLeft: null,
+                        gestureEnabled: false,
+                         headerTransparent: true
+                        }}
+                />
+
+                <Stack.Screen 
+                    name="Home" 
+                    component={HomeScreen}
                     options={{
                         title: '',
                         headerLeft: null,
