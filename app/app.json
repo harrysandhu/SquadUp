@@ -1,6 +1,12 @@
 {
   "expo": {
     "name": "app",
+    "displayName": "MyApp",
+    "expo": {
+      "name": "MyApp",
+      "slug": "my-app",
+      "sdkVersion": "40.0.0"
+    },
     "slug": "app",
     "version": "1.0.0",
     "sdkVersion": "40.0.0",
