@@ -158,13 +158,13 @@ const resolvers = {
     Query: {
         device: (root, { deviceId }, ctx) => __awaiter(void 0, void 0, void 0, function* () {
             console.log(`root${root} , CTX: ${ctx}`);
-            let device = yield prisma.device.findUnique({
+            let d = yield prisma.device.findUnique({
                 where: {
                     deviceId: deviceId
                 }
             });
-            console.log("device get result: ", device);
-            return device;
+            console.log("device get result: ", d);
+            return d;
         }),
         user: (root, { id }, ctx) => __awaiter(void 0, void 0, void 0, function* () {
             console.log(`root${root} , CTX: ${ctx}`);

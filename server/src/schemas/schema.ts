@@ -169,14 +169,14 @@ const resolvers:any = {
             {deviceId} : any, 
             ctx:any) => {
             console.log(`root${root} , CTX: ${ctx}`)
-            let device = await prisma.device.findUnique({
+            let d = await prisma.device.findUnique({
                 where : {
                     deviceId: deviceId
                 }
             })
             
-            console.log("device get result: ", device)
-            return device
+            console.log("device get result: ", d)
+            return d
         },
         user: async (
             root:any, {id}: 
