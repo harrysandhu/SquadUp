@@ -59,11 +59,25 @@ const GET_USER_BY_EMAIL = gql`
     query userByEmail($email: String!){
         userByEmail(email: $email){
             id
+            userId
+            idToken
+            email
+            password
+            authType
+            authStage
+            createdAt
+            dob
             profile{
                 id
                 name
                 username
                 avatarUrl
+                bio
+            }
+            device{
+                id
+                deviceId
+                createdAt
             }
         }
     }
@@ -162,12 +176,13 @@ export function SignUpScreen({navigation}) {
                     if(getUser.data.userByEmail){
                         console.log("user exists, signing in")
                         if(getUser.data.userByEmail.profile.username == null){
-                            //username selection
+                            // username selection
                             console.log("navigating to completion")
                             await SecureStore.setItemAsync("user", JSON.stringify(getUser.data))
                             navigation.navigate('Completion', {user: getUser.data.userByEmail})
                         }else{
                             // home
+                            navigation.navigate('Home', {user: getUser.data.userByEmail})
                             console.log("ethe")
                         }
 
