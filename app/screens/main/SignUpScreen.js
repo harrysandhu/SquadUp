@@ -11,7 +11,7 @@ import {
     GoogleSigninButton
 } from '@react-native-google-signin/google-signin'; 
 import * as SecureStore from 'expo-secure-store'
-import {useQuery, useMutation, gql } from "@apollo/client"
+import {useQuery, useMutation, gql, useApolloClient } from "@apollo/client"
 import DeviceInfo from 'react-native-device-info';
 
 GoogleSignin.configure({
@@ -28,7 +28,7 @@ GoogleSignin.configure({
 
 
 const SIGNUP_USER = gql`
-    mutation signUpUser($userInput: UserInputSignUp){
+    mutation signUpUser($userInput: UserInputSignUp!){
         signUpUser(userInput: $userInput){
             id
             userId
@@ -43,7 +43,7 @@ const SIGNUP_USER = gql`
                 id
                 name
                 username
-                avatar_url
+                avatarUrl
                 bio
             }
             device{
@@ -63,19 +63,22 @@ const GET_USER_BY_EMAIL = gql`
                 id
                 name
                 username
-                avatar_url
+                avatarUrl
             }
         }
     }
 `
-
-const GET_DEVICE = gql`
-    query device($deviceId: ID!){
+const GET_DEVICE = gql `
+    query getDevice($deviceId: ID!){
         device(deviceId: $deviceId){
-            ID
+            id
+            deviceId
+            createdAt
         }
     }
 `
+
+
 
 
 // facebook app id : 1676299799220590
@@ -83,21 +86,40 @@ const GET_DEVICE = gql`
 export function SignUpScreen({navigation}) {
     const [initializing, setInitializing] = useState(true);
     const [user, setUser] = useState();
-    const [userInput, setUserInput] = useState({email: ""});
-    const [signUpUser, {mutData}] = useMutation(SIGNUP_USER)
-
+    const [userInput, setUserInput] = useState({email: "yoosffs@dga.com"});
+    const [email, setEmail] = useState("yoosffs@dga.com")
+    const [deviceId, setDeviceId] = useState(DeviceInfo.getUniqueId())
+    const [buttonState, setButtonState] = useState(false)
+    const client = useApolloClient();
     /*
+    * @Query
     * GET USER BY EMAIL
     * This is for checking if the account already exists. 
-    * 
     */ 
-    const {getUserData, getUserError, getUserLoading} = useQuery(GET_USER_BY_EMAIL, {
-        variables: {email: userInput.email}
-    })
+    // const getUser = useQuery(GET_USER_BY_EMAIL, {
+    //         variables: {
+    //             email: email
+    //         }
+    //     })
 
-    const {getDeviceData, getDeviceError, getDeviceLoading} = useQuery(GET_DEVICE, {
-        variables : {deviceId: DeviceInfo.getUniqueId()}
-    })
+    /*
+    * @Query
+    * GET DEVICE'S ID BY deviceId
+    */ 
+    const getDevice = useQuery(GET_DEVICE, {
+            variables : {
+                deviceId: deviceId
+            }
+        })
+
+        // if(!getDeviceData) return null
+    /*
+    * @Mutation
+    * Sign Up user
+    */ 
+
+    const [signUpUser, {mutData}] = useMutation(SIGNUP_USER)
+
 
     const Provider = Object.freeze({
         'GOOGLE': 1,
@@ -108,44 +130,83 @@ export function SignUpScreen({navigation}) {
 
     // Handle user state changes
     async function onAuthStateChanged(user) {
-        console.log("USER::::", user)
-        let userInput = {}
-        if(user != null){
-            if (provider == Provider.GOOGLE){
-                userInput.name = user.displayName
-                userInput.email = user.email
-                userInput.avatarUrl = user.photoURL
-                userInput.userId = user.uid
-                userInput.authType = "GOOGLE"
-                userInput.dID = DeviceInfo.getUniqueId()
+       
+
+    
+            console.log("Device Data", getDevice.data)
+            console.log("USER::::", user)
+            
+            let userInput = {}
+            if(user != null){
+                if (provider == Provider.GOOGLE){
+                    userInput.name = user.displayName
+                    userInput.email = user.email
+                    userInput.avatarUrl = user.photoURL
+                    userInput.userId = user.uid
+                    userInput.dID = getDevice.data.device.id
+                }
+                
+                setUserInput(userInput)
+                await SecureStore.setItemAsync("userInput", JSON.stringify(userInput))
             }
-            
-            setUserInput(userInput)
-            await SecureStore.setItemAsync("userInput", JSON.stringify(userInput))
-            
-    
-            // check if user exists
-                // if yes, 
-                    // is username set?
-                        // if yes 
-                            // signin user
-                        // if not
-                            // profile completion screen
-            // if not, register
-    
-          setUser(user);
+          
+            if(user != null){
+                try{
+                    const getUser = await client.query({
+                        query: GET_USER_BY_EMAIL,
+                        variables: {email: userInput.email},
+                        fetchPolicy: "network-only"
+                    })
+                    console.log("WE GOT HIM", getUser.data)
+                    console.log(userInput)
+                    if(getUser.data.userByEmail){
+                        console.log("user exists, signing in")
+                        if(getUser.data.userByEmail.profile.username == null){
+                            //username selection
+                            console.log("navigating to completion")
+                            await SecureStore.setItemAsync("user", JSON.stringify(getUser.data))
+                            navigation.navigate('Completion', {user: getUser.data.userByEmail})
+                        }else{
+                            // home
+                            console.log("ethe")
+                        }
 
-        }
+                    }else{
+                        console.log("user doesnt exist, signing up")
+                        console.log(userInput)
+                        const signUpUser = await client.mutate({
+                            mutation: SIGNUP_USER,
+                            variables: {userInput: userInput}
+                        })
+                        if(signUpUser.data.id){
+                            console.log("navigating to completion")
+                            await SecureStore.setItemAsync("user", JSON.stringify(signUpUser.data))
+                            navigation.navigate('Completion', {user: signUpUser.data.user})
+                        }
+                        
+                        console.log(signUpUser)
+                     }
+                }catch(e){
+                    // sign up user
+                    // network error
+                    console.log(e.message)
+                    alert("Something went wrong!")
+                }
+               
+            }
+
+            setUser(user);
         if (initializing) setInitializing(false);
+        
     }
-
-
+  
     async function onFacebookButtonPress(){
         setProvider(Provider.FACEBOOK)
         // TODO Facebook login
     }
 
     async function onGoogleButtonPress() {
+        setButtonState(true)
         setProvider(Provider.GOOGLE)
         // Get the users ID token
         const { idToken } = await GoogleSignin.signIn();
@@ -156,21 +217,49 @@ export function SignUpScreen({navigation}) {
         // Sign-in the user with the credential
         return auth().signInWithCredential(googleCredential);
       }
-      async function saveAuthState(){
-        await SecureStore.setItemAsync("AUTH_STATE", "SIGNUP")
+    
+    
+    async function saveAuthState(){
+        console.log(buttonState)
+        if(buttonState){
+
+            console.log("THIS RAN")
+            await SecureStore.setItemAsync("AUTH_STATE", "SIGNUP")
+            console.log(userInput)
+            
+                // check if user exists
+                    // if yes, 
+                        // is username set?
+                            // if yes 
+                                // signin user
+                            // if not
+                                // profile completion screen
+                // if not, register
+        
+        }
+    
       }
 
 
   useEffect(() => {
-    saveAuthState()
-    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-    return subscriber; // unsubscribe on unmount
+        // auth().signOut().then(() => {
+        //     console.log("signed out yo")
+        // })
+        const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+           
+
+       
+        return subscriber; // unsubscribe on unmount
+    
+    
   }, []);
 
   if (initializing) return null;
 
 
+
     return (
+        
         <View style={{flex: 1, backgroundColor: '#070A1E'}}>
        <Header
             barStyle="default"
