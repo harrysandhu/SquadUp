@@ -38,7 +38,7 @@ exports.schema = apollo_server_core_1.gql `
     type Mutation{
         registerDevice(deviceId: ID!): Device
         signUpGoogle(userInput: GoogleUserInput!): User
-        signUpUseruserInput: UserInputSignUp!): User
+        signUpUser(userInput: UserInputSignUp!): User
     }
 
 
@@ -108,6 +108,7 @@ exports.schema = apollo_server_core_1.gql `
         email: String!
         avatarUrl: String!
         authType: AuthType!
+        deviceId: ID!
     }
 
 `;

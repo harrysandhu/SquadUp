@@ -38,7 +38,7 @@ export const schema = gql `
     type Mutation{
         registerDevice(deviceId: ID!): Device
         signUpGoogle(userInput: GoogleUserInput!): User
-        signUpUseruserInput: UserInputSignUp!): User
+        signUpUser(userInput: UserInputSignUp!): User
     }
 
 
@@ -108,6 +108,7 @@ export const schema = gql `
         email: String!
         avatarUrl: String!
         authType: AuthType!
+        deviceId: ID!
     }
 
 `
