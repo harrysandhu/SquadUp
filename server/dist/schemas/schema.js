@@ -88,7 +88,7 @@ exports.schema = apollo_server_core_1.gql `
     type Profile{
         id: ID!
         name: String!
-        username: String!
+        username: String
         avatarUrl: String!
         bio: String
         user: User @isAuth
@@ -121,37 +121,6 @@ const directiveResolvers = {
         });
     }
 };
-const deviceData = {
-    "abc123": {
-        id: "abc123",
-        deviceId: "111.111.111",
-        createdAt: "2018-05-28T10:26:39.359Z"
-    }
-};
-const userData = {
-    "user123": {
-        id: "user123",
-        userId: "userid123123123",
-        idToken: "bruhh",
-        email: "hras@gmail.com",
-        authStage: 'SUB',
-        authType: 'GOOGLE',
-        createdAt: "2018-05-28T10:26:39.359Z",
-        dob: "1999-05-28T10:26:39.359Z",
-        device: 'abc123',
-        profile: "profile123"
-    }
-};
-const profileData = {
-    "profile123": {
-        id: "profile123",
-        name: "Harry",
-        username: "harryxsandhu",
-        avatarUrl: "http://wef3ec.com/ttt.png",
-        bio: "hi whats up",
-        user: "user123"
-    }
-};
 const resolvers = {
     DateTime: graphql_iso_date_1.GraphQLDateTime,
     Date: graphql_iso_date_1.GraphQLDate,
@@ -168,25 +137,27 @@ const resolvers = {
         }),
         user: (root, { id }, ctx) => __awaiter(void 0, void 0, void 0, function* () {
             console.log(`root${root} , CTX: ${ctx}`);
-            let user = yield prisma.device.findUnique({
+            let user = yield prisma.user.findUnique({
                 where: {
                     id: id
                 }
             });
             return user;
         }),
-        profile: (root, { username }, ctx) => {
+        profile: (root, { username }, ctx) => __awaiter(void 0, void 0, void 0, function* () {
             console.log(`root${root} , CTX: ${ctx}`);
-            return profileData[username];
-        },
+            let p = yield prisma.profile.findUnique({
+                where: {
+                    username: username
+                }
+            });
+            return p;
+        }),
         userByEmail: (root, { email }, ctx) => __awaiter(void 0, void 0, void 0, function* () {
             console.log(`root${root} , CTX: ${ctx}`);
             let user = yield prisma.user.findUnique({
                 where: {
                     email: email
-                },
-                include: {
-                    profile: true
                 }
             });
             console.log(user);
@@ -219,10 +190,7 @@ const resolvers = {
                             name: userInput.name,
                         }
                     },
-                },
-                include: {
-                    profile: true,
-                },
+                }
             });
             console.log(user);
             return user;
@@ -238,9 +206,14 @@ const resolvers = {
             });
             return d;
         }),
-        profile: ({ profile }) => {
-            return profileData[profile];
-        }
+        profile: ({ id }) => __awaiter(void 0, void 0, void 0, function* () {
+            let p = yield prisma.profile.findFirst({
+                where: {
+                    uID: id
+                }
+            });
+            return p;
+        })
     }
 };
 exports.squadup_schema_v1 = graphql_tools_1.makeExecutableSchema({

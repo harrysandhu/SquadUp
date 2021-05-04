@@ -88,7 +88,7 @@ export const schema = gql `
     type Profile{
         id: ID!
         name: String!
-        username: String!
+        username: String
         avatarUrl: String!
         bio: String
         user: User @isAuth
@@ -125,40 +125,6 @@ const directiveResolvers:any = {
     }
 }
 
-const deviceData:any = {
-    "abc123": {
-        id: "abc123",
-        deviceId: "111.111.111",
-        createdAt: "2018-05-28T10:26:39.359Z"
-    }
-}
-
-
-const userData:any = {
-    "user123": {
-        id: "user123",
-        userId: "userid123123123",
-        idToken: "bruhh",
-        email: "hras@gmail.com",
-        authStage: 'SUB',
-        authType: 'GOOGLE',
-        createdAt: "2018-05-28T10:26:39.359Z",
-        dob:  "1999-05-28T10:26:39.359Z",
-        device: 'abc123',
-        profile: "profile123"
-    }
-}
-
-const profileData:any = {
-    "profile123": {
-        id: "profile123",
-        name: "Harry",
-        username: "harryxsandhu",
-        avatarUrl: "http://wef3ec.com/ttt.png",
-        bio: "hi whats up",
-        user: "user123"
-    }
-}
 
 const resolvers:any = {
     DateTime: GraphQLDateTime,
@@ -184,20 +150,25 @@ const resolvers:any = {
             ctx: any) => {
 
             console.log(`root${root} , CTX: ${ctx}`)
-            let user = await prisma.device.findUnique({
+            let user = await prisma.user.findUnique({
                 where : {
                     id: id
                 }
             })
             return user
         },
-        profile: (
+        profile: async (
             root:any, 
             {username}: any, 
-            ctx: any): any => {
-
-            console.log(`root${root} , CTX: ${ctx}`)
-            return profileData[username]
+            ctx: any) => {
+                console.log(`root${root} , CTX: ${ctx}`)
+                let p = await prisma.profile.findUnique({
+                    where : {
+                        username: username
+                    }
+                })
+                
+                return p
         },
         userByEmail: async (
             root: any, 
@@ -207,9 +178,6 @@ const resolvers:any = {
                 let user = await prisma.user.findUnique({
                     where: {
                         email: email
-                    },
-                    include: {
-                        profile: true
                     }
                 })
                 console.log(user)
@@ -251,10 +219,7 @@ const resolvers:any = {
                             name: userInput.name,
                         }
                     }, 
-                }, 
-                include: {
-                    profile: true,
-                },
+                }
             })
            console.log(user)
             return user
@@ -272,8 +237,15 @@ const resolvers:any = {
             // console.log("device get result: ", device)
             return d
         },
-        profile: ({profile}:any) :any =>{
-            return profileData[profile]
+        profile: async ({id}:any) =>{
+            let p = await prisma.profile.findFirst({
+                where : {
+                    uID: id
+                }
+            })
+            
+            // console.log("device get result: ", device)
+            return p
         }
     }
 }
