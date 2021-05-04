@@ -7,8 +7,10 @@ platform :ios, '11.0'
 target 'app' do
   use_unimodules!
   config = use_native_modules!
-
+  pod 'GoogleSignIn', '~> 5.0.2'
   use_react_native!(:path => config["reactNativePath"])
+
+  
 
   # Uncomment the code below to enable Flipper.
   #

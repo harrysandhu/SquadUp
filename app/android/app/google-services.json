@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "44453297241",
+    "project_id": "squadupapp-cf4d3",
+    "storage_bucket": "squadupapp-cf4d3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:44453297241:android:2bdec2655a9035910f8548",
+        "android_client_info": {
+          "package_name": "com.squadup.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "44453297241-2m9gjfh3p9q4aaad218cbd7aqdu0nb1k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCIRCC1J8DtiWti9heLrmlDYKlJw-fwO_8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "44453297241-2m9gjfh3p9q4aaad218cbd7aqdu0nb1k.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "44453297241-pgcvdp1h1ilbpjasp2eb9fdman8tr23r.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.squadup.app.ios"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
