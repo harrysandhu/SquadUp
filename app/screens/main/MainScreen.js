@@ -82,9 +82,9 @@ function DeviceDetails(){
                 <ActivityIndicator color="fff" size="small" />
             ) : (data.device!= null) ? (
                 <VFlex>
-                <Text style={{color:"white"}}>{data.device.id}</Text>
+                {/* <Text style={{color:"white"}}>{data.device.id}</Text>
                 <Text style={{color:"white"}}>{data.device.deviceId}</Text>
-                <Text style={{color:"white"}}>{data.device.createdAt}</Text>
+                <Text style={{color:"white"}}>{data.device.createdAt}</Text> */}
                 </VFlex>
             ) : (
                <View></View> 
