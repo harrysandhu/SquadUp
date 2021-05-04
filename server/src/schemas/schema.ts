@@ -108,7 +108,7 @@ export const schema = gql `
         name: String!
         email: String!
         avatarUrl: String!
-        authType: AuthType!
+        authType: AuthType
         dID: ID!
     }
 
@@ -210,7 +210,6 @@ const resolvers:any = {
                 data:{
                     email: userInput.email,
                     userId: userInput.userId,
-                    authType: userInput.authType,
                     dob: "1999-05-28T10:26:39.359Z",
                     dID: Number(userInput.dID),
                     profile: {
