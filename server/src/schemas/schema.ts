@@ -32,6 +32,7 @@ export const schema = gql `
         user(id: ID!): User
         profile(username: String!): Profile
         signInGoogle(userId: ID!): AuthPayload
+        userByEmail(email: String!): User
     }
 
   
@@ -108,7 +109,7 @@ export const schema = gql `
         email: String!
         avatarUrl: String!
         authType: AuthType!
-        deviceId: ID!
+        dID: ID!
     }
 
 `
@@ -177,13 +178,18 @@ const resolvers:any = {
             console.log("device get result: ", device)
             return device
         },
-        user: (
+        user: async (
             root:any, {id}: 
             any, 
-            ctx: any): any => {
+            ctx: any) => {
 
             console.log(`root${root} , CTX: ${ctx}`)
-            return userData[id]
+            let user = await prisma.device.findUnique({
+                where : {
+                    id: id
+                }
+            })
+            return user
         },
         profile: (
             root:any, 
@@ -192,8 +198,25 @@ const resolvers:any = {
 
             console.log(`root${root} , CTX: ${ctx}`)
             return profileData[username]
-        }
+        },
+        userByEmail: async (
+            root: any, 
+            {email}: any,
+            ctx: any) => {
+                console.log(`root${root} , CTX: ${ctx}`)
+                let user = await prisma.user.findUnique({
+                    where: {
+                        email: email
+                    },
+                    include: {
+                        profile: true
+                    }
+                })
+                console.log(user)
+                return user
+            }
     },
+
     Mutation: {
         registerDevice: async (
             root: any, 
@@ -208,12 +231,46 @@ const resolvers:any = {
             }) 
             console.log("Device created", device)
             return device
+        },
+        signUpUser: async (
+            root: any,
+            {userInput}: any,
+            ctx: any
+        ) => {
+            console.log(`root${root} , CTX: ${ctx}`)
+            let user = await prisma.user.create({
+                data:{
+                    email: userInput.email,
+                    userId: userInput.userId,
+                    authType: userInput.authType,
+                    dob: "1999-05-28T10:26:39.359Z",
+                    dID: Number(userInput.dID),
+                    profile: {
+                        create: {
+                            avatarUrl: userInput.avatarUrl,
+                            name: userInput.name,
+                        }
+                    }, 
+                }, 
+                include: {
+                    profile: true,
+                },
+            })
+           console.log(user)
+            return user
         }
     },
     User: {
-        device: ({device}: any) : any =>{
-            console.log("this ran", device)
-            return deviceData[device]
+        device: async ({dID}: any)  =>{
+            console.log("device:::", dID)
+            let d = await prisma.device.findUnique({
+                where : {
+                    id: dID
+                }
+            })
+            
+            // console.log("device get result: ", device)
+            return d
         },
         profile: ({profile}:any) :any =>{
             return profileData[profile]
@@ -227,3 +284,13 @@ export const squadup_schema_v1 = makeExecutableSchema({
     resolvers,
     directiveResolvers
 })
+
+
+// userInput = {
+//     name: "Harry",
+//     email: "yoo@ga.com",
+//     avatarUrl: "https://gfgv.com/",
+//     userId: "yoo",
+//     authType: GOOGLE,
+//     deviceId: "111.111.111"
+// }

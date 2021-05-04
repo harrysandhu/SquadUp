@@ -32,6 +32,7 @@ exports.schema = apollo_server_core_1.gql `
         user(id: ID!): User
         profile(username: String!): Profile
         signInGoogle(userId: ID!): AuthPayload
+        userByEmail(email: String!): User
     }
 
   
@@ -108,7 +109,7 @@ exports.schema = apollo_server_core_1.gql `
         email: String!
         avatarUrl: String!
         authType: AuthType!
-        deviceId: ID!
+        dID: ID!
     }
 
 `;
@@ -165,14 +166,32 @@ const resolvers = {
             console.log("device get result: ", device);
             return device;
         }),
-        user: (root, { id }, ctx) => {
+        user: (root, { id }, ctx) => __awaiter(void 0, void 0, void 0, function* () {
             console.log(`root${root} , CTX: ${ctx}`);
-            return userData[id];
-        },
+            let user = yield prisma.device.findUnique({
+                where: {
+                    id: id
+                }
+            });
+            return user;
+        }),
         profile: (root, { username }, ctx) => {
             console.log(`root${root} , CTX: ${ctx}`);
             return profileData[username];
-        }
+        },
+        userByEmail: (root, { email }, ctx) => __awaiter(void 0, void 0, void 0, function* () {
+            console.log(`root${root} , CTX: ${ctx}`);
+            let user = yield prisma.user.findUnique({
+                where: {
+                    email: email
+                },
+                include: {
+                    profile: true
+                }
+            });
+            console.log(user);
+            return user;
+        })
     },
     Mutation: {
         registerDevice: (root, { deviceId }, ctx) => __awaiter(void 0, void 0, void 0, function* () {
@@ -184,13 +203,41 @@ const resolvers = {
             });
             console.log("Device created", device);
             return device;
+        }),
+        signUpUser: (root, { userInput }, ctx) => __awaiter(void 0, void 0, void 0, function* () {
+            console.log(`root${root} , CTX: ${ctx}`);
+            let user = yield prisma.user.create({
+                data: {
+                    email: userInput.email,
+                    userId: userInput.userId,
+                    authType: userInput.authType,
+                    dob: "1999-05-28T10:26:39.359Z",
+                    dID: Number(userInput.dID),
+                    profile: {
+                        create: {
+                            avatarUrl: userInput.avatarUrl,
+                            name: userInput.name,
+                        }
+                    },
+                },
+                include: {
+                    profile: true,
+                },
+            });
+            console.log(user);
+            return user;
         })
     },
     User: {
-        device: ({ device }) => {
-            console.log("this ran", device);
-            return deviceData[device];
-        },
+        device: ({ dID }) => __awaiter(void 0, void 0, void 0, function* () {
+            console.log("device:::", dID);
+            let d = yield prisma.device.findUnique({
+                where: {
+                    id: dID
+                }
+            });
+            return d;
+        }),
         profile: ({ profile }) => {
             return profileData[profile];
         }
