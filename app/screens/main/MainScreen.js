@@ -32,7 +32,8 @@ const REGISTER_DEVICE = gql`
 `
 
 function DeviceDetails(){
-    const [deviceId, setDeviceId] = useState(DeviceInfo.getUniqueId())
+    let dId = DeviceInfo.getUniqueId()
+    const [deviceId, setDeviceId] = useState(dId)
     const {data, error, loading} = useQuery(GET_DEVICE, {
         variables: {deviceId: deviceId}
     });
@@ -46,6 +47,8 @@ function DeviceDetails(){
     if(error) { console.log("ERROR FETCHING DEVICE: ", error)}
 
     async function setupDevice(){
+        await SXX.setItemAsync("DEVICE_REG_STATE", "NOT_REGISTERED")
+        
         console.log("yooo::", DeviceInfo.getUniqueId().trim())
         try{
             let isDeviceReg = await SXX.getItemAsync("DEVICE_REG_STATE")
@@ -56,7 +59,6 @@ function DeviceDetails(){
                     })
                     console.log("mutData", mutData)
                 }
-                await SXX.setItemAsync("DEVICE_REG_STATE", "REGISTERED")
             }else{
                 await SXX.setItemAsync("DEVICE_REG_STATE", "NOT_REGISTERED")
                 console.log("bruh what")
@@ -68,7 +70,9 @@ function DeviceDetails(){
     }
 
     useEffect(() => {
+        console.log("DATA", data)
         setupDevice()
+     
     }, [])
 
 
