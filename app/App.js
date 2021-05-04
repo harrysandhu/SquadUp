@@ -60,9 +60,8 @@ export default function App(){
                     component={CompletionScreen}
                     options={{
                         title: '',
-                        headerLeft: () => (
-                            <View></View>
-                        ),
+                        headerLeft: null,
+                        gestureEnabled: false,
                          headerTransparent: true
                         }}
                 />
