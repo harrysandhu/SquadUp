@@ -1,25 +1,49 @@
 // TODO : Clean up - fix indentation
 import React, {useState, useEffect} from 'react'
-import { View, Text, Button, Image } from 'react-native'
+import { View, Text, Button, Image, KeyboardAvoidingView, Platform, Keyboard } from 'react-native'
 import { TopText, FlexView, InputTF, VFlex, HFlex, AtLabel, 
-    BackArrow, InputDOB, ButtonPrimary, ButtonView, ImageSelectorTouchable, TopTitle } from '../../components/styled/components';
+         BackArrow, InputDOB, ButtonPrimary, ButtonView, 
+         ImageSelectorTouchable, TopTitle, TopBar } from '../../components/styled/components';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import * as ImagePicker from 'expo-image-picker';
 import { Input as InputEl } from "react-native-elements";
 import { Header, Icon as Icc } from "react-native-elements";
+import * as SecureStore from 'expo-secure-store'
+import {useQuery, useMutation, gql, useApolloClient } from "@apollo/client"
+import DeviceInfo from 'react-native-device-info';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 
-export function CompletionScreen({navigation}){
 
+
+const GET_PROFILE = gql `
+    query getProfile($username: String!){
+        profile(username: $username){
+            username
+        }
+    }
+`
+
+
+export function CompletionScreen({route, navigation}){
+    const client = useApolloClient();
     const [usernameText, setUsernameText]  = useState("")
     const [usernameIsActive, setUsernameIsActive] = useState(false)
 
     const [DOB, setDOB] = useState("")
     const [DOBIsActive, setDOBIsActive] = useState(false)
-
-    const [image, setImage] = useState("https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/default-avatar.png");
-
+    const [user, setUser] = useState(route.params.user)
+    let imgUrl = "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/default-avatar.png"
+    const [image, setImage] = useState((user.profile.avatarUrl) ? user.profile.avatarUrl : imgUrl );
+    const [usernameState, setUsernameMessage ] = useState({message: "", state: false})
+    const loadUser = async () => {
+        return await SecureStore.getItemAsync("user")
+    }
+    // const [user, setUser] = useState(loadUser())
+ 
+    
     useEffect(() => {
+
         (async () => {
           if (Platform.OS !== 'web') {
             const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -29,6 +53,14 @@ export function CompletionScreen({navigation}){
           }
         })();
       }, []);
+
+    useEffect(()=>{
+        navigation.addListener('beforeRemove', (e) => {
+            e.preventDefault()
+            console.log("goingback")
+        })
+    }, [navigation])
+
 
     const pickImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
@@ -49,11 +81,45 @@ export function CompletionScreen({navigation}){
 
     };
 
+    async function handleContinue(){
+        
+    }
+
+    async function handleUsernameValueChange(value) {
+        try{
+            let result = await client.query({
+                query: GET_PROFILE,
+                variables: {username: value},
+                fetchPolicy: "network-only"
+            })
+            
+            if(result.data.profile == null){
+                setUsernameMessage({message: "Username is available", state: true})
+            }else{
+                setUsernameMessage({message: "Username not available", state: false})
+            }
+
+        }
+       catch(e){
+           alert("Nework Error")
+       }
+    }
+
     // imageData(base64)  --->  firebase save (base64) : returns -> url -----> console.log(url) END
     // https://firebase-cdn.com/appid/assets/abc123/images/avatar.jpg
 
     return (
+        <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#070A1E'}}
+        >
+        
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss} >
+        <TopBar state={usernameState.state} message={usernameState.message}>
+            <Text style={{color:"white"}}>{usernameState.message}</Text>
+        </TopBar>
         <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#070A1E'}}>
+        
              <Header
             barStyle="default"
             centerComponent={
@@ -65,13 +131,11 @@ export function CompletionScreen({navigation}){
                 containerStyle={{ width: '100%', 
                 backgroundColor: 'none', 
                 position:'absolute', 
-                top:0, 
+                top:-40, 
                 borderBottomColor: "transparent"
             }}
             leftComponent={   
-                <BackArrow onPress={() => navigation.goBack()}>
-                    <Icon name='angle-left' size={25} style={{color:"white"}}/>
-                </BackArrow>
+                <></>
                 }
             placement="center"
             rightComponent={{}}
@@ -100,21 +164,24 @@ export function CompletionScreen({navigation}){
                         onBlur={() =>{
                             setUsernameIsActive(false)
                         }}
-                            onChangeText={(value) =>{
+                            onChangeText={async (value) =>{
                             setUsernameText(value)
-                            }}
+                            await handleUsernameValueChange(value)
+                        }}
 
                     /> 
                 </HFlex>
             </FlexView>
 
             <ButtonView>
-                <ButtonPrimary style={{bottom: "-15%"}}>
+                <ButtonPrimary style={{bottom: "-15%"}} state={usernameState.state} onPress={() => handleContinue()}>
                     <Text style={{color:"white"}}>CONTINUE</Text>
                 </ButtonPrimary>
             </ButtonView>
 
         </View>
+          </TouchableWithoutFeedback>
+          </KeyboardAvoidingView>
     );
 }
 
