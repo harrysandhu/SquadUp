@@ -33,6 +33,7 @@ exports.schema = apollo_server_core_1.gql `
         profile(username: String!): Profile
         signInGoogle(userId: ID!): AuthPayload
         userByEmail(email: String!): User
+        
     }
 
   
@@ -40,6 +41,7 @@ exports.schema = apollo_server_core_1.gql `
         registerDevice(deviceId: ID!): Device
         signUpGoogle(userInput: GoogleUserInput!): User
         signUpUser(userInput: UserInputSignUp!): User
+        setUsername(data: SetUsername!): SetUsernamePayload
     }
 
 
@@ -94,7 +96,17 @@ exports.schema = apollo_server_core_1.gql `
         user: User @isAuth
     }
 
+    type SetUsernamePayload{
+        username: String!,
+        profile_id: ID!
 
+    }
+
+    input SetUsername{
+        username: String!,
+        profile_id: ID!
+
+    }
     input GoogleUserInput{
         userId: ID!
         name: String!
@@ -194,6 +206,20 @@ const resolvers = {
             });
             console.log("user result: ", user);
             return user;
+        }),
+        setUsername: (root, { data }, ctx) => __awaiter(void 0, void 0, void 0, function* () {
+            console.log(`root${root} , CTX: ${ctx}`);
+            console.log(data.username);
+            let updateUsername = yield prisma.profile.update({
+                where: {
+                    id: data.profile_id
+                },
+                data: {
+                    username: data.username
+                }
+            });
+            console.log(updateUsername);
+            return data;
         })
     },
     User: {

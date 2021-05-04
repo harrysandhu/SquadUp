@@ -33,6 +33,7 @@ export const schema = gql `
         profile(username: String!): Profile
         signInGoogle(userId: ID!): AuthPayload
         userByEmail(email: String!): User
+        
     }
 
   
@@ -40,6 +41,7 @@ export const schema = gql `
         registerDevice(deviceId: ID!): Device
         signUpGoogle(userInput: GoogleUserInput!): User
         signUpUser(userInput: UserInputSignUp!): User
+        setUsername(data: SetUsername!): SetUsernamePayload
     }
 
 
@@ -94,7 +96,17 @@ export const schema = gql `
         user: User @isAuth
     }
 
+    type SetUsernamePayload{
+        username: String!,
+        profile_id: ID!
 
+    }
+
+    input SetUsername{
+        username: String!,
+        profile_id: ID!
+
+    }
     input GoogleUserInput{
         userId: ID!
         name: String!
@@ -223,6 +235,24 @@ const resolvers:any = {
             })
            console.log("user result: ", user)
             return user
+        },
+        setUsername: async (
+            root: any, 
+            {data}: any, 
+            ctx: any) => {
+                
+            console.log(`root${root} , CTX: ${ctx}`)
+            console.log(data.username)
+            let updateUsername = await prisma.profile.update({
+                where: {
+                    id: data.profile_id
+                },
+                data: {
+                    username : data.username
+                }
+            })
+            console.log(updateUsername)
+            return data
         }
     },
     User: {
