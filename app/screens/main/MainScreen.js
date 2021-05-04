@@ -1,8 +1,12 @@
 // TODO : Clean up - fix indentation
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {View, Text, Button, Image, ActivityIndicator} from 'react-native'
 import { ButtonPrimary, ButtonSecondary, ButtonView, VFlex, LogoImage } from '../../components/styled/components';
-import {useQuery, gql} from "@apollo/client"
+import {useQuery, useMutation, gql} from "@apollo/client"
+import DeviceInfo from 'react-native-device-info';
+
+import * as SXX from 'expo-secure-store'
+
 
 
 const GET_DEVICE = gql `
@@ -15,13 +19,59 @@ const GET_DEVICE = gql `
     }
 `
 
+
+
+const REGISTER_DEVICE = gql`
+    mutation registerDevice($deviceId: ID!){
+        registerDevice(deviceId: $deviceId){
+            id
+            deviceId
+            createdAt
+        }
+    }
+`
+
 function DeviceDetails(){
-    const dId = "abc123"
+    const [deviceId, setDeviceId] = useState(DeviceInfo.getUniqueId())
     const {data, error, loading} = useQuery(GET_DEVICE, {
-        variables: {deviceId: dId}
+        variables: {deviceId: deviceId}
     });
-    console.log(data)
+    const [registerDevice, {mutData}] = useMutation(REGISTER_DEVICE)
+
+
+    if (!loading){
+        console.log("yooo", data)
+    }
+    
     if(error) { console.log("ERROR FETCHING DEVICE: ", error)}
+
+    async function setupDevice(){
+        console.log("yooo::", DeviceInfo.getUniqueId().trim())
+        try{
+            let isDeviceReg = await SXX.getItemAsync("DEVICE_REG_STATE")
+            if(isDeviceReg != "REGISTERED"){
+                if(data.device == null){
+                    registerDevice({
+                        variables: {deviceId: deviceId}
+                    })
+                    console.log("mutData", mutData)
+                }
+                await SXX.setItemAsync("DEVICE_REG_STATE", "REGISTERED")
+            }else{
+                await SXX.setItemAsync("DEVICE_REG_STATE", "NOT_REGISTERED")
+                console.log("bruh what")
+            }
+        }catch(e){
+            console.log(e)
+            console.log("here")
+        }
+    }
+
+    useEffect(() => {
+        setupDevice()
+    }, [])
+
+
     return (
         <VFlex>
             {loading ? (
@@ -36,11 +86,13 @@ function DeviceDetails(){
 
         </VFlex>
     )
+ 
 }
 
 export function MainScreen({navigation}){
 
-
+               
+   
    
     return (
         <View style={{flex: 1, backgroundColor: '#070A1E'}}>
