@@ -13,6 +13,26 @@ import {useQuery, useMutation, gql, useApolloClient } from "@apollo/client"
 import DeviceInfo from 'react-native-device-info';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import auth from '@react-native-firebase/auth';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
+
+const Tab = createBottomTabNavigator();
+
+export function HomeScreen({route, navigation}){
+
+    // check user login state
+    
+        return (
+            <NavigationContainer>
+                <Tab.Screen name options={icon}></Tab.Screen>
+                <Tab.Screen name="Home" component={}></Tab.Screen>
+                <Tab.Screen name="Chat" component={}></Tab.Screen>
+                <Tab.Screen name="Search" component={}></Tab.Screen>
+                <Tab.Screen name="Profile" component={}></Tab.Screen>
+            </NavigationContainer>
+        )
+}
+
 
 export function HomeScreen({route, navigation}){
     const [initializing, setInitializing] = useState(true);

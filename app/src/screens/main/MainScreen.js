@@ -19,8 +19,6 @@ const GET_DEVICE = gql `
     }
 `
 
-
-
 const REGISTER_DEVICE = gql`
     mutation registerDevice($deviceId: ID!){
         registerDevice(deviceId: $deviceId){
@@ -97,9 +95,6 @@ function DeviceDetails(){
 
 export function MainScreen({navigation}){
 
-               
-   
-   
     return (
         <View style={{flex: 1, backgroundColor: '#070A1E'}}>
             <VFlex style={{paddingTop:'15%'}}>
