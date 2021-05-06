@@ -1,0 +1,447 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.squadup.app"
+4    android:versionCode="1"
+5    android:versionName="1.0.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="21"
+9        android:targetSdkVersion="29" />
+10
+11    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+11-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:5:3-75
+11-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:5:20-73
+12    <uses-permission android:name="android.permission.INTERNET" />
+12-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:4:3-64
+12-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:4:20-62
+13    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+13-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:6:3-72
+13-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:6:20-70
+14    <uses-permission android:name="android.permission.USE_FINGERPRINT" />
+14-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:7:3-71
+14-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:7:20-69
+15    <uses-permission android:name="android.permission.USE_BIOMETRIC" />
+15-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:8:3-69
+15-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:8:20-67
+16    <uses-permission android:name="android.permission.VIBRATE" />
+16-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:9:3-63
+16-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:9:20-61
+17    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+17-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:10:3-77
+17-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:10:20-75
+18    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+18-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:11:3-78
+18-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:11:20-76
+19    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+19-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:12:3-76
+19-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:12:20-74
+20    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+20-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:13:3-82
+20-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:13:20-80
+21    <uses-permission android:name="android.permission.CAMERA" />
+21-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:14:3-62
+21-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:14:20-60
+22    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+22-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:15:3-68
+22-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:15:20-66
+23    <uses-permission android:name="android.permission.READ_CONTACTS" />
+23-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:16:3-69
+23-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:16:20-67
+24    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+24-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:17:3-70
+24-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:17:20-68
+25    <uses-permission android:name="android.permission.READ_CALENDAR" />
+25-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:18:3-69
+25-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:18:20-67
+26    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+26-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:19:3-70
+26-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:19:20-68
+27    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+27-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:20:3-77
+27-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:20:20-75
+28    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+28-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:21:3-78
+28-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:21:20-76
+29    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+29-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:22:3-23:45
+29-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:22:20-68
+30    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+30-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:24:3-76
+30-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:24:20-74
+31    <uses-permission android:name="android.permission.WAKE_LOCK" />
+31-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:25:3-65
+31-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:25:20-63
+32    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+32-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:26:3-79
+32-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:26:20-77
+33    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+33-->[com.facebook.flipper:flipper:0.54.0] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/84a5a86ed4e964c40f80a825a32a6e54/jetified-flipper-0.54.0/AndroidManifest.xml:16:5-76
+33-->[com.facebook.flipper:flipper:0.54.0] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/84a5a86ed4e964c40f80a825a32a6e54/jetified-flipper-0.54.0/AndroidManifest.xml:16:22-73
+34    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+34-->[:expo-location] /Users/harrysandhu/School/MVP/SquadUp/app/node_modules/expo-location/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:11:5-77
+34-->[:expo-location] /Users/harrysandhu/School/MVP/SquadUp/app/node_modules/expo-location/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:11:22-74
+35    <uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE" />
+35-->[com.android.installreferrer:installreferrer:1.1.2] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/7a16f2d9348d016f69d2dd65793896da/jetified-installreferrer-1.1.2/AndroidManifest.xml:9:5-110
+35-->[com.android.installreferrer:installreferrer:1.1.2] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/7a16f2d9348d016f69d2dd65793896da/jetified-installreferrer-1.1.2/AndroidManifest.xml:9:22-107
+36    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+36-->[io.nlopez.smartlocation:library:3.2.11] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/d5dc547fcf741c76140c62b83e33d95e/jetified-library-3.2.11/AndroidManifest.xml:15:5-98
+36-->[io.nlopez.smartlocation:library:3.2.11] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/d5dc547fcf741c76140c62b83e33d95e/jetified-library-3.2.11/AndroidManifest.xml:15:22-95
+37    <uses-permission android:name="com.google.android.gms.permission.ACTIVITY_RECOGNITION" />
+37-->[io.nlopez.smartlocation:library:3.2.11] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/d5dc547fcf741c76140c62b83e33d95e/jetified-library-3.2.11/AndroidManifest.xml:16:5-94
+37-->[io.nlopez.smartlocation:library:3.2.11] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/d5dc547fcf741c76140c62b83e33d95e/jetified-library-3.2.11/AndroidManifest.xml:16:22-91
+38
+39    <application
+39-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:27:3-46:17
+40        android:name="com.squadup.app.MainApplication"
+40-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:27:16-47
+41        android:allowBackup="true"
+41-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:27:162-188
+42        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+42-->[androidx.core:core:1.3.1] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/30e1391378fa8a0c0f0f0eb40167a9b9/core-1.3.1/AndroidManifest.xml:24:18-86
+43        android:debuggable="true"
+44        android:icon="@mipmap/ic_launcher"
+44-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:27:81-115
+45        android:label="@string/app_name"
+45-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:27:48-80
+46        android:roundIcon="@mipmap/ic_launcher_round"
+46-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:27:116-161
+47        android:theme="@style/AppTheme"
+47-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:27:189-220
+48        android:usesCleartextTraffic="true" >
+48-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/debug/AndroidManifest.xml:6:18-53
+49        <meta-data
+49-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:28:5-93
+50            android:name="expo.modules.updates.EXPO_SDK_VERSION"
+50-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:28:16-68
+51            android:value="40.0.0" />
+51-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:28:69-91
+52        <meta-data
+52-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:29:5-82
+53            android:name="expo.modules.updates.ENABLED"
+53-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:29:16-59
+54            android:value="true" />
+54-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:29:60-80
+55        <meta-data
+55-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:30:5-105
+56            android:name="expo.modules.updates.EXPO_UPDATES_CHECK_ON_LAUNCH"
+56-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:30:16-80
+57            android:value="ALWAYS" />
+57-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:30:81-103
+58        <meta-data
+58-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:31:5-99
+59            android:name="expo.modules.updates.EXPO_UPDATES_LAUNCH_WAIT_MS"
+59-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:31:16-79
+60            android:value="0" />
+60-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:31:80-97
+61        <meta-data
+61-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:32:5-120
+62            android:name="expo.modules.updates.EXPO_UPDATE_URL"
+62-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:32:16-67
+63            android:value="https://exp.host/@harrysandhu/app" />
+63-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:32:68-117
+64
+65        <activity
+65-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:33:5-44:16
+66            android:name="com.squadup.app.MainActivity"
+66-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:33:15-43
+67            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|uiMode"
+67-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:33:77-154
+68            android:label="@string/app_name"
+68-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:33:44-76
+69            android:launchMode="singleTask"
+69-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:33:155-186
+70            android:theme="@style/Theme.App.SplashScreen"
+70-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:33:230-275
+71            android:windowSoftInputMode="adjustResize" >
+71-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:33:187-229
+72            <intent-filter>
+72-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:34:7-37:23
+73                <action android:name="android.intent.action.MAIN" />
+73-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:35:9-60
+73-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:35:17-58
+74
+75                <category android:name="android.intent.category.LAUNCHER" />
+75-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:36:9-68
+75-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:36:19-66
+76            </intent-filter>
+77            <intent-filter>
+77-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:38:7-43:23
+78                <action android:name="android.intent.action.VIEW" />
+78-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:39:9-60
+78-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:39:17-58
+79
+80                <category android:name="android.intent.category.DEFAULT" />
+80-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:40:9-67
+80-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:40:19-65
+81                <category android:name="android.intent.category.BROWSABLE" />
+81-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:41:9-69
+81-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:41:19-67
+82
+83                <data android:scheme="com.squadup.app" />
+83-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:42:9-49
+83-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:42:15-47
+84            </intent-filter>
+85        </activity>
+86        <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
+86-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:45:5-81
+86-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:45:15-79
+87
+88        <meta-data
+88-->[:unimodules-react-native-adapter] /Users/harrysandhu/School/MVP/SquadUp/app/node_modules/@unimodules/react-native-adapter/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:10:9-12:91
+89            android:name="org.unimodules.core.AppLoader#react-native-headless"
+89-->[:unimodules-react-native-adapter] /Users/harrysandhu/School/MVP/SquadUp/app/node_modules/@unimodules/react-native-adapter/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:11:13-79
+90            android:value="org.unimodules.adapters.react.apploader.RNHeadlessAppLoader" />
+90-->[:unimodules-react-native-adapter] /Users/harrysandhu/School/MVP/SquadUp/app/node_modules/@unimodules/react-native-adapter/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:12:13-88
+91
+92        <provider
+92-->[:react-native-image-picker] /Users/harrysandhu/School/MVP/SquadUp/app/node_modules/react-native-image-picker/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:10:9-18:20
+93            android:name="com.imagepicker.ImagePickerProvider"
+93-->[:react-native-image-picker] /Users/harrysandhu/School/MVP/SquadUp/app/node_modules/react-native-image-picker/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:11:13-63
+94            android:authorities="com.squadup.app.imagepickerprovider"
+94-->[:react-native-image-picker] /Users/harrysandhu/School/MVP/SquadUp/app/node_modules/react-native-image-picker/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:12:13-71
+95            android:exported="false"
+95-->[:react-native-image-picker] /Users/harrysandhu/School/MVP/SquadUp/app/node_modules/react-native-image-picker/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:13:13-37
+96            android:grantUriPermissions="true" >
+96-->[:react-native-image-picker] /Users/harrysandhu/School/MVP/SquadUp/app/node_modules/react-native-image-picker/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:14:13-47
+97            <meta-data
+97-->[:react-native-image-picker] /Users/harrysandhu/School/MVP/SquadUp/app/node_modules/react-native-image-picker/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:15:13-17:70
+98                android:name="android.support.FILE_PROVIDER_PATHS"
+98-->[:react-native-image-picker] /Users/harrysandhu/School/MVP/SquadUp/app/node_modules/react-native-image-picker/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:16:17-67
+99                android:resource="@xml/imagepicker_provider_paths" />
+99-->[:react-native-image-picker] /Users/harrysandhu/School/MVP/SquadUp/app/node_modules/react-native-image-picker/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:17:17-67
+100        </provider>
+101        <provider
+101-->[:expo-file-system] /Users/harrysandhu/School/MVP/SquadUp/app/node_modules/expo-file-system/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:15:9-24:20
+102            android:name="expo.modules.filesystem.FileSystemFileProvider"
+102-->[:expo-file-system] /Users/harrysandhu/School/MVP/SquadUp/app/node_modules/expo-file-system/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:16:13-74
+103            android:authorities="com.squadup.app.FileSystemFileProvider"
+103-->[:expo-file-system] /Users/harrysandhu/School/MVP/SquadUp/app/node_modules/expo-file-system/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:17:13-74
+104            android:exported="false"
+104-->[:expo-file-system] /Users/harrysandhu/School/MVP/SquadUp/app/node_modules/expo-file-system/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:18:13-37
+105            android:grantUriPermissions="true" >
+105-->[:expo-file-system] /Users/harrysandhu/School/MVP/SquadUp/app/node_modules/expo-file-system/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:19:13-47
+106            <meta-data
+106-->[:react-native-image-picker] /Users/harrysandhu/School/MVP/SquadUp/app/node_modules/react-native-image-picker/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:15:13-17:70
+107                android:name="android.support.FILE_PROVIDER_PATHS"
+107-->[:react-native-image-picker] /Users/harrysandhu/School/MVP/SquadUp/app/node_modules/react-native-image-picker/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:16:17-67
+108                android:resource="@xml/file_system_provider_paths" />
+108-->[:react-native-image-picker] /Users/harrysandhu/School/MVP/SquadUp/app/node_modules/react-native-image-picker/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:17:17-67
+109        </provider> <!-- https://developer.android.com/guide/topics/manifest/provider-element.html -->
+110        <provider
+110-->[:expo-image-picker] /Users/harrysandhu/School/MVP/SquadUp/app/node_modules/expo-image-picker/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:18:9-26:20
+111            android:name="expo.modules.imagepicker.ImagePickerFileProvider"
+111-->[:expo-image-picker] /Users/harrysandhu/School/MVP/SquadUp/app/node_modules/expo-image-picker/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:19:13-76
+112            android:authorities="com.squadup.app.ImagePickerFileProvider"
+112-->[:expo-image-picker] /Users/harrysandhu/School/MVP/SquadUp/app/node_modules/expo-image-picker/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:20:13-75
+113            android:exported="false"
+113-->[:expo-image-picker] /Users/harrysandhu/School/MVP/SquadUp/app/node_modules/expo-image-picker/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:21:13-37
+114            android:grantUriPermissions="true" >
+114-->[:expo-image-picker] /Users/harrysandhu/School/MVP/SquadUp/app/node_modules/expo-image-picker/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:22:13-47
+115            <meta-data
+115-->[:react-native-image-picker] /Users/harrysandhu/School/MVP/SquadUp/app/node_modules/react-native-image-picker/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:15:13-17:70
+116                android:name="android.support.FILE_PROVIDER_PATHS"
+116-->[:react-native-image-picker] /Users/harrysandhu/School/MVP/SquadUp/app/node_modules/react-native-image-picker/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:16:17-67
+117                android:resource="@xml/image_picker_provider_paths" />
+117-->[:react-native-image-picker] /Users/harrysandhu/School/MVP/SquadUp/app/node_modules/react-native-image-picker/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:17:17-67
+118        </provider>
+119
+120        <service
+120-->[:expo-location] /Users/harrysandhu/School/MVP/SquadUp/app/node_modules/expo-location/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:14:9-16:40
+121            android:name="expo.modules.location.services.LocationTaskService"
+121-->[:expo-location] /Users/harrysandhu/School/MVP/SquadUp/app/node_modules/expo-location/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:15:13-78
+122            android:exported="false" />
+122-->[:expo-location] /Users/harrysandhu/School/MVP/SquadUp/app/node_modules/expo-location/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:16:13-37
+123        <service
+123-->[androidx.room:room-runtime:2.1.0] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/8abc56ee6c574d147e0a7d32ee6eb340/room-runtime-2.1.0/AndroidManifest.xml:25:9-27:40
+124            android:name="androidx.room.MultiInstanceInvalidationService"
+124-->[androidx.room:room-runtime:2.1.0] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/8abc56ee6c574d147e0a7d32ee6eb340/room-runtime-2.1.0/AndroidManifest.xml:26:13-74
+125            android:exported="false" />
+125-->[androidx.room:room-runtime:2.1.0] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/8abc56ee6c574d147e0a7d32ee6eb340/room-runtime-2.1.0/AndroidManifest.xml:27:13-37
+126
+127        <activity
+127-->[com.google.android.gms:play-services-auth:19.0.0] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/cc846af8fac09cff0387b7cfb9576ad8/jetified-play-services-auth-19.0.0/AndroidManifest.xml:23:9-27:75
+128            android:name="com.google.android.gms.auth.api.signin.internal.SignInHubActivity"
+128-->[com.google.android.gms:play-services-auth:19.0.0] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/cc846af8fac09cff0387b7cfb9576ad8/jetified-play-services-auth-19.0.0/AndroidManifest.xml:24:13-93
+129            android:excludeFromRecents="true"
+129-->[com.google.android.gms:play-services-auth:19.0.0] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/cc846af8fac09cff0387b7cfb9576ad8/jetified-play-services-auth-19.0.0/AndroidManifest.xml:25:13-46
+130            android:exported="false"
+130-->[com.google.android.gms:play-services-auth:19.0.0] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/cc846af8fac09cff0387b7cfb9576ad8/jetified-play-services-auth-19.0.0/AndroidManifest.xml:26:13-37
+131            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+131-->[com.google.android.gms:play-services-auth:19.0.0] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/cc846af8fac09cff0387b7cfb9576ad8/jetified-play-services-auth-19.0.0/AndroidManifest.xml:27:13-72
+132        <!--
+133            Service handling Google Sign-In user revocation. For apps that do not integrate with
+134            Google Sign-In, this service will never be started.
+135        -->
+136        <service
+136-->[com.google.android.gms:play-services-auth:19.0.0] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/cc846af8fac09cff0387b7cfb9576ad8/jetified-play-services-auth-19.0.0/AndroidManifest.xml:33:9-37:51
+137            android:name="com.google.android.gms.auth.api.signin.RevocationBoundService"
+137-->[com.google.android.gms:play-services-auth:19.0.0] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/cc846af8fac09cff0387b7cfb9576ad8/jetified-play-services-auth-19.0.0/AndroidManifest.xml:34:13-89
+138            android:exported="true"
+138-->[com.google.android.gms:play-services-auth:19.0.0] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/cc846af8fac09cff0387b7cfb9576ad8/jetified-play-services-auth-19.0.0/AndroidManifest.xml:35:13-36
+139            android:permission="com.google.android.gms.auth.api.signin.permission.REVOCATION_NOTIFICATION"
+139-->[com.google.android.gms:play-services-auth:19.0.0] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/cc846af8fac09cff0387b7cfb9576ad8/jetified-play-services-auth-19.0.0/AndroidManifest.xml:36:13-107
+140            android:visibleToInstantApps="true" />
+140-->[com.google.android.gms:play-services-auth:19.0.0] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/cc846af8fac09cff0387b7cfb9576ad8/jetified-play-services-auth-19.0.0/AndroidManifest.xml:37:13-48
+141
+142        <activity
+142-->[com.google.firebase:firebase-auth:20.0.3] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/4e4c6a9304b7c2ce8cb2f6b0402096f3/jetified-firebase-auth-20.0.3/AndroidManifest.xml:27:9-44:20
+143            android:name="com.google.firebase.auth.internal.GenericIdpActivity"
+143-->[com.google.firebase:firebase-auth:20.0.3] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/4e4c6a9304b7c2ce8cb2f6b0402096f3/jetified-firebase-auth-20.0.3/AndroidManifest.xml:28:13-80
+144            android:excludeFromRecents="true"
+144-->[com.google.firebase:firebase-auth:20.0.3] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/4e4c6a9304b7c2ce8cb2f6b0402096f3/jetified-firebase-auth-20.0.3/AndroidManifest.xml:29:13-46
+145            android:exported="true"
+145-->[com.google.firebase:firebase-auth:20.0.3] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/4e4c6a9304b7c2ce8cb2f6b0402096f3/jetified-firebase-auth-20.0.3/AndroidManifest.xml:30:13-36
+146            android:launchMode="singleTask"
+146-->[com.google.firebase:firebase-auth:20.0.3] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/4e4c6a9304b7c2ce8cb2f6b0402096f3/jetified-firebase-auth-20.0.3/AndroidManifest.xml:31:13-44
+147            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+147-->[com.google.firebase:firebase-auth:20.0.3] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/4e4c6a9304b7c2ce8cb2f6b0402096f3/jetified-firebase-auth-20.0.3/AndroidManifest.xml:32:13-72
+148            <intent-filter>
+148-->[com.google.firebase:firebase-auth:20.0.3] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/4e4c6a9304b7c2ce8cb2f6b0402096f3/jetified-firebase-auth-20.0.3/AndroidManifest.xml:33:13-43:29
+149                <action android:name="android.intent.action.VIEW" />
+149-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:39:9-60
+149-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:39:17-58
+150
+151                <category android:name="android.intent.category.DEFAULT" />
+151-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:40:9-67
+151-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:40:19-65
+152                <category android:name="android.intent.category.BROWSABLE" />
+152-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:41:9-69
+152-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:41:19-67
+153
+154                <data
+154-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:42:9-49
+155                    android:host="firebase.auth"
+156                    android:path="/"
+157                    android:scheme="genericidp" />
+157-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:42:15-47
+158            </intent-filter>
+159        </activity>
+160        <activity
+160-->[com.google.firebase:firebase-auth:20.0.3] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/4e4c6a9304b7c2ce8cb2f6b0402096f3/jetified-firebase-auth-20.0.3/AndroidManifest.xml:45:9-62:20
+161            android:name="com.google.firebase.auth.internal.RecaptchaActivity"
+161-->[com.google.firebase:firebase-auth:20.0.3] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/4e4c6a9304b7c2ce8cb2f6b0402096f3/jetified-firebase-auth-20.0.3/AndroidManifest.xml:46:13-79
+162            android:excludeFromRecents="true"
+162-->[com.google.firebase:firebase-auth:20.0.3] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/4e4c6a9304b7c2ce8cb2f6b0402096f3/jetified-firebase-auth-20.0.3/AndroidManifest.xml:47:13-46
+163            android:exported="true"
+163-->[com.google.firebase:firebase-auth:20.0.3] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/4e4c6a9304b7c2ce8cb2f6b0402096f3/jetified-firebase-auth-20.0.3/AndroidManifest.xml:48:13-36
+164            android:launchMode="singleTask"
+164-->[com.google.firebase:firebase-auth:20.0.3] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/4e4c6a9304b7c2ce8cb2f6b0402096f3/jetified-firebase-auth-20.0.3/AndroidManifest.xml:49:13-44
+165            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+165-->[com.google.firebase:firebase-auth:20.0.3] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/4e4c6a9304b7c2ce8cb2f6b0402096f3/jetified-firebase-auth-20.0.3/AndroidManifest.xml:50:13-72
+166            <intent-filter>
+166-->[com.google.firebase:firebase-auth:20.0.3] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/4e4c6a9304b7c2ce8cb2f6b0402096f3/jetified-firebase-auth-20.0.3/AndroidManifest.xml:51:13-61:29
+167                <action android:name="android.intent.action.VIEW" />
+167-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:39:9-60
+167-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:39:17-58
+168
+169                <category android:name="android.intent.category.DEFAULT" />
+169-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:40:9-67
+169-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:40:19-65
+170                <category android:name="android.intent.category.BROWSABLE" />
+170-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:41:9-69
+170-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:41:19-67
+171
+172                <data
+172-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:42:9-49
+173                    android:host="firebase.auth"
+174                    android:path="/"
+175                    android:scheme="recaptcha" />
+175-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:42:15-47
+176            </intent-filter>
+177        </activity>
+178
+179        <service
+179-->[com.google.firebase:firebase-auth:20.0.3] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/4e4c6a9304b7c2ce8cb2f6b0402096f3/jetified-firebase-auth-20.0.3/AndroidManifest.xml:64:9-73:19
+180            android:name="com.google.firebase.auth.api.fallback.service.FirebaseAuthFallbackService"
+180-->[com.google.firebase:firebase-auth:20.0.3] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/4e4c6a9304b7c2ce8cb2f6b0402096f3/jetified-firebase-auth-20.0.3/AndroidManifest.xml:65:13-101
+181            android:enabled="true"
+181-->[com.google.firebase:firebase-auth:20.0.3] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/4e4c6a9304b7c2ce8cb2f6b0402096f3/jetified-firebase-auth-20.0.3/AndroidManifest.xml:66:13-35
+182            android:exported="false" >
+182-->[com.google.firebase:firebase-auth:20.0.3] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/4e4c6a9304b7c2ce8cb2f6b0402096f3/jetified-firebase-auth-20.0.3/AndroidManifest.xml:67:13-37
+183            <intent-filter>
+183-->[com.google.firebase:firebase-auth:20.0.3] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/4e4c6a9304b7c2ce8cb2f6b0402096f3/jetified-firebase-auth-20.0.3/AndroidManifest.xml:68:13-72:29
+184                <action android:name="com.google.firebase.auth.api.gms.service.START" />
+184-->[com.google.firebase:firebase-auth:20.0.3] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/4e4c6a9304b7c2ce8cb2f6b0402096f3/jetified-firebase-auth-20.0.3/AndroidManifest.xml:69:17-89
+184-->[com.google.firebase:firebase-auth:20.0.3] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/4e4c6a9304b7c2ce8cb2f6b0402096f3/jetified-firebase-auth-20.0.3/AndroidManifest.xml:69:25-86
+185
+186                <category android:name="android.intent.category.DEFAULT" />
+186-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:40:9-67
+186-->/Users/harrysandhu/School/MVP/SquadUp/app/android/app/src/main/AndroidManifest.xml:40:19-65
+187            </intent-filter>
+188        </service>
+189        <service
+189-->[com.google.firebase:firebase-auth:20.0.3] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/4e4c6a9304b7c2ce8cb2f6b0402096f3/jetified-firebase-auth-20.0.3/AndroidManifest.xml:74:9-80:19
+190            android:name="com.google.firebase.components.ComponentDiscoveryService"
+190-->[com.google.firebase:firebase-auth:20.0.3] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/4e4c6a9304b7c2ce8cb2f6b0402096f3/jetified-firebase-auth-20.0.3/AndroidManifest.xml:75:13-84
+191            android:directBootAware="true"
+191-->[com.google.firebase:firebase-common:19.5.0] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/883c333765a50a9dfd0a85a3fc1fa3da/jetified-firebase-common-19.5.0/AndroidManifest.xml:35:13-43
+192            android:exported="false" >
+192-->[com.google.firebase:firebase-auth:20.0.3] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/4e4c6a9304b7c2ce8cb2f6b0402096f3/jetified-firebase-auth-20.0.3/AndroidManifest.xml:76:13-37
+193            <meta-data
+193-->[com.google.firebase:firebase-auth:20.0.3] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/4e4c6a9304b7c2ce8cb2f6b0402096f3/jetified-firebase-auth-20.0.3/AndroidManifest.xml:77:13-79:85
+194                android:name="com.google.firebase.components:com.google.firebase.auth.FirebaseAuthRegistrar"
+194-->[com.google.firebase:firebase-auth:20.0.3] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/4e4c6a9304b7c2ce8cb2f6b0402096f3/jetified-firebase-auth-20.0.3/AndroidManifest.xml:78:17-109
+195                android:value="com.google.firebase.components.ComponentRegistrar" />
+195-->[com.google.firebase:firebase-auth:20.0.3] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/4e4c6a9304b7c2ce8cb2f6b0402096f3/jetified-firebase-auth-20.0.3/AndroidManifest.xml:79:17-82
+196            <!--
+197                This registrar is not defined in the dynamic-module-support sdk itself to allow non-firebase
+198                clients to use it as well, by defining this registrar in their own core/common library.
+199            -->
+200            <meta-data
+200-->[com.google.firebase:firebase-common:19.5.0] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/883c333765a50a9dfd0a85a3fc1fa3da/jetified-firebase-common-19.5.0/AndroidManifest.xml:43:13-45:85
+201                android:name="com.google.firebase.components:com.google.firebase.dynamicloading.DynamicLoadingRegistrar"
+201-->[com.google.firebase:firebase-common:19.5.0] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/883c333765a50a9dfd0a85a3fc1fa3da/jetified-firebase-common-19.5.0/AndroidManifest.xml:44:17-121
+202                android:value="com.google.firebase.components.ComponentRegistrar" />
+202-->[com.google.firebase:firebase-common:19.5.0] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/883c333765a50a9dfd0a85a3fc1fa3da/jetified-firebase-common-19.5.0/AndroidManifest.xml:45:17-82
+203        </service>
+204
+205        <activity
+205-->[com.google.android.gms:play-services-base:17.1.0] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/0c980c2887038ab3d8fc6c6c3825bed6/jetified-play-services-base-17.1.0/AndroidManifest.xml:23:9-26:75
+206            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+206-->[com.google.android.gms:play-services-base:17.1.0] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/0c980c2887038ab3d8fc6c6c3825bed6/jetified-play-services-base-17.1.0/AndroidManifest.xml:24:13-79
+207            android:exported="false"
+207-->[com.google.android.gms:play-services-base:17.1.0] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/0c980c2887038ab3d8fc6c6c3825bed6/jetified-play-services-base-17.1.0/AndroidManifest.xml:25:13-37
+208            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+208-->[com.google.android.gms:play-services-base:17.1.0] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/0c980c2887038ab3d8fc6c6c3825bed6/jetified-play-services-base-17.1.0/AndroidManifest.xml:26:13-72
+209
+210        <provider
+210-->[com.google.firebase:firebase-common:19.5.0] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/883c333765a50a9dfd0a85a3fc1fa3da/jetified-firebase-common-19.5.0/AndroidManifest.xml:26:9-31:39
+211            android:name="com.google.firebase.provider.FirebaseInitProvider"
+211-->[com.google.firebase:firebase-common:19.5.0] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/883c333765a50a9dfd0a85a3fc1fa3da/jetified-firebase-common-19.5.0/AndroidManifest.xml:27:13-77
+212            android:authorities="com.squadup.app.firebaseinitprovider"
+212-->[com.google.firebase:firebase-common:19.5.0] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/883c333765a50a9dfd0a85a3fc1fa3da/jetified-firebase-common-19.5.0/AndroidManifest.xml:28:13-72
+213            android:directBootAware="true"
+213-->[com.google.firebase:firebase-common:19.5.0] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/883c333765a50a9dfd0a85a3fc1fa3da/jetified-firebase-common-19.5.0/AndroidManifest.xml:29:13-43
+214            android:exported="false"
+214-->[com.google.firebase:firebase-common:19.5.0] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/883c333765a50a9dfd0a85a3fc1fa3da/jetified-firebase-common-19.5.0/AndroidManifest.xml:30:13-37
+215            android:initOrder="100" />
+215-->[com.google.firebase:firebase-common:19.5.0] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/883c333765a50a9dfd0a85a3fc1fa3da/jetified-firebase-common-19.5.0/AndroidManifest.xml:31:13-36
+216
+217        <meta-data
+217-->[com.google.android.gms:play-services-basement:17.1.1] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/84e5df16b8f929943c79bba68b8dd38b/jetified-play-services-basement-17.1.1/AndroidManifest.xml:23:9-25:69
+218            android:name="com.google.android.gms.version"
+218-->[com.google.android.gms:play-services-basement:17.1.1] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/84e5df16b8f929943c79bba68b8dd38b/jetified-play-services-basement-17.1.1/AndroidManifest.xml:24:13-58
+219            android:value="@integer/google_play_services_version" />
+219-->[com.google.android.gms:play-services-basement:17.1.1] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/84e5df16b8f929943c79bba68b8dd38b/jetified-play-services-basement-17.1.1/AndroidManifest.xml:25:13-66
+220
+221        <service
+221-->[io.nlopez.smartlocation:library:3.2.11] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/d5dc547fcf741c76140c62b83e33d95e/jetified-library-3.2.11/AndroidManifest.xml:19:9-21:40
+222            android:name="io.nlopez.smartlocation.activity.providers.ActivityGooglePlayServicesProvider$ActivityRecognitionService"
+222-->[io.nlopez.smartlocation:library:3.2.11] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/d5dc547fcf741c76140c62b83e33d95e/jetified-library-3.2.11/AndroidManifest.xml:20:13-132
+223            android:exported="false" />
+223-->[io.nlopez.smartlocation:library:3.2.11] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/d5dc547fcf741c76140c62b83e33d95e/jetified-library-3.2.11/AndroidManifest.xml:21:13-37
+224        <service
+224-->[io.nlopez.smartlocation:library:3.2.11] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/d5dc547fcf741c76140c62b83e33d95e/jetified-library-3.2.11/AndroidManifest.xml:22:9-24:40
+225            android:name="io.nlopez.smartlocation.geofencing.providers.GeofencingGooglePlayServicesProvider$GeofencingService"
+225-->[io.nlopez.smartlocation:library:3.2.11] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/d5dc547fcf741c76140c62b83e33d95e/jetified-library-3.2.11/AndroidManifest.xml:23:13-127
+226            android:exported="false" />
+226-->[io.nlopez.smartlocation:library:3.2.11] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/d5dc547fcf741c76140c62b83e33d95e/jetified-library-3.2.11/AndroidManifest.xml:24:13-37
+227        <service
+227-->[io.nlopez.smartlocation:library:3.2.11] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/d5dc547fcf741c76140c62b83e33d95e/jetified-library-3.2.11/AndroidManifest.xml:25:9-27:40
+228            android:name="io.nlopez.smartlocation.geocoding.providers.AndroidGeocodingProvider$AndroidGeocodingService"
+228-->[io.nlopez.smartlocation:library:3.2.11] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/d5dc547fcf741c76140c62b83e33d95e/jetified-library-3.2.11/AndroidManifest.xml:26:13-120
+229            android:exported="false" />
+229-->[io.nlopez.smartlocation:library:3.2.11] /Users/harrysandhu/.gradle/caches/transforms-2/files-2.1/d5dc547fcf741c76140c62b83e33d95e/jetified-library-3.2.11/AndroidManifest.xml:27:13-37
+230    </application>
+231
+232</manifest>
