@@ -28,7 +28,7 @@ model User{
   dob         DateTime    
   device      Device      @relation(fields: [dID], references:[id])
   dID         Int
-  profile     Profile?
+  profile     Profile? 
 }
 
 model Profile{
