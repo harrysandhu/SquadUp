@@ -12,7 +12,7 @@ import {apolloClient} from "./apollo"
 import { BackArrow } from './src/components/styled/components'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { HomeScreen } from './src/screens/main/HomeScreen'
-
+import { AuthNavigator } from './src/components/navigation/AuthNavigator';
 
 
 
@@ -23,74 +23,12 @@ const Stack = createStackNavigator()
 export default function App(){
     return (
         <ApolloProvider client={apolloClient}>
-        <NavigationContainer>
-            <Stack.Navigator>
-                {/*Main Screen stack*/}
-                <Stack.Screen 
-                    name="Main" 
-                    component={MainScreen}
-                    options={{ 
-                            title: '',
-                            headerTransparent: true
-                            }}
-                />
-                {/*Sign Up Screen stack*/}
-                 <Stack.Screen 
-                    name="SignUp" 
-                    component={SignUpScreen}
-                    options={{
-                            title: '',
-                            headerLeft: () => (
-                                <View></View>
-                            ),
-                             headerTransparent: true
-                            }}
-                />
-                {/*Login Screen stack*/}
-                 <Stack.Screen 
-                    name="Login" 
-                    component={LoginScreen}
-                    options={{
-                        title: '',
-                        headerLeft: () => (
-                            <View></View>
-                        ),
-                         headerTransparent: true
-                        }}
-                />
-                {/*Profile Completion Screen stack*/}
-                <Stack.Screen 
-                    name="Completion" 
-                    component={CompletionScreen}
-                    options={{
-                        title: '',
-                        headerLeft: null,
-                        gestureEnabled: false,
-                         headerTransparent: true
-                        }}
-                />
-
-                <Stack.Screen 
-                    name="Home" 
-                    component={HomeScreen}
-                    options={{
-                        title: '',
-                        headerLeft: null,
-                        gestureEnabled: false,
-                         headerTransparent: true
-                        }}
-                />
-              
-            </Stack.Navigator>
-        </NavigationContainer>
-     
+            <NavigationContainer>
+                <AuthNavigator /> 
+            </NavigationContainer>
         </ApolloProvider>
     )
 }
-
-
-
-
 
 
 /**
