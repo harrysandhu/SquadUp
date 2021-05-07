@@ -2,7 +2,7 @@
 // React UI Components
 import React, {useState, useEffect} from 'react'
 import {View, Text, Button, Image} from 'react-native'
-import { TopText, BackArrow, HFlex } from '../../components/styled/components';
+import { TopText, BackArrow, HFlex } from 'components/styled/components';
 import { ButtonPrimary, 
     ButtonSecondary, 
     ButtonView, 
@@ -10,7 +10,7 @@ import { ButtonPrimary,
     LogoImage, 
     TopTitle, 
     ButtonGoogle, 
-    ButtonFacebook} from '../../components/styled/components';
+    ButtonFacebook} from 'components/styled/components';
     import Icon from 'react-native-vector-icons/FontAwesome'
 import { Header, Icon as Icc } from "react-native-elements";
 
@@ -21,7 +21,7 @@ import DeviceInfo from 'react-native-device-info';
 
 
 // Firebase
-import { firebaseConfig } from '../../../firebase.config';
+import { firebaseConfig } from 'app/firebase.config';
 import auth from '@react-native-firebase/auth';
 import {
     GoogleSignin,
@@ -31,8 +31,8 @@ GoogleSignin.configure(firebaseConfig);
 
 // Apollo
 import {useQuery, useMutation, gql, useApolloClient } from "@apollo/client"
-import { GET_DEVICE, GET_USER_BY_EMAIL } from '../../apollo/queries';
-import { SIGNUP_USER } from '../../apollo/mutations';
+import { GET_DEVICE, GET_USER_BY_EMAIL } from 'apollo/queries';
+import { SIGNUP_USER } from 'apollo/mutations';
 
 
 
@@ -209,22 +209,30 @@ export function LoginScreen({navigation}){
         <View style={{flex: 1, backgroundColor: '#070A1E'}}>
        <Header
             barStyle="default"
+
             centerComponent={
                 <VFlex>
-                <TopTitle>SIGN IN</TopTitle>
+                    <TopTitle>SIGN IN</TopTitle>
                 </VFlex>
                 }
+
             centerContainerStyle={{}}
-            containerStyle={{ width: '100%', backgroundColor: 'none', borderBottomColor: "transparent"}}
+
+            containerStyle={{ 
+                width: '100%', 
+                backgroundColor: 'none', 
+                borderBottomColor: "transparent"
+            }}
+
             leftComponent={   
                 <BackArrow onPress={() => navigation.goBack()}>
                     <Icon name='angle-left' size={25} style={{color:"white"}}/>
                 </BackArrow>
                 }
+
             placement="center"
             rightComponent={{}}
             rightContainerStyle={{}}
-            
             statusBarProps={{}}
     />
     

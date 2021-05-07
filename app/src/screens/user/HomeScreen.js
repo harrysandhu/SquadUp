@@ -3,7 +3,7 @@ import React, {useState, useEffect} from 'react'
 import { View, Text, Button, Image, KeyboardAvoidingView, Platform, Keyboard } from 'react-native'
 import { TopText, FlexView, InputTF, VFlex, HFlex, AtLabel, 
          BackArrow, InputDOB, ButtonPrimary, ButtonView, 
-         ImageSelectorTouchable, TopTitle, TopBar } from '../../components/styled/components';
+         ImageSelectorTouchable, TopTitle, TopBar } from 'components/styled/components';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import * as ImagePicker from 'expo-image-picker';
 import { Input as InputEl } from "react-native-elements";

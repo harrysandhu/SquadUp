@@ -1,11 +1,11 @@
 // TODO : Clean up - fix indentation
 import React, {useEffect, useState} from 'react'
 import {View, Text, Button, Image, ActivityIndicator} from 'react-native'
-import { ButtonPrimary, ButtonSecondary, ButtonView, VFlex, LogoImage } from '../../components/styled/components';
+import { ButtonPrimary, ButtonSecondary, ButtonView, VFlex, LogoImage } from 'components/styled/components';
 import {useQuery, useMutation, gql} from "@apollo/client"
 import DeviceInfo from 'react-native-device-info';
 
-import * as SXX from 'expo-secure-store'
+import * as SecureStore from 'expo-secure-store'
 
 
 
@@ -47,11 +47,11 @@ function DeviceDetails(){
     if(error) { console.log("ERROR FETCHING DEVICE: ", error)}
 
     async function setupDevice(){
-        await SXX.setItemAsync("DEVICE_REG_STATE", "NOT_REGISTERED")
+        await SecureStore.setItemAsync("DEVICE_REG_STATE", "NOT_REGISTERED")
         
         console.log("yooo::", DeviceInfo.getUniqueId().trim())
         try{
-            let isDeviceReg = await SXX.getItemAsync("DEVICE_REG_STATE")
+            let isDeviceReg = await SecureStore.getItemAsync("DEVICE_REG_STATE")
             if(isDeviceReg != "REGISTERED"){
                 if(data.device == null){
                     registerDevice({
@@ -60,7 +60,7 @@ function DeviceDetails(){
                     console.log("mutData", mutData)
                 }
             }else{
-                await SXX.setItemAsync("DEVICE_REG_STATE", "NOT_REGISTERED")
+                await SecureStore.setItemAsync("DEVICE_REG_STATE", "NOT_REGISTERED")
                 console.log("bruh what")
             }
         }catch(e){
