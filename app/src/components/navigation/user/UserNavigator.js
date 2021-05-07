@@ -1,4 +1,5 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { HomeScreen } from '../../../../screens/main/HomeScreen';
 
 export function UserNavigator({navigation}){
     // if the user is actually logged in 
