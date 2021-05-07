@@ -2,9 +2,8 @@
 import React, {useEffect, useState} from 'react'
 import {View, Text, Button, Image, ActivityIndicator} from 'react-native'
 import { ButtonPrimary, ButtonSecondary, ButtonView, VFlex, LogoImage } from 'components/styled/components';
-import {useQuery, useMutation, gql} from "@apollo/client"
+import {useQuery, useMutation, gql, useApolloClient} from "@apollo/client"
 import DeviceInfo from 'react-native-device-info';
-
 import * as SecureStore from 'expo-secure-store'
 
 
@@ -31,81 +30,58 @@ const REGISTER_DEVICE = gql`
     }
 `
 
-function DeviceDetails(){
-    let dId = DeviceInfo.getUniqueId()
-    const [deviceId, setDeviceId] = useState(dId)
-    const {data, error, loading} = useQuery(GET_DEVICE, {
-        variables: {deviceId: deviceId}
-    });
-    const [registerDevice, {mutData}] = useMutation(REGISTER_DEVICE)
 
-
-    if (!loading){
-        console.log("yooo", data)
-    }
+export function MainScreen({navigation}){
     
-    if(error) { console.log("ERROR FETCHING DEVICE: ", error)}
-
+    const client = useApolloClient()
+    // deviceId
+    const [deviceId, setDeviceId] = useState(DeviceInfo.getUniqueId())
+    
     async function setupDevice(){
-        await SecureStore.setItemAsync("DEVICE_REG_STATE", "NOT_REGISTERED")
-        
-        console.log("yooo::", DeviceInfo.getUniqueId().trim())
+        //check device reg state
         try{
-            let isDeviceReg = await SecureStore.getItemAsync("DEVICE_REG_STATE")
-            if(isDeviceReg != "REGISTERED"){
-                if(data.device == null){
-                    registerDevice({
-                        variables: {deviceId: deviceId}
-                    })
-                    console.log("mutData", mutData)
-                }
+            let result = await client.query({
+                query: GET_DEVICE,
+                variables: {deviceId: deviceId},
+                fetchPolicy: "network-only"
+            })
+            const deviceIsRegistered = ("id" in Object(result.data.device))
+            console.log("data:: ", result.data)
+            //TODO - Singleton state
+
+            if(deviceIsRegistered){
+                console.log("device is regsiterede")
             }else{
-                await SecureStore.setItemAsync("DEVICE_REG_STATE", "NOT_REGISTERED")
-                console.log("bruh what")
+                console.log("C")
+                console.log("device is NOT regsiterede")
+                let result = await client.mutate({
+                    mutation: REGISTER_DEVICE,
+                    variables: {deviceId: deviceId}
+                })
+                console.log(result)
             }
-        }catch(e){
-            console.log(e)
-            console.log("here")
+        }catch(error){
+            // possible network errors,
+            console.log(error)
+            alert("Something went wrong.")
         }
     }
 
+
     useEffect(() => {
-        console.log("DATA", data)
         setupDevice()
-     
+
+        //clean up function
+        return () => {
+            console.log("This will be logged on unmount");
+        }
     }, [])
 
-
-    return (
-        <VFlex>
-            {loading ? (
-                <ActivityIndicator color="fff" size="small" />
-            ) : (data.device!= null) ? (
-
-                <VFlex>
-                <Text style={{color:"white"}}>{data.device.id}</Text>
-                <Text style={{color:"white"}}>{data.device.deviceId}</Text>
-                <Text style={{color:"white"}}>{data.device.createdAt}</Text>
-                </VFlex>
-            ) : (
-               <View></View> 
-            )}
-
-        </VFlex>
-    )
- 
-}
-
-export function MainScreen({navigation}){
-
-               
-   
-   
     return (
         <View style={{flex: 1, backgroundColor: '#070A1E'}}>
             <VFlex style={{paddingTop:'15%'}}>
                 <Image source={require("../../../assets/images/logo2.png")} style={{height:360, width:360, resizeMode:"contain"}}/>
-                <DeviceDetails />
+                {/* <DeviceDetails /> */}
             </VFlex>
             <ButtonView>
                 <ButtonPrimary onPress={() => navigation.navigate('Login')}>
