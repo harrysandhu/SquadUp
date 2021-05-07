@@ -56,7 +56,8 @@ export function SignUpScreen({navigation}) {
     const getDevice = useQuery(GET_DEVICE, {
             variables : {
                 deviceId: deviceId
-            }
+            },
+            fetchPolicy: "cache-first"
         })
 
         // if(!getDeviceData) return null
@@ -122,11 +123,11 @@ export function SignUpScreen({navigation}) {
                     }else{
                         console.log("user doesnt exist, signing up")
                         console.log(userInput)
-                        const signUpUser = await client.mutate({
+                        const res = await client.mutate({
                             mutation: SIGNUP_USER,
                             variables: {userInput: userInput}
                         })
-                        if(signUpUser.data.id){
+                        if("id" in Object(res.data.signUpUser)){
                             console.log("navigating to completion")
                             await SecureStore.setItemAsync("user", JSON.stringify(signUpUser.data))
                             navigation.navigate('Completion', {user: signUpUser.data.user})
