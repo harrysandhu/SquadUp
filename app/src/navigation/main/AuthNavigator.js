@@ -16,6 +16,7 @@ import { CompletionScreen } from 'screens/main/CompletionScreen';
 
 //user
 import { HomeScreen } from 'screens/user/HomeScreen'
+import { UserNavigator } from '../user/UserNavigator';
 
 
 
@@ -92,8 +93,11 @@ export function AuthNavigator(){
                          headerTransparent: true
                         }}
                 />
-              
+
             </Stack.Navigator>
+            
+            <UserNavigator />
+
         </NavigationContainer>
     )
 }

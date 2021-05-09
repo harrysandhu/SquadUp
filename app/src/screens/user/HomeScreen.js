@@ -13,6 +13,8 @@ import {useQuery, useMutation, gql, useApolloClient } from "@apollo/client"
 import DeviceInfo from 'react-native-device-info';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import auth from '@react-native-firebase/auth';
+import { UserNavigator } from '../../navigation/user/UserNavigator';
+import { NavigationContainer } from '@react-navigation/native';
 
 export function HomeScreen({route, navigation}){
     const [initializing, setInitializing] = useState(true);
@@ -97,7 +99,8 @@ export function HomeScreen({route, navigation}){
 
            <ButtonPrimary style={{bottom: "-15%"}} onPress={async () => await handleContinue()}>
                     <Text style={{color:"white"}}>Logout</Text>
-                </ButtonPrimary>
+            </ButtonPrimary>
+
            </VFlex>
             
         </View>
