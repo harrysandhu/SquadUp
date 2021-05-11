@@ -13,65 +13,12 @@ import {useQuery, useMutation, gql, useApolloClient } from "@apollo/client"
 import DeviceInfo from 'react-native-device-info';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import auth from '@react-native-firebase/auth';
-import { UserNavigator } from '../../navigation/user/UserNavigator';
 import { NavigationContainer } from '@react-navigation/native';
 
-export function HomeScreen({route, navigation}){
-    const [initializing, setInitializing] = useState(true);
-
-    const client = useApolloClient();
-
-   
-    const [user, setUser] = useState(route.params.user)
-     let imgUrl = "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/default-avatar.png"
-    const [image, setImage] = useState((user.profile.avatarUrl) ? user.profile.avatarUrl : imgUrl );
-    const loadUser = async () => {
-        return await SecureStore.getItemAsync("user")
-    }
-    const [logout,  setLogout] = useState(false)
-    // const [user, setUser] = useState(loadUser())
-    console.log(user)
-    
-    // useEffect(()=>{
-    //     navigation.addListener('beforeRemove', (e) => {
-    //         if(logout) {
-    //             const action = e.data.action;
-    //             console.log(action)
-    //             navigation.dispatch(action)
-    //         }else{
-    //             console.log("this ran")
-    //             e.preventDefault()
-    //             console.log("goingback")
-    //         }
-     
-    //     })
-    // }, [navigation, logout])
-
-    async function onAuthStateChanged(user) {
-    }
-
-    useEffect(() => {
-        const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-           
-
-       
-        return subscriber; // unsubscribe on unmount
-    
-    
-  }, []);
+export function HomeScreen({navigation}){
 
 
-    async function handleContinue(){
-        setLogout(true)
-         auth().signOut().then(() => {
-            navigation.popToTop('Main')
-        })
 
-            
-    }
-
-
-    console.log(user)
     return (
         <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#070A1E'}}>
         <Header
@@ -92,15 +39,7 @@ export function HomeScreen({route, navigation}){
     />
     
            <VFlex>
-           <Text style={{color:"white"}}>Hi!, {user.profile.name}</Text>    
-           <Text style={{color:"white"}}>@{user.profile.username}</Text>
-           <Text style={{color:"white"}}>{user.id}</Text>
-           <Text style={{color:"white"}}>{user.email}</Text> 
-
-           <ButtonPrimary style={{bottom: "-15%"}} onPress={async () => await handleContinue()}>
-                    <Text style={{color:"white"}}>Logout</Text>
-            </ButtonPrimary>
-
+           <Text style={{color:"white"}}>Hi!, this is your default news feed.</Text>    
            </VFlex>
             
         </View>
