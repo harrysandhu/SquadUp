@@ -1,14 +1,24 @@
 // stack 
 
 import React, {useState} from 'react'
-import { HomeScreen } from 'screens/user/HomeScreen'
-import { NavigationContainer } from "@react-navigation/native"
+import { ProfileScreen } from 'screens/user/ProfileScreen'
 import { createStackNavigator } from "@react-navigation/stack"
 
 const Stack = createStackNavigator()
 
-export const ProfileNavigator = () => {
+export const ProfileNavigator = ({route, navigation}) => {
     return (
-        <Text>Profile</Text>
+        <Stack.Navigator>
+         <Stack.Screen 
+         name="ProfileScreen" 
+         component={ProfileScreen} 
+         options={{
+            title: '',
+            headerLeft: null,
+            gestureEnabled: false,
+              headerTransparent: true
+          }}
+         />
+        </Stack.Navigator>
     );
 }

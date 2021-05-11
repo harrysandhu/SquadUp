@@ -5,6 +5,7 @@ import { ButtonPrimary, ButtonSecondary, ButtonView, VFlex, LogoImage } from 'co
 import {useQuery, useMutation, gql, useApolloClient} from "@apollo/client"
 import DeviceInfo from 'react-native-device-info';
 import * as SecureStore from 'expo-secure-store'
+import useObservable from '../../utils/useObservable';
 
 
 
@@ -36,7 +37,8 @@ export function MainScreen({navigation}){
     const client = useApolloClient()
     // deviceId
     const [deviceId, setDeviceId] = useState(DeviceInfo.getUniqueId())
-    
+
+
     async function setupDevice(){
         //check device reg state
         try{

@@ -39,6 +39,7 @@ export function AuthNavigator(){
             {/*Main Screen stack*/}
             <Stack.Navigator>
                 {/*Main Screen stack*/}
+
                 <Stack.Screen 
                     name="Main" 
                     component={MainScreen}
@@ -84,8 +85,8 @@ export function AuthNavigator(){
                 />
 
                 <Stack.Screen 
-                    name="Home" 
-                    component={HomeScreen}
+                    name="UserNav" 
+                    component={UserNavigator}
                     options={{
                         title: '',
                         headerLeft: null,
@@ -94,9 +95,11 @@ export function AuthNavigator(){
                         }}
                 />
 
+                
+
+
             </Stack.Navigator>
             
-            <UserNavigator />
 
         </NavigationContainer>
     )

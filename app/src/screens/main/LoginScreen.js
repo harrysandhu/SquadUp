@@ -117,24 +117,24 @@ export function LoginScreen({navigation}){
                         if(getUser.data.userByEmail.profile.username == null){
                             // username selection
                             console.log("navigating to completion")
-                            await SecureStore.setItemAsync("user", JSON.stringify(getUser.data))
+                            await SecureStore.setItemAsync("user", JSON.stringify(getUser.data.userByEmail))
                             navigation.navigate('Completion', {user: getUser.data.userByEmail})
                         }else{
                             // home
-                            navigation.navigate('Home', {user: getUser.data.userByEmail})
+                            navigation.navigate('UserNav', {user: getUser.data.userByEmail})
                             console.log("ethe")
                         }
 
                     }else{
                         console.log("user doesnt exist, signing up")
                         console.log(userInput)
-                        const signUpUser = await client.mutate({
+                        const res = await client.mutate({
                             mutation: SIGNUP_USER,
                             variables: {userInput: userInput}
                         })
-                        if(signUpUser.data.id){
+                        if("id" in Object(res.data.signUpUser)){
                             console.log("navigating to completion")
-                            await SecureStore.setItemAsync("user", JSON.stringify(signUpUser.data))
+                            await SecureStore.setItemAsync("user", JSON.stringify(signUpUser.data.signUpUser))
                             navigation.navigate('Completion', {user: signUpUser.data.user})
                         }
                         

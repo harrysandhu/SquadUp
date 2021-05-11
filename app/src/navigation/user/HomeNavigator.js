@@ -7,10 +7,19 @@ import { createStackNavigator } from "@react-navigation/stack"
 
 const Stack = createStackNavigator()
 
-export const HomeNavigator = () => {
+export const HomeNavigator = ({navigation}) => {
     return (
         <Stack.Navigator>
-            <Stack.Screen name="HomePage" component={HomeScreen}></Stack.Screen>
+          <Stack.Screen 
+              name="HomeScreen" 
+              component={HomeScreen}
+              options={{
+                title: '',
+                headerLeft: null,
+                gestureEnabled: false,
+                  headerTransparent: true
+              }}
+          />
         </Stack.Navigator>
     );
 }
