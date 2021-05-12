@@ -16,6 +16,8 @@ import { CompletionScreen } from 'screens/main/CompletionScreen';
 
 //user
 import { HomeScreen } from 'screens/user/HomeScreen'
+import { ChatScreen } from 'screens/user/ChatScreen'
+
 
 
 
@@ -38,7 +40,20 @@ export function AuthNavigator(){
             {/*Main Screen stack*/}
             <Stack.Navigator>
                 {/*Main Screen stack*/}
-                <Stack.Screen 
+               
+			   <Stack.Screen 
+                    name="Chat" 
+                    component={ChatScreen}
+                    options={{
+                        title: '',
+                        headerLeft: null,
+                        gestureEnabled: false,
+                         headerTransparent: true
+                        }}
+                />
+              
+	
+ <Stack.Screen 
                     name="Main" 
                     component={MainScreen}
                     options={{ 

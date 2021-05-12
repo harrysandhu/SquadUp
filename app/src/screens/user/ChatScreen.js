@@ -1,20 +1,98 @@
 import React from "react";
 import { View, Button, Text, StyleSheet } from "react-native";
+import { TextBox, Current, Friend } from 'components/styled/components';
 
-export const Chat = () => {
+const chatData  = {
+  "123": {
+    message: "Hello",
+    attachment: [],
+    from: {
+        id: "user1",
+        name: "Bob Kumar",
+        username: "bkbk"
+    },
+    to: {
+      id: "user2",
+      name: "Taylor Smooth",
+      username: "tsmooth"
+    },
+    sentDT: "2021-05-28T10:26:39.359Z",
+    receivedDT: "2021-05-28T10:28:39.359Z"
+  },
+  "124": {
+    message: "yo",
+    attachment: [],
+    from: {
+      id: "user2",
+      name: "Taylor Smooth",
+      username: "tsmooth "
+    },
+    to: {
+      id: "user1",
+      name: "Bob Kumar",
+      username: "bkbk "
+
+    },
+    sentDT: "2021-05-28T10:36:39.359Z",
+    receivedDT: "2021-05-28T10:37:39.359Z"
+  },
+  "125": {
+    message: "kiddaann",
+    attachment: [],
+    from: {
+        id: "user1",
+        name: "Bob Kumar",
+        username: "bkbk"
+    },
+    to: {
+      id: "user2",
+      name: "Taylor Smooth",
+      username: "tsmooth"
+    },
+    sentDT: "2021-05-28T10:39:39.359Z",
+    receivedDT: "2021-05-28T10:28:40.359Z"
+  }
+}
+
+
+
+export const ChatScreen = () => {
+
+  
+let currentUser = "user2"
+
   return (
-    <View style={styles.center}>
-      <Text>This is the chat screen</Text>
-      <Button title="Go to About Screen" />
+    
+    
+    <View style={{TextBox,Friend,Current, flex: 1, backgroundColor: '#070A1E'}}>
+      
+        
+        {
+        Object.keys(chatData).map(key => {
+          return (
+            <View style = {TextBox, Friend, Current}>
+
+            <View key={key} style={{TextBox}, (
+              <TextBox> 
+                chatData[key].from.id == currentUser)
+              </TextBox>)}>
+              <Current>
+
+                if (currentUser == "user2"){
+                  <Text>
+                  return (
+                    <Text>From: {chatData[key].from.name} @{chatData[key].from.username}</Text>
+                    <Friend>{chatData[key].message} </Friend>
+                  )
+                  </Text>}
+              </Current>
+              </View>
+            </View>
+          )
+        
+        })
+      }
     </View>
   );
 };
 
-const styles = StyleSheet.create({
-  center: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    textAlign: "center",
-  },
-});
