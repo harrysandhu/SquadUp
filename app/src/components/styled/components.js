@@ -222,49 +222,63 @@ export const TopBar = styled.View `
     background-color: ${props => (props.state === true) ? success_green : error_red};
 `
 
-export const TextBox = styled.View ` 
-    align-content: center; 
-    flex-wrap: wrap;
-    background-color: white;
+// export const TextBox = styled.View ` 
+//     align-content: center; 
+//     flex-wrap: wrap;
+//     background-color: white;
+//     color: white;
+
+// `
+// export const Friend = styled.Text ` 
+
+//     background-color: green;
+//     flex-direction: row;
+//     position: relative;
+//     margin-right: auto;
+//     color: white; 
+
+// `
+// export const Current = styled.Text ` 
+//     background-color: purple;
+//     flex-direction: row;
+//     padding: 20px;
+//     position: relative;
+//     color: white; 
+//     margin-top: 20px;
+//     margin-right 100px;
+//
+//`
+export const VFlexT = styled.View `
+    display:flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width:60%;
+    height: auto;
+`
+export const PicFlex = styled.View `
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width:20%;
+    height: auto;
+`
+export const HFlexT = styled.View `
+    display: flex;
+    flex-direction: row;
+    background-color: purple;
+    justify-content: flex-start;
+    width:100%;
+    height: auto;
+    margin-top: 15px;
+    padding: 10px;
+    `
+
+export const TextColor = styled.Text `
     color: white;
 
-`
-export const Friend = styled.Text ` 
-
-    background-color: green;
-    flex-direction: row;
-    position: relative;
-    margin-right: auto;
-    color: white; 
-
-`
-export const Current = styled.Text ` 
-    background-color: brown;
-    flex-direction: row;
-    padding: 20px;
-    position: relative;
-    color: white; 
 
 
 
 `
-
-export const TextBox4 = styled.View `
-    rightArrow: {
-      position: absolute;
-      background-color: #0078fe;
-      width: 20;
-      height: 25;
-      bottom: 0;
-      right: -10;
-    },
-    
-    rightArrowOverlap: {
-      position: absolute;
-      background-color: #eeeeee;
-      width: 20;
-      height: 35;
-      bottom: -6;
-      right: -20;
-    },
-    `

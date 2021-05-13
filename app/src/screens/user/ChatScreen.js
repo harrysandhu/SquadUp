@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Button, Text, StyleSheet } from "react-native";
-import { TextBox, Current, Friend } from 'components/styled/components';
+import { TextBox, Current, Friend, HFlexT, VFlexT, TextColor } from 'components/styled/components';
+import { HFlex, PicFlex } from './../../components/styled/components';
 
 const chatData  = {
   "123": {
@@ -71,22 +72,29 @@ let currentUser = "user2"
         Object.keys(chatData).map(key => {
           return (
             <View style = {TextBox, Friend, Current}>
-
+              <HFlexT>
+                <PicFlex>
+                  <TextColor>Avatar</TextColor>
+                </PicFlex>
+                <VFlexT>
             <View key={key} style={{TextBox}, (
-              <TextBox> 
+              
+              <Text> 
                 chatData[key].from.id == currentUser)
-              </TextBox>)}>
-              <Current>
+              </Text>)}>
+              
+              <Text>
+                    <HFlexT>
+                    <TextColor>From: {chatData[key].from.name} @{chatData[key].from.username}</TextColor>
+                    </HFlexT>
+                    <HFlexT>
+                    <TextColor>{chatData[key].message} </TextColor>
+                    </HFlexT>
 
-                if (currentUser == "user2"){
-                  <Text>
-                  return (
-                    <Text>From: {chatData[key].from.name} @{chatData[key].from.username}</Text>
-                    <Friend>{chatData[key].message} </Friend>
-                  )
-                  </Text>}
-              </Current>
+              </Text>
               </View>
+              </VFlexT>
+              </HFlexT>
             </View>
           )
         
