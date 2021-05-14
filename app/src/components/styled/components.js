@@ -257,28 +257,43 @@ export const VFlexT = styled.View `
     height: auto;
 `
 export const PicFlex = styled.View `
-    display:flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width:20%;
+    display: flex;
+    flex-direction: row;
+    background-color: #36349E;
+    justify-content: flex-start;
+    width:auto;
     height: auto;
+    padding-right: 20px;
+    padding-left: 15px;
+    flex-wrap: wrap;
+    color: white;
+    border-radius: 20px;
+
 `
 export const HFlexT = styled.View `
     display: flex;
     flex-direction: row;
-    background-color: purple;
+    background-color: #36349E;
     justify-content: flex-start;
-    width:100%;
+    width:auto;
     height: auto;
-    margin-top: 15px;
-    padding: 10px;
+    margin-top: 5px;
+
+    padding-right: 15px;
+    border-radius: 10px;
+    color: white;
     `
 
-export const TextColor = styled.Text `
+
+
+export const Message = styled.Text `
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
     color: white;
-
-
-
-
-`
+    justify-content: flex-start;
+    width: 120%;
+    height: auto;
+    padding-bottom: 10px;
+    padding-top: 5px;
+    `
