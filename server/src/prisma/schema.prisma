@@ -16,6 +16,7 @@ model Device{
   user        User[]
 }
 
+
 model User{
   id          String      @id @default(uuid())
   userId      String?     @db.VarChar(100) @unique
@@ -38,8 +39,65 @@ model Profile{
   avatarUrl   String      @db.VarChar(1024)  @default("https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/default-avatar.png")
   bio         String?     @db.VarChar(200)
   user        User        @relation(fields: [uID], references:[id])
-  uID         String 
+  uID         String
+  chats       ProfilesOnChats[]
+  messages    Message[]
 }
+
+model Chat{
+  id        String          @id @default(uuid())
+  profiles  ProfilesOnChats[]
+  messages  MessagesOnChats[]
+}
+
+
+model ProfilesOnChats{
+  profile     Profile       @relation(fields: [profileId], references: [id])
+  profileId   String        
+  chat        Chat          @relation(fields: [chatId], references: [id])
+  chatId      String
+  createdAt   DateTime      @default(now())
+  @@id([profileId, chatId])
+}
+
+model MessagesOnChats{
+  chatId      String
+  chat        Chat          @relation(fields: [chatId], references: [id])
+  messageId   String
+  message     Message[]
+  createdAt   DateTime      @default(now())
+  @@id([chatId, messageId])
+}
+
+
+model Message{
+  id            String  @id @default(uuid())
+  text          String    @db.Text
+  attachements  Attachment[]
+  senderId      String
+  sender        Profile @relation(fields: [senderId], references: [id])
+  chatId        String
+  chat          MessagesOnChats @relation(fields: [chatId], references: [chatId])
+  sentAt        DateTime    @default(now())
+  receivedAt    DateTime?
+}
+
+
+model Attachment{
+  id            String              @id @default(uuid())
+  resourceUrl   String              @db.VarChar(1024)
+  type          AttachmentType      @default(PHOTO)
+  messageId     String
+  message       Message             @relation(fields: [messageId], references: [id])
+}
+
+enum AttachmentType{
+  PHOTO
+  VIDEO
+  FILE
+}
+
+
 
 
 enum AuthType{
