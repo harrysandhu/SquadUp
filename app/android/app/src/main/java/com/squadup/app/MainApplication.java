@@ -28,6 +28,12 @@ import java.util.Arrays;
 import java.util.List;
 import javax.annotation.Nullable;
 
+import co.apptailor.googlesignin.RNGoogleSigninPackage;  // <--- import
+import android.net.Uri;
+import expo.modules.updates.UpdatesController;
+import javax.annotation.Nullable;
+
+
 public class MainApplication extends Application implements ReactApplication {
   private final ReactModuleRegistryProvider mModuleRegistryProvider = new ReactModuleRegistryProvider(
     new BasePackageList().getPackageList()
@@ -43,6 +49,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       List<ReactPackage> packages = new PackageList(this).getPackages();
       packages.add(new ModuleRegistryAdapter(mModuleRegistryProvider));
+//      packages.add(new RNGoogleSigninPackage());
       return packages;
     }
 
@@ -68,6 +75,7 @@ public class MainApplication extends Application implements ReactApplication {
         return UpdatesController.getInstance().getBundleAssetName();
       }
     }
+
   };
 
   @Override

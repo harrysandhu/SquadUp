@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id" translatable="false">44453297241-2m9gjfh3p9q4aaad218cbd7aqdu0nb1k.apps.googleusercontent.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">44453297241</string>
+    <string name="google_api_key" translatable="false">AIzaSyCIRCC1J8DtiWti9heLrmlDYKlJw-fwO_8</string>
+    <string name="google_app_id" translatable="false">1:44453297241:android:2bdec2655a9035910f8548</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyCIRCC1J8DtiWti9heLrmlDYKlJw-fwO_8</string>
+    <string name="google_storage_bucket" translatable="false">squadupapp-cf4d3.appspot.com</string>
+    <string name="project_id" translatable="false">squadupapp-cf4d3</string>
+</resources>

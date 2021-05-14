@@ -1,0 +1,17 @@
+com/squadup/app/BuildConfig.java
+ com.squadup.app.BuildConfig
+com/squadup/app/MainApplication.java
+ com.squadup.app.MainApplication
+ com.squadup.app.MainApplication$1
+com/squadup/app/generated/BasePackageList.java
+ com.squadup.app.generated.BasePackageList
+com/app/ReactNativeFlipper.java
+ com.app.ReactNativeFlipper
+ com.app.ReactNativeFlipper$1
+ com.app.ReactNativeFlipper$2
+ com.app.ReactNativeFlipper$2$1
+com/squadup/app/MainActivity.java
+ com.squadup.app.MainActivity
+ com.squadup.app.MainActivity$1
+com/facebook/react/PackageList.java
+ com.facebook.react.PackageList

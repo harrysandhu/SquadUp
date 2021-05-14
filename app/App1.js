@@ -3,7 +3,7 @@ import { Button, Text, View, SafeAreaView, ActivityIndicator, StyleSheet } from 
 import { ApolloProvider, useQuery, gql } from '@apollo/client';
 import { Picker } from '@react-native-picker/picker';
 
-import { apolloClient } from './apollo';
+import { apolloClient } from './src/apollo/apollo';
 
 // Imperial I-class Star Destroyer
 const defaultStarshipId = 'c3RhcnNoaXBzOjM=';
@@ -126,7 +126,6 @@ function StarshipDetails({ starship }) {
 const styles = StyleSheet.create({
   loadingContainer: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
   },
   container: {
