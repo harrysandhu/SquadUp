@@ -65,8 +65,6 @@ export function ProfileScreen({route, navigation}){
          auth().signOut().then(() => {
             navigation.popToTop('Main')
         })
-
-            
     }
 
 
