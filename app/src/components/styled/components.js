@@ -12,8 +12,45 @@ import { Button,
         
 const primary_color = "#FF005C";
 const secondary_color = "#2B4FC1";
-const error_red = "#C25A53"
-const success_green = "#92BE65"
+const error_red = "#C25A53";
+const success_green = "#92BE65";
+
+export const ProfileFlex = styled.View`
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+`
+
+export const ProfilePictureView = styled.View`
+    width: 150px;
+    height: 150px;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 25px;
+    border: 2px white;
+`
+
+export const ButtonLogOut = styled.TouchableOpacity`
+    width: 40%;
+    height: 40px;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Roboto';
+    border-radius:10px;
+    opacity:${props => (props.disabledStyle == true) ? '0.5': '1'}; 
+    background-color: ${props => (props.state === false) ? 'grey' : primary_color};
+
+`;
 
 export const FlexView = styled.View`
     display: flex;

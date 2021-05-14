@@ -4,6 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack"
 import {ApolloProvider} from "@apollo/client"
 import {apolloClient} from "apollo/apollo"
 import { AuthNavigator } from 'navigation/main/AuthNavigator';
+import { UserNavigator } from './src/navigation/user/UserNavigator';
 
 
 

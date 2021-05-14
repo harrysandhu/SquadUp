@@ -1,25 +1,23 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import React, {useState} from 'react'
+import { HomeNavigator } from './HomeNavigator';
+import { ProfileNavigator } from './ProfileNavigator';
 
-export function UserNavigator({navigation}){
+const Tab = createBottomTabNavigator();
+
+export const UserNavigator = ({navigation}) => {
     // if the user is actually logged in 
     // if not navigation.popToTop()
-
-    const Tab = createBottomTabNavigator();
-
     return (
-        <Tab.navigation>
-            <Tab.screen
-                component={HomeNavigator}
+      
+        <Tab.Navigator>
+            <Tab.Screen name ="HomeTab" 
+            component={HomeNavigator}
+        
+                />
+            <Tab.Screen name ="ProfileTab" 
+            component={ProfileNavigator}
             />
-            <Tab.screen
-                component={ChatNavigator}
-            />
-            <Tab.screen
-                component={SearchNavigator}
-            />
-            <Tab.screen
-                component={ProfileNavigator}
-            />
-        </Tab.navigation>
-    )
-}
+        </Tab.Navigator>
+    );
+};

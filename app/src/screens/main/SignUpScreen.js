@@ -112,11 +112,11 @@ export function SignUpScreen({navigation}) {
                         if(getUser.data.userByEmail.profile.username == null){
                             // username selection
                             console.log("navigating to completion")
-                            await SecureStore.setItemAsync("user", JSON.stringify(getUser.data))
+                            await SecureStore.setItemAsync("user", JSON.stringify(getUser.data.userByEmail))
                             navigation.navigate('Completion', {user: getUser.data.userByEmail})
                         }else{
                             // home
-                            navigation.navigate('Home', {user: getUser.data.userByEmail})
+                            navigation.navigate('UserNav', {user: getUser.data.userByEmail})
                             console.log("ethe")
                         }
 
@@ -129,7 +129,7 @@ export function SignUpScreen({navigation}) {
                         })
                         if("id" in Object(res.data.signUpUser)){
                             console.log("navigating to completion")
-                            await SecureStore.setItemAsync("user", JSON.stringify(signUpUser.data))
+                            await SecureStore.setItemAsync("user", JSON.stringify(signUpUser.data.signUpUser))
                             navigation.navigate('Completion', {user: signUpUser.data.user})
                         }
                         

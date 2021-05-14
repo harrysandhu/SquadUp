@@ -106,7 +106,7 @@ export function CompletionScreen({route, navigation}){
                 setUser(user)
             }
             alert("success")
-            navigation.navigate('Home', {user: user})
+            navigation.navigate('UserNav', {user: user})
         }catch(e){
             alert("Something went wrong")
         }

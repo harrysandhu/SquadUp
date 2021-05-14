@@ -16,6 +16,7 @@ import { CompletionScreen } from 'screens/main/CompletionScreen';
 
 //user
 import { HomeScreen } from 'screens/user/HomeScreen'
+import { UserNavigator } from '../user/UserNavigator';
 
 
 
@@ -38,6 +39,7 @@ export function AuthNavigator(){
             {/*Main Screen stack*/}
             <Stack.Navigator>
                 {/*Main Screen stack*/}
+
                 <Stack.Screen 
                     name="Main" 
                     component={MainScreen}
@@ -83,8 +85,8 @@ export function AuthNavigator(){
                 />
 
                 <Stack.Screen 
-                    name="Home" 
-                    component={HomeScreen}
+                    name="UserNav" 
+                    component={UserNavigator}
                     options={{
                         title: '',
                         headerLeft: null,
@@ -92,8 +94,13 @@ export function AuthNavigator(){
                          headerTransparent: true
                         }}
                 />
-              
+
+                
+
+
             </Stack.Navigator>
+            
+
         </NavigationContainer>
     )
 }

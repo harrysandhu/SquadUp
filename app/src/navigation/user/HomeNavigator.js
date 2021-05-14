@@ -1,16 +1,25 @@
 // stack navigator
 // also drawer
 
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import { NavigationContainer } from '@react-navigation/native';
-import { UserNavigator } from './UserNavigator';
+import React, {useState} from 'react'
+import { HomeScreen } from 'screens/user/HomeScreen'
+import { createStackNavigator } from "@react-navigation/stack"
 
-const Drawer = createDrawerNavigator();
+const Stack = createStackNavigator()
 
-export const DrawerNavigator = () => {
+export const HomeNavigator = ({navigation}) => {
     return (
-        <Drawer.Navigator>
-            <Drawer.Screen name="Home" component={UserNavigator} />
-        </Drawer.Navigator>
+        <Stack.Navigator>
+          <Stack.Screen 
+              name="HomeScreen" 
+              component={HomeScreen}
+              options={{
+                title: '',
+                headerLeft: null,
+                gestureEnabled: false,
+                  headerTransparent: true
+              }}
+          />
+        </Stack.Navigator>
     );
 }
