@@ -141,12 +141,7 @@ export function CompletionScreen({route, navigation}){
         style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#070A1E'}}
         >
         
-        <TopBar state={usernameState.state} message={usernameState.message}>
-            <Text style={{color:"white"}}>{usernameState.message}</Text>
-        </TopBar>
-        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#070A1E'}}>
-        
-             <Header
+        <Header
             barStyle="default"
             centerComponent={
                 <VFlex>
@@ -157,7 +152,7 @@ export function CompletionScreen({route, navigation}){
                 containerStyle={{ width: '100%', 
                 backgroundColor: 'none', 
                 position:'absolute', 
-                top:-40, 
+                top:0, 
                 borderBottomColor: "transparent"
             }}
             leftComponent={   
@@ -169,6 +164,11 @@ export function CompletionScreen({route, navigation}){
             
             statusBarProps={{}}
     />
+        <TopBar state={usernameState.state} message={usernameState.message}>
+            <Text style={{color:"white"}}>{usernameState.message}</Text>
+        </TopBar>
+        <View style={{flex: 1, alignItems: 'center', justifyContent: 'flex-start', paddingTop:100, backgroundColor: '#070A1E'}}>
+        
             <ImageSelectorTouchable title="Choose Image from Camera Roll" onPress={pickImage} >
                 
                 {image && <Image source={{ uri: image }} style={{width: 200, height: 200 }} />}
