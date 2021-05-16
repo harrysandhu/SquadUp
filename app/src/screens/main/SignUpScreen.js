@@ -128,9 +128,9 @@ export function SignUpScreen({navigation}) {
                             variables: {userInput: userInput}
                         })
                         if("id" in Object(res.data.signUpUser)){
-                            console.log("navigating to completion")
-                            await SecureStore.setItemAsync("user", JSON.stringify(signUpUser.data.signUpUser))
-                            navigation.navigate('Completion', {user: signUpUser.data.user})
+                            console.log("navigating to completion",res.data.signUpUser )
+                            await SecureStore.setItemAsync("user", JSON.stringify(res.data.signUpUser))
+                            navigation.navigate('Completion', {user: res.data.signUpUser})
                         }
                         
                         console.log(signUpUser)
