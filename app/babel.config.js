@@ -13,6 +13,10 @@ module.exports = function(api) {
             screens: './src/screens',
             apollo: "./src/apollo",
             constants: './src/constants',
+            utils: './src/utils',
+            services: './src/services',
+            models: './src/models',
+            controllers: './src/controllers',
             app: "./"
           },
         },

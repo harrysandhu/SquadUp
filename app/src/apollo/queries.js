@@ -37,3 +37,4 @@ export const GET_DEVICE = gql `
         }
     }
 `
+

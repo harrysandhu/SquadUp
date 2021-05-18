@@ -28,3 +28,24 @@ mutation signUpUser($userInput: UserInputSignUp!){
     }
 }
 `
+
+
+export const REGISTER_DEVICE = gql`
+    mutation registerDevice($deviceId: ID!){
+        registerDevice(deviceId: $deviceId){
+            id
+            deviceId
+            createdAt
+        }
+    }
+`
+
+
+
+export const SET_USERNAME = gql`
+    mutation setUsername($data: SetUsername!){
+        setUsername(data: $data){
+            username
+        }
+    }
+`

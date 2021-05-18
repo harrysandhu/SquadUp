@@ -19,8 +19,10 @@ export default (observable, initial) => {
         // on value (next(value)) do setValue and update component state.
         const subscription = observable.subscribe(value => setValue(value))
         // clean
-        return () => subscription.subscription()
+        return () => subscription.unsubscribe()
 
     }, [])
+
+    return value
 }
 
