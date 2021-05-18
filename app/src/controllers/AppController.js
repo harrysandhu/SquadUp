@@ -11,7 +11,6 @@ class AppController{
     static controller = new AppController()
 
     constructor(){
-        AppModel.loading = 
         this.user = new UserController(AppModel.userModel, AppModel.userProfileModel)
         this.device = new DeviceController(AppModel.deviceModel)
         
@@ -19,15 +18,8 @@ class AppController{
 
 
     async load(){
-        try{
-            await this.user.load()
-            await this.device.load()
-        }catch(e){
-            console.log("Error at AppController", e)
-            
-
-        }
-        
+        await this.user.load()
+        await this.device.load()
     }
 
 }
