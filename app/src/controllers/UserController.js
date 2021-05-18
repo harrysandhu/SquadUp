@@ -88,7 +88,7 @@ export default class UserController{
                 }           
                 await store("USER_AUTH_STATE", "SIGN_IN")
                 
-                if(user.profile.username != null){
+                if(user.profile.username != null && user.profile.username != ""){
                     route = "UserNav"
                 }
                 this.userModel.route.next(route)
