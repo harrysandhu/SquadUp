@@ -16,6 +16,7 @@ export default class UserModel {
         this.idToken = new BS("")
         this.isSignedIn = new BS(false)
         this.error = new BS(null)
+        this.route = new BS("")
     }
 }
 
