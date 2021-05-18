@@ -12,9 +12,9 @@ import * as SecureStore from 'expo-secure-store'
 import {useQuery, useMutation, gql, useApolloClient } from "@apollo/client"
 import DeviceInfo from 'react-native-device-info';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
-
-
-
+import AppController from 'controllers/AppController';
+import useObservable from '../../utils/useObservable';
+import AppModel from '../../models/AppModel';
 
 const GET_PROFILE = gql `
     query getProfile($username: String!){
@@ -24,30 +24,15 @@ const GET_PROFILE = gql `
     }
 `
 
-const SET_USERNAME = gql`
-    mutation setUsername($data: SetUsername!){
-        setUsername(data: $data){
-            username
-        }
-    }
-`
-
-export function CompletionScreen({route, navigation}){
+export function CompletionScreen({navigation}){
     const client = useApolloClient();
     const [usernameText, setUsernameText]  = useState("")
     const [usernameIsActive, setUsernameIsActive] = useState(false)
-
-    const [DOB, setDOB] = useState("")
-    const [DOBIsActive, setDOBIsActive] = useState(false)
-    const [user, setUser] = useState(route.params.user)
     let imgUrl = "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/default-avatar.png"
-    const [image, setImage] = useState((user.profile.avatarUrl) ? user.profile.avatarUrl : imgUrl );
+    const avatarUrl = useObservable(AppModel.userProfileModel.avatarUrl)
+    const [image, setImage] = useState(avatarUrl ? avatarUrl : imgUrl );
     const [usernameState, setUsernameMessage ] = useState({message: "", state: false})
-    const loadUser = async () => {
-        return await SecureStore.getItemAsync("user")
-    }
-    // const [user, setUser] = useState(loadUser())
- 
+    
     
     useEffect(() => {
 
@@ -72,7 +57,7 @@ export function CompletionScreen({route, navigation}){
     const pickImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
             base64: true,
-            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: true,
             aspect: [4, 3],
             quality: 1,
@@ -89,26 +74,13 @@ export function CompletionScreen({route, navigation}){
     };
 
     async function handleContinue(){
-        console.log(user.profile.id)
         try{
-            let data = {
-                username: usernameText,
-                profile_id: user.profile.id
-            }
-            let result = await client.mutate({
-                mutation: SET_USERNAME, 
-                variables: {
-                    data: data
-                }
-            })
-            if(result.data.setUsername.username != null){
-                user.profile.username = result.data.setUsername.username
-                setUser(user)
-            }
-            alert("success")
-            navigation.navigate('UserNav', {user: user})
+            await AppController.user.setUsername(usernameText)
+            AppModel.userModel.route.next("UserNav")
+            navigation.navigate('UserNav')
         }catch(e){
-            alert("Something went wrong")
+            console.log(e)
+            alert("Something went wrong", e)
         }
     }
 
@@ -167,16 +139,14 @@ export function CompletionScreen({route, navigation}){
         <TopBar state={usernameState.state} message={usernameState.message}>
             <Text style={{color:"white"}}>{usernameState.message}</Text>
         </TopBar>
-        <View style={{flex: 1, alignItems: 'center', justifyContent: 'flex-start', paddingTop:100, backgroundColor: '#070A1E'}}>
+        <View style={{flex: 1, alignItems: 'center', justifyContent: 'flex-start', paddingTop:60, backgroundColor: '#070A1E'}}>
         
             <ImageSelectorTouchable title="Choose Image from Camera Roll" onPress={pickImage} >
                 
                 {image && <Image source={{ uri: image }} style={{width: 200, height: 200 }} />}
             </ImageSelectorTouchable>
 
-            <FlexView style={{paddingTop: "3%"}}>
-                <HFlex>
-                <Icon name='user' size={25} style={{color:"#a9a9a9", paddingTop: 20, paddingRight: 20}}/>
+                <HFlex style={{width:"90%"}}>
                  <InputTF
                         placeholder="Username"
                         placeholderTextColor="#a9a9a9"
@@ -197,7 +167,6 @@ export function CompletionScreen({route, navigation}){
 
                     /> 
                 </HFlex>
-            </FlexView>
 
             <ButtonView>
                 <ButtonPrimary style={{bottom: "-15%"}} state={usernameState.state} onPress={async () => await handleContinue()}>
