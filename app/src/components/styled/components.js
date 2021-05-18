@@ -13,7 +13,7 @@ import { Button,
 const primary_color = "#FF005C";
 const secondary_color = "#2B4FC1";
 const error_red = "#C25A53";
-const success_green = "#92BE65";
+const success_green = "#1DB954";
 
 export const ProfileFlex = styled.View`
     display: flex;
@@ -96,7 +96,7 @@ export const BackArrow = styled.TouchableOpacity`
 
 
 export const InputTF = styled.TextInput`
-    width: 80%;
+    width: 100%;
     height: 48px;
     background: ${props => (props.active === true)? 'rgba(216, 205, 208, 0.2)' : 'rgba(216, 205, 208, 0.2)'};
     border-radius: 10px;
@@ -190,7 +190,6 @@ export const ImageSelectorTouchable = styled.TouchableOpacity`
     border-radius: 140px;
     overflow:hidden;
     background-color: rgba(216, 205, 208, 0.2);
-    bottom: 7%;
     border: 0.8px grey;
     justify-content: center;
     align-items: center;
@@ -245,12 +244,12 @@ export const ButtonFacebook = styled.TouchableOpacity`
 export const TopBar = styled.View`
     width: 100%;
     height: 35px;
-    margin-top:50px;
+    margin-top:100px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border-radius:10px;
+    border-radius:2px;
     opacity:${props => (props.message == "") ? '0': '1'}; 
     background-color: ${props => (props.state === true) ? success_green : error_red};
 `
