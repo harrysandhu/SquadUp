@@ -27,18 +27,29 @@ export default class UserController{
     async load(){
         try{
             this.userModel.error.next(null)
-            const isSignedIn = await GoogleAuth.isSignedIn()
+            let currentUser = null 
+            try{
+                currentUser = await GoogleAuth.getCurrentUser()
+            }catch(e){
+                console.log(e)
+            }
+            
+            console.log("CURRENT USER:", currentUser)
             const userAuthState = await store("USER_AUTH_STATE")
-            if(isSignedIn && userAuthState == "SIGN_IN"){
-                let currentUser = await GoogleAuth.getCurrentUser()
-                let user = await ApolloService.getUserByEmail(currentUser.email)
+            if(currentUser != null && userAuthState == "SIGN_IN"){
+                
+                console.log("USER: ", currentUser.user.email)
+                let user = await ApolloService.getUserByEmail(currentUser.user.email)
+                this.userModel.route.next("UserNav")
                 this.setUser(user)
                 this.setUserProfile(user)
                 this.userModel.isSignedIn.next(true)
             }else{
-                throw new Error("User not signed in.")
+                this.userModel.route.next("Main")
             }
         }catch(error){
+            console.log("error at user load: ", error)
+            this.userModel.route.next("Main")
             this.userModel.isSignedIn.next(false)
             this.userModel.error.next(error)
         }
@@ -58,11 +69,36 @@ export default class UserController{
     async signUp(userInput){
         // sign up with google and load user
         try{
-            let user = await ApolloService.signUpUser(userInput)
-            await store("USER_AUTH_STATE", "SIGN_IN")
-            this.setUser(user)
-            this.setUserProfile(user)
+            let currentUser = null 
+            try{
+                currentUser = await GoogleAuth.getCurrentUser()
+                console.log("got something")
+            }catch(e){
+                console.log(e)
+            }
+            if(currentUser != null){
+                console.log("USER: ", currentUser.user.email)
+                let user = await ApolloService.getUserByEmail(currentUser.user.email)
+                let route = "Completion" 
+                
+                if(user == null){
+                    // register user
+                    user = await ApolloService.signUpUser(userInput)
+                    
+                }           
+                await store("USER_AUTH_STATE", "SIGN_IN")
+                
+                if(user.profile.username != null){
+                    route = "UserNav"
+                }
+                this.userModel.route.next(route)
+                console.log(user)
+                this.setUser(user)
+                this.setUserProfile(user)
+            }
+           
         }catch(error){
+            console.log("error at signup", error)
             await store("USER_AUTH_STATE", null)
             this.userModel.isSignedIn.next(false)
             this.userModel.error.next(error)
@@ -74,7 +110,19 @@ export default class UserController{
 
     }
 
-
+    async setUsername(username){
+        try{
+            let data = {
+                username: username,
+                profile_id: this.userProfileModel.id.getValue()
+            }
+            let res = await ApolloService.setUsername(data)
+            this.userProfileModel.username.next(res)
+        }catch(error){
+            this.userModel.error.next(error)
+            throw error
+        }
+    }
 
 
     setUser(user){
