@@ -95,6 +95,18 @@ export const BackArrow = styled.TouchableOpacity`
 `;
 
 
+export const HamArrow = styled.TouchableOpacity`
+    width: 25px;
+    height: 25px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+`;
+
+
+
 export const InputTF = styled.TextInput`
     width: 100%;
     height: 48px;

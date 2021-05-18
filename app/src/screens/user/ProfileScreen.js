@@ -77,7 +77,7 @@ useEffect(()=>{
           />
           <ProfileFlex>
             <ProfilePictureView style={{top: "20%"}}>
-                <Image source={{ uri: userProfile.avatarUrl}} style={{height: 120, width: 120}} />  
+                <Image source={{ uri: userProfile.avatarUrl}} style={{height: 120, width: 120, borderRadius: 25}} />  
                 <Text style={{color:"white", top: "0%"}}>@{userProfile.username}</Text>
             </ProfilePictureView>
             <Text style={{ display: "flex", color:"lightgrey"}}>{userProfile.userId}</Text>
