@@ -17,6 +17,7 @@ import { ProfileEdit } from '../../components/styled/components';
 import { ProfileFlex } from '../../components/styled/components';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import AppModel from '../../models/AppModel';
+import useObservable from '../../utils/useObservable';
 
 export function ProfileScreen({route, navigation}){
     const [initializing, setInitializing] = useState(true);
@@ -25,6 +26,18 @@ export function ProfileScreen({route, navigation}){
 
     let s = new Object({"__typename": "User", "authStage": "SIGNUP", "authType": "GOOGLE", "createdAt": "2021-05-07T21:34:12.033Z", "device": {"__typename": "Device", "createdAt": "2021-05-07T21:33:31.801Z", "deviceId": "A16B90C6-CFD6-44D4-A32E-0801C9E2854F", "id": "30"}, "dob": "1999-05-28T10:26:39.359Z", "email": "hrvsandhu6@gmail.com", "id": "f336be17-9170-437f-ac3d-0260f0c9a2de", "idToken": null, "password": null, "profile": {"__typename": "Profile", "avatarUrl": "https://lh3.googleusercontent.com/a-/AOh14Gj07KmstmrQQWBJPhsK4QetSBUmeofqryoEb5I2=s96-c", "bio": "Hey, I'm Harman!", "id": "695ff03b-1848-41bb-84db-a27e71e6f9a6", "name": "H S", "username": "Harry"}, "userId": "XhbE7U59FMU7loIiNR7eJ0W8KHw2"})
     const [user, setUser] = useState(s)
+
+    let userProfile = {
+      id: useObservable(AppModel.userProfileModel.id),
+      name: useObservable(AppModel.userProfileModel.name),
+      username: useObservable(AppModel.userProfileModel.username),
+      avatarUrl: useObservable(AppModel.userProfileModel.avatarUrl),
+      bio: useObservable(AppModel.userProfileModel.bio),
+      uid: useObservable(AppModel.userProfileModel.uid),
+      userId: useObservable(AppModel.userProfileModel.userId),
+    }
+
+    console.log("user profile object: ", userProfile)
     const [logout,  setLogout] = useState(false)
 
 
@@ -44,7 +57,6 @@ export function ProfileScreen({route, navigation}){
     }
 
 
-    console.log(user)
     return (
         <View style={{flex: 1, alignItems: 'center', backgroundColor: '#070A1E'}}>
           <Header
@@ -67,12 +79,12 @@ export function ProfileScreen({route, navigation}){
           />
           <ProfileFlex>
             <ProfilePictureView style={{top: "20%"}}>
-                <Image source={{ uri: user.profile.avatarUrl}} style={{height: 120, width: 120}} />  
-                <Text style={{color:"white", top: "0%"}}>@{user.profile.username}</Text>
+                <Image source={{ uri: userProfile.avatarUrl}} style={{height: 120, width: 120}} />  
+                <Text style={{color:"white", top: "0%"}}>@{userProfile.username}</Text>
             </ProfilePictureView>
               
-                <Text style={{ display: "flex", color:"lightgrey"}}>{user.profile.name}</Text>
-                <Text style={{ display: "flex", color:"lightgrey"}}>{user.profile.bio}</Text>
+                <Text style={{ display: "flex", color:"lightgrey"}}>{userProfile.name}</Text>
+                <Text style={{ display: "flex", color:"lightgrey"}}>{"" ? userProfile.bio == null : userProfile.bio}</Text>
 
               <ButtonLogOut style={{bottom: "5%"}} onPress={async () => await handleContinue()}>
                 <Text style={{color:"white"}}>Logout</Text>
