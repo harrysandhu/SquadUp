@@ -39,3 +39,13 @@ export const REGISTER_DEVICE = gql`
         }
     }
 `
+
+
+
+export const SET_USERNAME = gql`
+    mutation setUsername($data: SetUsername!){
+        setUsername(data: $data){
+            username
+        }
+    }
+`
