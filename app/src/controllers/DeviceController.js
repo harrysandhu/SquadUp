@@ -16,6 +16,7 @@ export default class DeviceController{
 
     async load(){
         try{
+            await store("DEVICE", null)
             this.deviceModel.error.next(null)
             let device = await store("DEVICE")
             if(device == null){
@@ -27,16 +28,18 @@ export default class DeviceController{
                     await store("DEVICE", device)
                 }
             }
+            console.log("device :", device)
             this.setDevice(device)
         }catch(error){
+            console.log("device not loaded")
             this.deviceModel.error.next(error)
         }
     }
 
     async setDevice(device){
-        Object.keys(device).forEach(k => {
-            this.deviceModel[k].next(device[k])
-        })
+        this.deviceModel.id.next(device.id)
+        this.deviceModel.deviceId.next(device.deviceId)
+        this.deviceModel.createdAt.next(device.createdAt)
         this.deviceModel.error.next(null)
     }
 }
