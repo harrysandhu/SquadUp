@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { View, Button, Text, StyleSheet, Image, KeyboardAvoidingView, Platform,TouchableWithoutFeedback, Keyboard, ScrollView, useWindowDimensions } from "react-native";
+import { View, Button, Text, StyleSheet, Image, KeyboardAvoidingView, Platform,TouchableWithoutFeedback, Keyboard, ScrollView, useWindowDimensions, TextInput, FlatList } from "react-native";
 import { TextBox, Current, Friend, HFlexT, VFlexT, TextColor, Message, VFlex } from 'components/styled/components';
 import { HFlex, PicFlex,ButtonSecondary, TopTitle, BackArrow } from './../../components/styled/components';
 import { Input, Button as RNButton, Header } from "react-native-elements";
@@ -143,6 +143,25 @@ export const ChatScreen = () => {
   const windowHeight = useWindowDimensions().height;
   const windowWidth = useWindowDimensions().width;
   let [inputPadding, setInputPadding] = useState(0)
+
+  const [gifs, setGifs] = useState([]);
+  const [term, updateTerm] = useState('');
+  async function fetchGifs() {
+    try {
+      const API_KEY = "nitvoESRWMKqZ9hrwqgvhS3Z2GvNtEdN";
+      const BASE_URL = 'http://api.giphy.com/v1/gifs/search';
+      const resJson = await fetch(`${BASE_URL}?api_key=${API_KEY}&q=${term}`);
+      const res = await resJson.json();
+      setGifs(res.data);
+    } catch (error) {
+      console.warn(error);
+    }
+  } /// add facebook fresco
+  function onEdit(newTerm) {
+    updateTerm(newTerm);
+    fetchGifs();
+  }
+
 let currentUser = "user2"
 
   return (
@@ -263,8 +282,46 @@ let currentUser = "user2"
         </VFlex>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
+    
+     <TextInput 
+        placeholder="Search Giphy"
+        placeholderTextColor='#fff'
+        style={styles.textInput}
+        onChangeText={(text) => onEdit(text)}
+      />
+      <FlatList style = {{marginBottom: -500}}
+        data={gifs}
+        renderItem={({item}) => (
+          <Image
+            resizeMode='contain'
+            style={styles.image}
+            source={{uri: item.images.original.url}}
+          />
+        )}
+      /> 
       
     </View>
   );
 };
 
+
+const styles = StyleSheet.create({
+  view: {
+    flex: 1,
+    alignItems: 'center',
+    padding: 10,
+    backgroundColor: 'darkblue',
+    paddingBottom: -500,
+  },
+  textInput: {
+    width: '100%',
+    height: 50,
+    color: 'white'
+  },
+  image: {
+    width: 300,
+    height: 150,
+    borderWidth: 3,
+    marginBottom: 5
+  },
+});
