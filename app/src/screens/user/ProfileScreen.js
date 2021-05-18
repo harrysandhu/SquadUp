@@ -15,6 +15,8 @@ import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import auth from '@react-native-firebase/auth';
 import { ProfileEdit } from '../../components/styled/components';
 import { ProfileFlex } from '../../components/styled/components';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import AppModel from '../../models/AppModel';
 
 export function ProfileScreen({route, navigation}){
     const [initializing, setInitializing] = useState(true);
@@ -25,31 +27,20 @@ export function ProfileScreen({route, navigation}){
     const [user, setUser] = useState(s)
     const [logout,  setLogout] = useState(false)
 
-    async function onAuthStateChanged(user) {
-    }
 
-    useEffect(async () => {
-        let user =  await SecureStore.getItemAsync("user")
-        // setUser(user)
-        return () => console.log("hello")
-    }, [])
 
-    useEffect(() => {
-        const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-           
 
-       
-        return subscriber; // unsubscribe on unmount
-    
-    
-  }, []);
 
 
     async function handleContinue(){
-        setLogout(true)
-         auth().signOut().then(() => {
+      await GoogleSignin.signOut()
+        auth().signOut().then(() => {
+          AppModel.userModel.route.next("Main")
+            console.log("signed out yo")
             navigation.popToTop('Main')
         })
+      
+
     }
 
 
@@ -76,7 +67,7 @@ export function ProfileScreen({route, navigation}){
           />
           <ProfileFlex>
             <ProfilePictureView style={{top: "20%"}}>
-                <Image source={user.profile.avatarUrl} style={{height: 120, width: 120}} />  
+                <Image source={{ uri: user.profile.avatarUrl}} style={{height: 120, width: 120}} />  
                 <Text style={{color:"white", top: "0%"}}>@{user.profile.username}</Text>
             </ProfilePictureView>
               
