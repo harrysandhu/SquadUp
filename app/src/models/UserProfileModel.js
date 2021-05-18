@@ -11,6 +11,7 @@ export default class UserProfileModel {
         this.bio = new BS("")
         this.uid = new BS("")
         this.userId = new BS("")
+        
     }
 }
 

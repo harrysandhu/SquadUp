@@ -6,7 +6,7 @@ import { createStackNavigator } from "@react-navigation/stack"
 
 const Stack = createStackNavigator()
 
-export const ProfileNavigator = ({route, navigation}) => {
+export const ProfileNavigator = ({navigation}) => {
     return (
         <Stack.Navigator>
          <Stack.Screen 
