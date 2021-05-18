@@ -14,10 +14,14 @@ import DeviceInfo from 'react-native-device-info';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import auth from '@react-native-firebase/auth';
 import { NavigationContainer } from '@react-navigation/native';
+import AppModel from '../../models/AppModel';
 
 export function HomeScreen({navigation}){
 
-
+   useEffect(( ) => {
+       console.log("home screen")
+    AppModel.userProfileModel.userId.next(4)
+   }, [])
 
     return (
         <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#070A1E'}}>
