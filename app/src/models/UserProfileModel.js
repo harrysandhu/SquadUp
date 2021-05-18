@@ -2,9 +2,13 @@ import {BehaviorSubject as BS} from 'rxjs'
 
 
 
-export default class UserModel extends ProfileModel {
+export default class UserProfileModel {
     constructor(){
-        super()
+        this.id = new BS("")
+        this.name = new BS("")
+        this.username = new BS("")
+        this.avatarUrl = new BS("")
+        this.bio = new BS("")
         this.uid = new BS("")
         this.userId = new BS("")
     }
