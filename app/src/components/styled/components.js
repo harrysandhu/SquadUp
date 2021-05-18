@@ -96,7 +96,7 @@ export const BackArrow = styled.TouchableOpacity`
 
 
 export const InputTF = styled.TextInput`
-    width: 80%;
+    width: 100%;
     height: 48px;
     background: ${props => (props.active === true)? 'rgba(216, 205, 208, 0.2)' : 'rgba(216, 205, 208, 0.2)'};
     border-radius: 10px;
