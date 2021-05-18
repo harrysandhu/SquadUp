@@ -1,9 +1,4 @@
-import {
-    useQuery, 
-    useMutation, 
-    gql, 
-    useApolloClient 
-} from "@apollo/client";
+
 
 import { 
     GET_DEVICE, 
@@ -12,10 +7,11 @@ import {
 
 import { 
     REGISTER_DEVICE,
-    SIGNUP_USER
+    SIGNUP_USER,
+    SET_USERNAME
 } from 'apollo/mutations';
-
-const client = useApolloClient();
+import { apolloClient as client } from '../apollo/apollo';
+import { of } from 'rxjs';
 
 /**
  * Class responsible for making Apollo/GraphQL server requests, and implements
@@ -83,11 +79,8 @@ export default class ApolloService{
                     variables: {email},
                     fetchPolicy: "network-only"
                 })
-                if("id" in Object(result.data.userByEmail)){
-                    resolve(result.data.userByEmail)
-                }else{
-                    reject(new Error("Account doesn\'t exist. Please Sign Up."))
-                }
+                resolve(result.data.userByEmail)
+
             }catch(e){
                 console.log("error at getUserbyEmail: ",e )
                 reject(new Error("Account doesn\'t exist. Please Sign Up."))
@@ -122,7 +115,35 @@ export default class ApolloService{
         })
     }
     
+     /**
+     * Set username
+     * @param {*} data {SetUsername input type - {username, profile_id}}
+     * @returns username
+     */
+      static setUsername = async (data) => {
+        return new Promise(async (resolve, reject) => {
+            try{
+                let result = await client.mutate({
+                    mutation: SET_USERNAME, 
+                    variables: {
+                        data: data
+                    }
+                })
+                if(result.data.setUsername.username != null){
+                    resolve(result.data.setUsername.username)    
+                }else{
+                    reject(new Error("Username not available"))
+                }
+                
 
+            }catch(e){
+                console.log("error at setUsername: ",e )
+                reject(new Error("Could not sign up."))
+            }
+        
+        })
+    }
+    
 
 }
 
