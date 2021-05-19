@@ -6,6 +6,7 @@ Game {
     name
     gameId
     maxSize
+    img
 }
 
 

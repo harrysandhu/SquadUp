@@ -1,4 +1,3 @@
-// stack 
 
 import React, {useState} from 'react'
 import { ProfileScreen } from 'screens/user/ProfileScreen'
@@ -9,16 +8,16 @@ const Stack = createStackNavigator()
 export const ProfileNavigator = ({navigation}) => {
     return (
         <Stack.Navigator>
-         <Stack.Screen 
-         name="ProfileScreen" 
-         component={ProfileScreen} 
-         options={{
-            title: '',
-            headerLeft: null,
-            gestureEnabled: false,
-              headerTransparent: true
-          }}
-         />
+            <Stack.Screen 
+                name="ProfileScreen" 
+                component={ProfileScreen} 
+                options={{
+                    title: '',
+                    headerLeft: null,
+                    gestureEnabled: false,
+                    headerTransparent: true
+                }}
+            />
         </Stack.Navigator>
     );
 }

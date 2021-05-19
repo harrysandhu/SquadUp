@@ -94,6 +94,19 @@ export const BackArrow = styled.TouchableOpacity`
     left: 10%;
 `;
 
+export const ServerButton = styled.TouchableOpacity`
+    width: 120px;
+    height: 50px;
+    text-align:center;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+`;
+
 
 export const HamArrow = styled.TouchableOpacity`
     width: 25px;

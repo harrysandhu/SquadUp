@@ -77,13 +77,16 @@ useEffect(()=>{
           />
           <ProfileFlex>
             <ProfilePictureView style={{top: "20%"}}>
-                <Image source={{ uri: userProfile.avatarUrl}} style={{height: 120, width: 120, borderRadius: 25}} />  
+                <Image source={{ uri: userProfile.avatarUrl}} style={{height: 80, width: 80, borderRadius: 50, marginBottom: 10}} />  
                 <Text style={{color:"white", top: "0%"}}>@{userProfile.username}</Text>
             </ProfilePictureView>
-            <Text style={{ display: "flex", color:"lightgrey"}}>{userProfile.userId}</Text>
+                <Text style={{ display: "flex", color:"lightgrey"}}>{userProfile.userId}</Text>
                 <Text style={{ display: "flex", color:"lightgrey"}}>{userProfile.name}</Text>
                 <Text style={{ display: "flex", color:"lightgrey"}}>{"" ? userProfile.bio == null : userProfile.bio}</Text>
 
+              <ButtonLogOut style={{bottom: "15%"}}>
+                <Text style={{color:"white"}}>Selected Games</Text>
+              </ButtonLogOut>
               <ButtonLogOut style={{bottom: "5%"}} onPress={async () => await handleContinue()}>
                 <Text style={{color:"white"}}>Logout</Text>
               </ButtonLogOut>
