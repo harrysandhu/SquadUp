@@ -261,3 +261,26 @@ export const ImgSize = styled.View`
 
 
 `
+
+export const ImgContainer = styled.View`
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    height: auto;
+    justify-content: center;
+`
+
+
+export const ButtonJoin = styled.TouchableOpacity`
+    width: 100%;
+    height: 55px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Roboto';
+    opacity:${props => (props.disabledStyle == true) ? '0.5': '1'}; 
+    background-color: ${props => (props.state === false) ? 'grey' : 'black'};
+
+`;

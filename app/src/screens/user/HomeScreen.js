@@ -24,27 +24,47 @@ export function HomeScreen({navigation}){
    }, [])
 
     return (
-        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#070A1E'}}>
-        <Header
-            barStyle="default"
-            centerComponent={
-                <VFlex>
-                <TopTitle>Home</TopTitle>
-                </VFlex>
+        <View 
+            style={{
+                flex: 1, 
+                alignItems: 'center', 
+                justifyContent: 'center', 
+                backgroundColor: '#070A1E'
+            }}
+        >
+            <Header
+                barStyle="default"
+                centerComponent={
+                    <VFlex>
+                    <TopTitle>
+                        Home
+                    </TopTitle>
+                    </VFlex>
                 }
-            centerContainerStyle={{}}
-            containerStyle={{ width: '100%', backgroundColor: 'none',top:0, position: "absolute", borderBottomColor: "transparent"}}
-            leftComponent={ {}}
-            placement="center"
-            rightComponent={{}}
-            rightContainerStyle={{}}
-            
-            statusBarProps={{}}
-    />
+                centerContainerStyle={{}}
+                containerStyle={{ 
+                    width: '100%', 
+                    backgroundColor: 'none',
+                    top:0, 
+                    position: "absolute", 
+                    borderBottomColor: "transparent"
+                }}
+                leftComponent={ {}}
+                placement="center"
+                rightComponent={{}}
+                rightContainerStyle={{}}
+                
+                statusBarProps={{}}
+            />
     
-           <VFlex>
-           <Text style={{color:"white"}}>Hi!, this is your default news feed.</Text>    
-           </VFlex>
+            <VFlex>
+                <Text 
+                    style={{
+                        color:"white"
+                    }}
+                >Hi!, this is your default news feed.
+                </Text>    
+            </VFlex>
             
         </View>
     )

@@ -22,17 +22,51 @@ export function MainScreen({navigation}){
    
     
     return (
-        <View style={{flex: 1, backgroundColor: '#070A1E'}}>
-            <VFlex style={{paddingTop:'15%'}}>
-                <Image source={require("../../../assets/images/logo2.png")} style={{height:360, width:360, resizeMode:"contain"}}/>
+        <View 
+            style={{
+                flex: 1, 
+                backgroundColor: '#070A1E'
+            }}
+        >
+            <VFlex 
+                style={{
+                    paddingTop:'15%'
+                }}
+            >
+                <Image 
+                    source={
+                        require("../../../assets/images/logo2.png")
+                    } 
+                    style={{
+                        height:360, 
+                        width:360, 
+                        resizeMode:"contain"
+                    }}
+                />
                 {/* <DeviceDetails /> */}
             </VFlex>
             <ButtonView>
-                <ButtonPrimary onPress={() => navigation.navigate('Login')}>
-                    <Text style={{color:"white"}}>LOGIN</Text>
+                <ButtonPrimary 
+                onPress={() => navigation.navigate('Login')}
+                >
+                    <Text 
+                        style={{
+                            color:"white"
+                        }}
+                    >
+                        LOGIN
+                    </Text>
                 </ButtonPrimary>
-                <ButtonSecondary onPress={() => navigation.navigate('SignUp')}>
-                    <Text style={{color:"white"}}>SIGN UP</Text>
+                <ButtonSecondary 
+                    onPress={() => navigation.navigate('SignUp')}
+                >
+                    <Text 
+                        style={{
+                            color:"white"
+                        }}
+                    >
+                        SIGN UP
+                    </Text>
                 </ButtonSecondary>
             </ButtonView>
         </View>
