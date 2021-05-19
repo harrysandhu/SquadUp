@@ -253,3 +253,11 @@ export const TopBar = styled.View`
     opacity:${props => (props.message == "") ? '0': '1'}; 
     background-color: ${props => (props.state === true) ? success_green : error_red};
 `
+
+export const ImgSize = styled.View`
+    margin: 20px;
+    flex-direction: row;
+    margin-top: 20px;
+
+
+`
