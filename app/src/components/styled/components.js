@@ -10,8 +10,8 @@ import { Button,
         KeyboardAvoidingView,
         Picker } from 'react-native';
         
-const primary_color = "#FF005C";
-const secondary_color = "#2B4FC1";
+const primary_color = "#7343D8";
+const secondary_color = "#4627FF";
 const error_red = "#C25A53";
 const success_green = "#1DB954";
 

@@ -122,9 +122,9 @@ export function SignUpScreen({navigation}){
                 statusBarProps={{}}
         />
     
-        <VFlex style={{paddingTop:'15%'}}>
-            <Image source={require("../../../assets/images/getstarted.png")} 
-                   style={{height:360, width:360, resizeMode:"contain"}}/>
+        <VFlex style={{marginTop: -40}}>
+            <Image source={require("../../../assets/images/logo6.png")} 
+                   style={{height:450, width:450, resizeMode:"contain"}}/>
         </VFlex>
         <ButtonView>
             <ButtonGoogle onPress={() => onGoogleButtonPress()}>
