@@ -278,3 +278,14 @@ export const TopBar = styled.View`
     opacity:${props => (props.message == "") ? '0': '1'}; 
     background-color: ${props => (props.state === true) ? success_green : error_red};
 `
+export const HFlexH = styled.View`
+    display:flex;
+    flex-direction: row;
+    width: 100%
+    height: auto;
+    margin-top: -120%; 
+`
+export const TitleBar = styled.Text`
+    color: white; 
+    padding: 6%
+`

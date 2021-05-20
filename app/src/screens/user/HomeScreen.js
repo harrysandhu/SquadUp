@@ -1,7 +1,7 @@
 // TODO : Clean up - fix indentation
 import React, {useState, useEffect} from 'react'
 import { View, Text, Button, Image, KeyboardAvoidingView, Platform, Dimensions, Keyboard, Animated } from 'react-native'
-import { TopText, FlexView, InputTF, VFlex, HFlex, AtLabel, 
+import { TopText, FlexView, InputTF, VFlex, HFlex, AtLabel, HFlexH, TitleBar, 
          BackArrow, InputDOB, ButtonPrimary, ButtonView, 
          ImageSelectorTouchable, TopTitle, TopBar, HamArrow } from 'components/styled/components';
 import Icon from 'react-native-vector-icons/FontAwesome'
@@ -72,6 +72,15 @@ export function HomeScreen({navigation}){
 
     return (
         <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#070A1E'}}>
+            
+            <HFlexH style={{zIndex: -1}}>
+            <TitleBar style={{color:"white"}}>Trending</TitleBar> 
+            <TitleBar style={{color:"white"}}>Streams</TitleBar>  
+            <TitleBar style={{color:"white"}}>Discussions</TitleBar>   
+            <TitleBar style={{color:"white"}}>Posts</TitleBar> 
+           </HFlexH>
+            
+        
             <Animated.View
                 style={[{zIndex: 100, width:"100%"}], {
                     transform: [
@@ -98,10 +107,7 @@ export function HomeScreen({navigation}){
             
             statusBarProps={{}}
     />
-    
-           <VFlex style={{zIndex: -1}}>
-            <Text style={{color:"white"}}>Hi!, this is your default news feed.</Text>    
-           </VFlex>
+
             
         </View>
     )
