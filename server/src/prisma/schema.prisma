@@ -16,7 +16,6 @@ model Device{
   user        User[]
 }
 
-
 model User{
   id          String      @id @default(uuid())
   userId      String?     @db.VarChar(100) @unique
@@ -40,24 +39,15 @@ model Profile{
   bio         String?     @db.VarChar(200)
   user        User        @relation(fields: [uID], references:[id])
   uID         String
-  chats       ProfilesOnChats[]
   messages    Message[]
+  teams       UsersOnTeam[]
 }
 
 model Chat{
   id        String          @id @default(uuid())
-  profiles  ProfilesOnChats[]
+  team      Team            @relation(fields: [teamId], references: [id])
+  teamId    String
   messages  MessagesOnChats[]
-}
-
-
-model ProfilesOnChats{
-  profile     Profile       @relation(fields: [profileId], references: [id])
-  profileId   String        
-  chat        Chat          @relation(fields: [chatId], references: [id])
-  chatId      String
-  createdAt   DateTime      @default(now())
-  @@id([profileId, chatId])
 }
 
 model MessagesOnChats{
@@ -71,15 +61,14 @@ model MessagesOnChats{
 
 
 model Message{
-  id            String  @id @default(uuid())
-  text          String    @db.Text
+  id            String            @id @default(uuid())
+  text          String            @db.VarChar(300)
   attachements  Attachment[]
   senderId      String
-  sender        Profile @relation(fields: [senderId], references: [id])
+  sender        Profile           @relation(fields: [senderId], references: [id])
   chatId        String
-  chat          MessagesOnChats @relation(fields: [chatId], references: [chatId])
-  sentAt        DateTime    @default(now())
-  receivedAt    DateTime?
+  chat          MessagesOnChats   @relation(fields: [chatId], references: [chatId])
+  sentAt        DateTime          @default(now())
 }
 
 
@@ -91,13 +80,46 @@ model Attachment{
   message       Message             @relation(fields: [messageId], references: [id])
 }
 
+
+model Game{
+  id        String        @id @default(uuid())
+  name      String        @db.VarChar(100)
+  gameId    String        @db.VarChar(20) @unique
+  maxSize   Int           @db.Int @default(4)
+  coverUrl  String        @db.VarChar(1024)
+  teams     Team[]
+}
+
+
+model Team{
+  id        String        @id @default(uuid())
+  name      String        @db.VarChar(100)
+  teamId    String        @db.VarChar(20)
+  coverUrl  String        @db.VarChar(1024) @default("https://firebasestorage.googleapis.com/v0/b/squadupapp-cf4d3.appspot.com/o/defaultTeam.png?alt=media&token=6b9eb452-750c-4168-8e4f-7e9874571698")
+  game      Game          @relation(fields: [gId], references:[id])
+  gId       String
+  users     UsersOnTeam[]
+  chat      Chat?
+}
+
+
+
+model UsersOnTeam{
+  profile     Profile       @relation(fields: [profileId], references: [id])
+  profileId   String        
+  team        Team          @relation(fields: [tId], references:[id])
+  tId         String
+  @@id([profileId, tId])
+}
+
+
+
+
 enum AttachmentType{
   PHOTO
   VIDEO
   FILE
 }
-
-
 
 
 enum AuthType{

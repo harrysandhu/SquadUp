@@ -42,17 +42,10 @@ UNIQUE INDEX `Profile_uID_unique`(`uID`),
 -- CreateTable
 CREATE TABLE `Chat` (
     `id` VARCHAR(191) NOT NULL,
+    `teamId` VARCHAR(191) NOT NULL,
+UNIQUE INDEX `Chat_teamId_unique`(`teamId`),
 
     PRIMARY KEY (`id`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
--- CreateTable
-CREATE TABLE `ProfilesOnChats` (
-    `profileId` VARCHAR(191) NOT NULL,
-    `chatId` VARCHAR(191) NOT NULL,
-    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
-
-    PRIMARY KEY (`profileId`,`chatId`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
@@ -67,11 +60,10 @@ CREATE TABLE `MessagesOnChats` (
 -- CreateTable
 CREATE TABLE `Message` (
     `id` VARCHAR(191) NOT NULL,
-    `text` TEXT NOT NULL,
+    `text` VARCHAR(300) NOT NULL,
     `senderId` VARCHAR(191) NOT NULL,
     `chatId` VARCHAR(191) NOT NULL,
     `sentAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
-    `receivedAt` DATETIME(3),
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -86,6 +78,37 @@ CREATE TABLE `Attachment` (
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
+-- CreateTable
+CREATE TABLE `Game` (
+    `id` VARCHAR(191) NOT NULL,
+    `name` VARCHAR(100) NOT NULL,
+    `gameId` VARCHAR(20) NOT NULL,
+    `maxSize` INTEGER NOT NULL DEFAULT 4,
+    `coverUrl` VARCHAR(1024) NOT NULL,
+UNIQUE INDEX `Game.gameId_unique`(`gameId`),
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `Team` (
+    `id` VARCHAR(191) NOT NULL,
+    `name` VARCHAR(100) NOT NULL,
+    `teamId` VARCHAR(20) NOT NULL,
+    `coverUrl` VARCHAR(1024) NOT NULL DEFAULT 'https://firebasestorage.googleapis.com/v0/b/squadupapp-cf4d3.appspot.com/o/defaultTeam.png?alt=media&token=6b9eb452-750c-4168-8e4f-7e9874571698',
+    `gId` VARCHAR(191) NOT NULL,
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `UsersOnTeam` (
+    `profileId` VARCHAR(191) NOT NULL,
+    `tId` VARCHAR(191) NOT NULL,
+
+    PRIMARY KEY (`profileId`,`tId`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
 -- AddForeignKey
 ALTER TABLE `User` ADD FOREIGN KEY (`dID`) REFERENCES `Device`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
@@ -93,10 +116,7 @@ ALTER TABLE `User` ADD FOREIGN KEY (`dID`) REFERENCES `Device`(`id`) ON DELETE C
 ALTER TABLE `Profile` ADD FOREIGN KEY (`uID`) REFERENCES `User`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `ProfilesOnChats` ADD FOREIGN KEY (`profileId`) REFERENCES `Profile`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `ProfilesOnChats` ADD FOREIGN KEY (`chatId`) REFERENCES `Chat`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `Chat` ADD FOREIGN KEY (`teamId`) REFERENCES `Team`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `MessagesOnChats` ADD FOREIGN KEY (`chatId`) REFERENCES `Chat`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
@@ -109,3 +129,12 @@ ALTER TABLE `Message` ADD FOREIGN KEY (`chatId`) REFERENCES `MessagesOnChats`(`c
 
 -- AddForeignKey
 ALTER TABLE `Attachment` ADD FOREIGN KEY (`messageId`) REFERENCES `Message`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `Team` ADD FOREIGN KEY (`gId`) REFERENCES `Game`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `UsersOnTeam` ADD FOREIGN KEY (`profileId`) REFERENCES `Profile`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `UsersOnTeam` ADD FOREIGN KEY (`tId`) REFERENCES `Team`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;

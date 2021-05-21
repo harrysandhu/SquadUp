@@ -24,6 +24,7 @@ export const schema = gql `
     schema{
         query: Query
         mutation: Mutation
+        subscription: Subscription
     }
 
     
@@ -42,7 +43,60 @@ export const schema = gql `
         signUpGoogle(userInput: GoogleUserInput!): User
         signUpUser(userInput: UserInputSignUp!): User
         setUsername(data: SetUsername!): SetUsernamePayload
+        
+        # game
+        createGame(game: GameInput): Game
+
     }
+
+
+    type Subscription{
+        teamCreated(team: Team)
+        teamDeleted()
+        teamMemberAdded()
+        teamMemberRemoved()
+
+        messageAdded()
+        messageDeleted()
+        messageUpdated()
+
+    }
+    
+    type Game{
+        id:ID!
+        name:String!
+        gameId:String!
+        maxSize: Number!
+        coverUrl: String!
+        teams: [Teams]!
+    }
+
+    type Team{
+        id: ID!
+        name:String!
+        teamId:String!
+        game: Game!
+        coverUrl: String!
+        profiles: [Profile]!
+        chat: Chat
+    }
+
+    type Chat{
+        id: ID!
+        team: Team!
+        messages: [Messages]!
+    }
+
+    
+    type Message{
+        id:ID!
+        text: String!
+        attachments: [Attachments]!
+        sender: Profile!
+        chat: Chat!
+        sentAt: DateTime!
+    }
+
 
 
     type AuthPayload{
@@ -123,6 +177,9 @@ export const schema = gql `
         authType: AuthType
         dID: ID!
     }
+
+    
+
 
 `
 
@@ -243,6 +300,7 @@ const resolvers:any = {
                 
             console.log(`root${root} , CTX: ${ctx}`)
             console.log(data.username)
+
             let updateUsername = await prisma.profile.update({
                 where: {
                     id: data.profile_id
@@ -296,3 +354,5 @@ export const squadup_schema_v1 = makeExecutableSchema({
 //     authType: GOOGLE,
 //     deviceId: "111.111.111"
 // }
+
+
