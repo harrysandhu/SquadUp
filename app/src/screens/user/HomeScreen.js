@@ -1,7 +1,7 @@
 // TODO : Clean up - fix indentation
 import React, {useState, useEffect} from 'react'
 import { View, Text, Button, Image, KeyboardAvoidingView, Platform, Dimensions, Keyboard, Animated } from 'react-native'
-import { TopText, FlexView, InputTF, VFlex, HFlex, AtLabel, HFlexH, TitleBar, 
+import { TopText, FlexView, InputTF, VFlex, HFlex, AtLabel, HFlexH, TitleBar, Stream,
          BackArrow, InputDOB, ButtonPrimary, ButtonView, 
          ImageSelectorTouchable, TopTitle, TopBar, HamArrow } from 'components/styled/components';
 import Icon from 'react-native-vector-icons/FontAwesome'
@@ -79,8 +79,36 @@ export function HomeScreen({navigation}){
             <TitleBar style={{color:"white"}}>Discussions</TitleBar>   
             <TitleBar style={{color:"white"}}>Posts</TitleBar> 
            </HFlexH>
-            
-        
+           <VFlex>
+           <Image source={require("../../../assets/images/avatar.png")} style={{resizeMode:"contain", width: 20, height: 20, marginRight: 340}}/>
+           <Text style={{color:"white", paddingRight: 300, paddingTop: 10}}> Leaguerz</Text>
+           <Stream source={require("../../../assets/images/rLeague.jpeg")} />
+           </VFlex>
+           <HFlex>
+               <VFlex>
+           <Image source={require("../../../assets/images/up.png")} style={{resizeMode:"contain", width: 150, height: 150, marginLeft: 500, marginTop: -100}}/>
+          <Text style = {{color: "grey", fontSize: 10}}>25</Text>
+           </VFlex>
+           <VFlex>
+           <Image source={require("../../../assets/images/down.png")} style={{resizeMode:"contain", width: 150, height:150}}/>
+           <Text style = {{color: "grey", fontSize: 10}}>25</Text>
+           </VFlex>
+           <VFlex>
+           <Image source={require("../../../assets/images/eye.png")} style={{resizeMode:"contain", width: 150, height:150}}/>
+           <Text style = {{color: "grey", fontSize: 10}}>25</Text>
+           </VFlex>
+           </HFlex>
+           <HFlex
+  style={{
+    borderBottomColor: 'white',
+    borderBottomWidth: 2,
+    marginTop: -30
+  }}
+  >
+           </HFlex>
+           
+           
+           
             <Animated.View
                 style={[{zIndex: 100, width:"100%"}], {
                     transform: [

@@ -264,8 +264,6 @@ export const ButtonFacebook = styled.TouchableOpacity`
     background-color: ${props => (props.disabledStyle === true) ? '#1877f2' : '#1877f2'};
 
 `
-
-
 export const TopBar = styled.View`
     width: 100%;
     height: 35px;
@@ -283,9 +281,18 @@ export const HFlexH = styled.View`
     flex-direction: row;
     width: 100%
     height: auto;
-    margin-top: -120%; 
+    margin-top: 20%; 
+
 `
 export const TitleBar = styled.Text`
     color: white; 
-    padding: 6%
+    padding: 5.5%
+`
+
+export const Stream = styled.Image`
+    z-index: -1;
+    width: 400px;  
+    height: 200px; 
+    margin-top: 5%; 
+    border-radius: 10; 
 `
