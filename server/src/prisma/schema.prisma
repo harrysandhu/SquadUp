@@ -134,3 +134,21 @@ enum AuthStage{
   SUB
   FINAL
 }
+
+
+
+
+
+// SET FOREIGN_KEY_CHECKS = 0;
+// drop table if exists Attachment;
+// drop table if exists Chat;
+// drop table if exists Device;
+// drop table if exists Game;
+// drop table if exists Message;
+// drop table if exists MessagesOnChats;
+// drop table if exists Profile;
+// drop table if exists Team;
+// drop table if exists User;
+// drop table if exists UsersOnTeam;
+// drop table if exists _prisma_migrations;
+// SET FOREIGN_KEY_CHECKS = 1;
