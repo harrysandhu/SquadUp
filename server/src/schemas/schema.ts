@@ -276,6 +276,7 @@ const resolvers:any = {
         ) => {
             console.log(`root${root} , CTX: ${ctx}`)
             console.log("USERINPUT: ", userInput)
+            try{
             let user = await prisma.user.create({
                 data:{
                     email: userInput.email,
@@ -292,6 +293,10 @@ const resolvers:any = {
             })
            console.log("user result: ", user)
             return user
+        }catch(e){
+            console.log("WE GOT AN ERROR", e)
+            return e
+        }
         },
         setUsername: async (
             root: any, 
