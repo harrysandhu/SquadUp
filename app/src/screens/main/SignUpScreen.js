@@ -77,9 +77,7 @@ export function SignUpScreen({navigation}){
 
     useEffect(() => {
         try{
-            // auth().signOut().then(() => {
-            //     console.log("signed out yo")
-            // })
+           
             const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
             return subscriber; // unsubscribe on unmount
         }catch(e){
