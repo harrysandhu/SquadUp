@@ -23,8 +23,8 @@ export function MainScreen({navigation}){
     
     return (
         <View style={{flex: 1, backgroundColor: '#070A1E'}}>
-            <VFlex style={{paddingTop:'15%'}}>
-                <Image source={require("../../../assets/images/logo2.png")} style={{height:360, width:360, resizeMode:"contain"}}/>
+            <VFlex style={{paddingTop:'5%'}}>
+                <Image source={require("../../../assets/images/logo6.png")} style={{height:450, width:450, resizeMode:"contain"}}/>
                 {/* <DeviceDetails /> */}
             </VFlex>
             <ButtonView>
