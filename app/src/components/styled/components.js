@@ -281,7 +281,7 @@ export const HFlexH = styled.View`
     flex-direction: row;
     width: 100%
     height: auto;
-    margin-top: 20%; 
+    margin-top: -40%
 
 `
 export const TitleBar = styled.Text`

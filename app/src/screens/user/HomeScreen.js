@@ -86,12 +86,12 @@ export function HomeScreen({navigation}){
            </VFlex>
            <HFlex>
                <VFlex>
-           <Image source={require("../../../assets/images/up.png")} style={{resizeMode:"contain", width: 150, height: 150, marginLeft: 500, marginTop: -100}}/>
-          <Text style = {{color: "grey", fontSize: 10}}>25</Text>
+           <Image source={require("../../../assets/images/up.png")} style={{resizeMode:"contain", width: 150, height: 150, marginLeft: 500, marginTop: -130}}/>
+          <Text style = {{color: "grey", fontSize: 10, marginRight: -490, marginTop: -60}}>25</Text>
            </VFlex>
            <VFlex>
-           <Image source={require("../../../assets/images/down.png")} style={{resizeMode:"contain", width: 150, height:150}}/>
-           <Text style = {{color: "grey", fontSize: 10}}>25</Text>
+           <Image source={require("../../../assets/images/down.png")} style={{resizeMode:"contain", width: 150, height:150, marginRight: 260, marginTop: -100}}/>
+           <Text style = {{color: "grey", fontSize: 10, marginTop: -105}}>25</Text>
            </VFlex>
            <VFlex>
            <Image source={require("../../../assets/images/eye.png")} style={{resizeMode:"contain", width: 150, height:150}}/>
