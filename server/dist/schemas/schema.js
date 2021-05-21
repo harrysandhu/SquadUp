@@ -24,6 +24,7 @@ exports.schema = apollo_server_core_1.gql `
     schema{
         query: Query
         mutation: Mutation
+        # subscription: Subscription
     }
 
     
@@ -42,7 +43,59 @@ exports.schema = apollo_server_core_1.gql `
         signUpGoogle(userInput: GoogleUserInput!): User
         signUpUser(userInput: UserInputSignUp!): User
         setUsername(data: SetUsername!): SetUsernamePayload
+        
+        # game
+        # createGame(game: GameInput): Game
+
     }
+
+
+    # type Subscription{
+    #     # teamCreated(team: Team)
+    #     # teamDeleted()
+    #     # teamMemberAdded()
+    #     # teamMemberRemoved()
+
+    #     # messageAdded()
+    #     # messageDeleted()
+    #     # messageUpdated()
+
+    # }
+    
+    type Game{
+        id:ID!
+        name:String!
+        gameId:String!
+        maxSize: Int!
+        coverUrl: String!
+        teams: [Team]!
+    }
+
+    type Team{
+        id: ID!
+        name:String!
+        teamId:String!
+        game: Game!
+        coverUrl: String!
+        profiles: [Profile]!
+        chat: Chat
+    }
+
+    type Chat{
+        id: ID!
+        team: Team!
+        messages: [Message]!
+    }
+
+    
+    type Message{
+        id:ID!
+        text: String!
+        sender: Profile!
+        chat: Chat!
+        sentAt: DateTime!
+    }
+
 
 
     type AuthPayload{
@@ -124,6 +177,9 @@ exports.schema = apollo_server_core_1.gql `
         dID: ID!
     }
 
+    
+
+
 `;
 const directiveResolvers = {
     isAuth: (next, src, args, ctx) => {
@@ -190,22 +246,28 @@ const resolvers = {
         signUpUser: (root, { userInput }, ctx) => __awaiter(void 0, void 0, void 0, function* () {
             console.log(`root${root} , CTX: ${ctx}`);
             console.log("USERINPUT: ", userInput);
-            let user = yield prisma.user.create({
-                data: {
-                    email: userInput.email,
-                    userId: userInput.userId,
-                    dob: "1999-05-28T10:26:39.359Z",
-                    dID: Number(userInput.dID),
-                    profile: {
-                        create: {
-                            avatarUrl: userInput.avatarUrl,
-                            name: userInput.name,
-                        }
-                    },
-                }
-            });
-            console.log("user result: ", user);
-            return user;
+            try {
+                let user = yield prisma.user.create({
+                    data: {
+                        email: userInput.email,
+                        userId: userInput.userId,
+                        dob: "1999-05-28T10:26:39.359Z",
+                        dID: Number(userInput.dID),
+                        profile: {
+                            create: {
+                                avatarUrl: userInput.avatarUrl,
+                                name: userInput.name,
+                            }
+                        },
+                    }
+                });
+                console.log("user result: ", user);
+                return user;
+            }
+            catch (e) {
+                console.log("WE GOT AN ERROR", e);
+                return e;
+            }
         }),
         setUsername: (root, { data }, ctx) => __awaiter(void 0, void 0, void 0, function* () {
             console.log(`root${root} , CTX: ${ctx}`);

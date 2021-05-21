@@ -56,7 +56,7 @@ export function SignUpScreen({navigation}){
                 userInput.dID = dID
             }
             try{
-                console.log("THIS IS RUNNING", AppModel.userModel.route.getValue())
+                console.log("THIS IS RUNNING", user)
                 if("userId" in userInput){
                     await AppController.user.signUp(userInput)
                     console.log("navigating to ...", AppModel.userModel.route.getValue())
@@ -71,16 +71,21 @@ export function SignUpScreen({navigation}){
 
         }
       
-    if (initializing) setInitializing(false);
+    // if (initializing) setInitializing(false);
     
     }
 
     useEffect(() => {
-        // auth().signOut().then(() => {
-        //     console.log("signed out yo")
-        // })
-        const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-        return subscriber; // unsubscribe on unmount
+        try{
+            // auth().signOut().then(() => {
+            //     console.log("signed out yo")
+            // })
+            const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+            return subscriber; // unsubscribe on unmount
+        }catch(e){
+            console.log("none")
+        }
+       
     }, []);
 
 
@@ -89,12 +94,17 @@ export function SignUpScreen({navigation}){
     async function onGoogleButtonPress() {
         setProvider(Provider.GOOGLE)
         setButtonState(true)
-        const { idToken } = await GoogleSignin.signIn();
-        const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-        return auth().signInWithCredential(googleCredential);
+        try{
+            const { idToken } = await GoogleSignin.signIn();
+            const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+            return auth().signInWithCredential(googleCredential);
+        }catch(e){
+            console.log("none 1")
+        }
+      
     }
 
-    if (initializing) return null;
+    // if (initializing) return null;
 
 
 
@@ -122,8 +132,8 @@ export function SignUpScreen({navigation}){
                 statusBarProps={{}}
         />
     
-        <VFlex style={{marginTop: -40}}>
-            <Image source={require("../../../assets/images/logo6.png")} 
+        <VFlex>
+            <Image source={require("../../../assets/images/getstarted.png")} 
                    style={{height:450, width:450, resizeMode:"contain"}}/>
         </VFlex>
         <ButtonView>

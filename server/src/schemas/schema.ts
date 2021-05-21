@@ -24,7 +24,7 @@ export const schema = gql `
     schema{
         query: Query
         mutation: Mutation
-        subscription: Subscription
+        # subscription: Subscription
     }
 
     
@@ -45,30 +45,30 @@ export const schema = gql `
         setUsername(data: SetUsername!): SetUsernamePayload
         
         # game
-        createGame(game: GameInput): Game
+        # createGame(game: GameInput): Game
 
     }
 
 
-    type Subscription{
-        teamCreated(team: Team)
-        teamDeleted()
-        teamMemberAdded()
-        teamMemberRemoved()
+    # type Subscription{
+    #     # teamCreated(team: Team)
+    #     # teamDeleted()
+    #     # teamMemberAdded()
+    #     # teamMemberRemoved()
 
-        messageAdded()
-        messageDeleted()
-        messageUpdated()
+    #     # messageAdded()
+    #     # messageDeleted()
+    #     # messageUpdated()
 
-    }
+    # }
     
     type Game{
         id:ID!
         name:String!
         gameId:String!
-        maxSize: Number!
+        maxSize: Int!
         coverUrl: String!
-        teams: [Teams]!
+        teams: [Team]!
     }
 
     type Team{
@@ -84,14 +84,13 @@ export const schema = gql `
     type Chat{
         id: ID!
         team: Team!
-        messages: [Messages]!
+        messages: [Message]!
     }
 
     
     type Message{
         id:ID!
         text: String!
-        attachments: [Attachments]!
         sender: Profile!
         chat: Chat!
         sentAt: DateTime!
