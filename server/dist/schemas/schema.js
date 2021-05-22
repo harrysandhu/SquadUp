@@ -31,6 +31,9 @@ exports.schema = apollo_server_core_1.gql `
     type Query{
         device(deviceId: ID!): Device
         user(id: ID!): User
+        game(id: ID!): Game
+        team(id: ID!): Team
+
         profile(username: String!): Profile
         signInGoogle(userId: ID!): AuthPayload
         userByEmail(email: String!): User
@@ -43,10 +46,10 @@ exports.schema = apollo_server_core_1.gql `
         signUpGoogle(userInput: GoogleUserInput!): User
         signUpUser(userInput: UserInputSignUp!): User
         setUsername(data: SetUsername!): SetUsernamePayload
-        
+        createGame(game: GameInput!): Game
         # game
         # createGame(game: GameInput): Game
-
+        # createTeam(team: T)
     }
 
 
@@ -177,8 +180,19 @@ exports.schema = apollo_server_core_1.gql `
         dID: ID!
     }
 
-    
+    input GameInput{
+        name: String!
+        gameId:String!
+        maxSize: Int!
+        coverUrl: String!
+    }
 
+    input TeamInput{
+        name: String!
+        teamId:String!
+        coverUrl: String!
+        gId: String!
+    }
 
 `;
 const directiveResolvers = {
@@ -216,10 +230,28 @@ const resolvers = {
             console.log(`root${root} , CTX: ${ctx}`);
             let p = yield prisma.profile.findUnique({
                 where: {
-                    username: username
+                    username: String(username).toLowerCase()
                 }
             });
             return p;
+        }),
+        game: (root, { id }, ctx) => __awaiter(void 0, void 0, void 0, function* () {
+            console.log(`root${root} , CTX: ${ctx}`);
+            let game = yield prisma.game.findUnique({
+                where: {
+                    id: id
+                }
+            });
+            return game;
+        }),
+        team: (root, { id }, ctx) => __awaiter(void 0, void 0, void 0, function* () {
+            console.log(`root${root} , CTX: ${ctx}`);
+            let game = yield prisma.team.findUnique({
+                where: {
+                    id: id
+                }
+            });
+            return game;
         }),
         userByEmail: (root, { email }, ctx) => __awaiter(void 0, void 0, void 0, function* () {
             console.log(`root${root} , CTX: ${ctx}`);
@@ -277,12 +309,30 @@ const resolvers = {
                     id: data.profile_id
                 },
                 data: {
-                    username: data.username
+                    username: String(data.username).toLowerCase()
                 }
             });
             console.log(updateUsername);
             return data;
-        })
+        }),
+        createGame: (root, { game }, ctx) => __awaiter(void 0, void 0, void 0, function* () {
+            console.log(`root${root} , CTX: ${ctx}`);
+            let gameCreated = yield prisma.game.create({
+                data: {
+                    name: game.name,
+                    gameId: String(game.gameId).toLowerCase(),
+                    maxSize: game.maxSize,
+                    coverUrl: game.coverUrl,
+                    teams: {
+                        create: {
+                            name: "Default",
+                            teamId: String(game.gameId).toLowerCase() + "default"
+                        }
+                    }
+                }
+            });
+            return gameCreated;
+        }),
     },
     User: {
         device: ({ dID }) => __awaiter(void 0, void 0, void 0, function* () {
@@ -301,6 +351,26 @@ const resolvers = {
                 }
             });
             return p;
+        })
+    },
+    Game: {
+        teams: ({ id }) => __awaiter(void 0, void 0, void 0, function* () {
+            let teams = yield prisma.team.findMany({
+                where: {
+                    gId: id
+                }
+            });
+            return teams;
+        })
+    },
+    Team: {
+        game: ({ gId }) => __awaiter(void 0, void 0, void 0, function* () {
+            let game = yield prisma.game.findFirst({
+                where: {
+                    id: gId
+                }
+            });
+            return game;
         })
     }
 };
