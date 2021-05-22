@@ -82,7 +82,7 @@ export const schema = gql `
         teamId:String!
         game: Game!
         coverUrl: String!
-        profiles: [Profile]!
+        users: [Profile]!
         chat: Chat
     }
 
@@ -153,6 +153,7 @@ export const schema = gql `
         bio: String
         user: User @isAuth
         games: [Game]!
+        teams: [Team]!
     }
 
     type SetUsernamePayload{
@@ -446,6 +447,23 @@ const resolvers:any = {
             console.log(g)
             // console.log("device get result: ", device)
             return g
+        },
+        teams: async ({id}:any) =>{
+            let p = await prisma.usersOnTeam.findMany({
+                select:{
+                    team: true
+                },
+                where : {
+                    profileId: id
+                }
+            })
+            let g:any = []
+            p.forEach(row => {
+                g.push(row.team)
+            })
+            console.log(g)
+            // console.log("device get result: ", device)
+            return g
         }
     },
     Game: {
@@ -483,6 +501,23 @@ const resolvers:any = {
                 }
             })
             return game
+        },
+        users: async ({id}: any) => {
+            let p = await prisma.usersOnTeam.findMany({
+                select:{
+                    profile: true
+                },
+                where : {
+                    tId: id
+                }
+            })
+            let g:any = []
+            p.forEach(row => {
+                g.push(row.profile)
+            })
+            console.log(g)
+            // console.log("device get result: ", device)
+            return g
         }
     }
 }

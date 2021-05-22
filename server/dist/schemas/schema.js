@@ -82,7 +82,7 @@ exports.schema = apollo_server_core_1.gql `
         teamId:String!
         game: Game!
         coverUrl: String!
-        profiles: [Profile]!
+        users: [Profile]!
         chat: Chat
     }
 
@@ -153,6 +153,7 @@ exports.schema = apollo_server_core_1.gql `
         bio: String
         user: User @isAuth
         games: [Game]!
+        teams: [Team]!
     }
 
     type SetUsernamePayload{
@@ -391,6 +392,22 @@ const resolvers = {
             });
             console.log(g);
             return g;
+        }),
+        teams: ({ id }) => __awaiter(void 0, void 0, void 0, function* () {
+            let p = yield prisma.usersOnTeam.findMany({
+                select: {
+                    team: true
+                },
+                where: {
+                    profileId: id
+                }
+            });
+            let g = [];
+            p.forEach(row => {
+                g.push(row.team);
+            });
+            console.log(g);
+            return g;
         })
     },
     Game: {
@@ -427,6 +444,22 @@ const resolvers = {
                 }
             });
             return game;
+        }),
+        users: ({ id }) => __awaiter(void 0, void 0, void 0, function* () {
+            let p = yield prisma.usersOnTeam.findMany({
+                select: {
+                    profile: true
+                },
+                where: {
+                    tId: id
+                }
+            });
+            let g = [];
+            p.forEach(row => {
+                g.push(row.profile);
+            });
+            console.log(g);
+            return g;
         })
     }
 };
