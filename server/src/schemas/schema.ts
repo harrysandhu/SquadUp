@@ -33,10 +33,10 @@ export const schema = gql `
         user(id: ID!): User
         game(id: ID!): Game
         team(id: ID!): Team
-
+        games: [Game]
         profile(username: String!): Profile
         signInGoogle(userId: ID!): AuthPayload
-        userByEmail(email: String!): Profile
+        userByEmail(email: String!): User
         
     }
 
@@ -47,7 +47,7 @@ export const schema = gql `
         signUpUser(userInput: UserInputSignUp!): User
         setUsername(data: SetUsername!): SetUsernamePayload
         createGame(game: GameInput!): Game
-        joinGame(user_Id: ID!, game_Id: ID!): User
+        joinGame(profileId: ID!, gId: ID!): User
         # game
         # createGame(game: GameInput): Game
         # createTeam(team: T)
@@ -152,6 +152,7 @@ export const schema = gql `
         avatarUrl: String!
         bio: String
         user: User @isAuth
+        games: [Game]!
     }
 
     type SetUsernamePayload{
@@ -280,6 +281,10 @@ const resolvers:any = {
                 })
                 return game
         },
+        games: async () => {
+            let res = await prisma.game.findMany({})
+            return res
+        },
         userByEmail: async (
             root: any, 
             {email}: any,
@@ -383,10 +388,22 @@ const resolvers:any = {
     
         joinGame: async (
             root: any,
-            {user_id, game_id}: any,
+            {profileId, gId}: any,
             ctx: any
         ) => {
-            let userOnGame = await prisma.
+            console.log(`root${root} , CTX: ${ctx}`)
+            await prisma.userOnGames.create({
+                data:{
+                    profileId: profileId,
+                    gId: gId
+                }
+            })
+            let p =  await prisma.profile.findUnique({
+                where:{
+                    id: profileId
+                }
+            })
+            return p
         }
     },
     User: {
@@ -412,6 +429,25 @@ const resolvers:any = {
             return p
         }
     },
+    Profile: {
+        games: async ({id}:any) =>{
+            let p = await prisma.userOnGames.findMany({
+                select:{
+                    game: true
+                },
+                where : {
+                    profileId: id
+                }
+            })
+            let g:any = []
+            p.forEach(row => {
+                g.push(row.game)
+            })
+            console.log(g)
+            // console.log("device get result: ", device)
+            return g
+        }
+    },
     Game: {
         teams: async ({id}: any) => {
             let teams  = await prisma.team.findMany({
@@ -420,6 +456,23 @@ const resolvers:any = {
                 }
             })
             return teams
+        },
+        users: async ({id}: any) => {
+            let p = await prisma.userOnGames.findMany({
+                select:{
+                    profile: true
+                },
+                where : {
+                    gId: id
+                }
+            })
+            let g:any = []
+            p.forEach(row => {
+                g.push(row.profile)
+            })
+            console.log(g)
+            // console.log("device get result: ", device)
+            return g
         }
     },
     Team: {
@@ -460,3 +513,4 @@ export const squadup_schema_v1 = makeExecutableSchema({
 // maxSize: Int!
 // coverUrl: String!
 // teams: [Team]!
+

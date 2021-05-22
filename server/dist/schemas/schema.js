@@ -33,7 +33,7 @@ exports.schema = apollo_server_core_1.gql `
         user(id: ID!): User
         game(id: ID!): Game
         team(id: ID!): Team
-
+        games: [Game]
         profile(username: String!): Profile
         signInGoogle(userId: ID!): AuthPayload
         userByEmail(email: String!): User
@@ -47,6 +47,7 @@ exports.schema = apollo_server_core_1.gql `
         signUpUser(userInput: UserInputSignUp!): User
         setUsername(data: SetUsername!): SetUsernamePayload
         createGame(game: GameInput!): Game
+        joinGame(profileId: ID!, gId: ID!): User
         # game
         # createGame(game: GameInput): Game
         # createTeam(team: T)
@@ -72,6 +73,7 @@ exports.schema = apollo_server_core_1.gql `
         maxSize: Int!
         coverUrl: String!
         teams: [Team]!
+        users: [Profile]!
     }
 
     type Team{
@@ -150,6 +152,7 @@ exports.schema = apollo_server_core_1.gql `
         avatarUrl: String!
         bio: String
         user: User @isAuth
+        games: [Game]!
     }
 
     type SetUsernamePayload{
@@ -253,6 +256,10 @@ const resolvers = {
             });
             return game;
         }),
+        games: () => __awaiter(void 0, void 0, void 0, function* () {
+            let res = yield prisma.game.findMany({});
+            return res;
+        }),
         userByEmail: (root, { email }, ctx) => __awaiter(void 0, void 0, void 0, function* () {
             console.log(`root${root} , CTX: ${ctx}`);
             let user = yield prisma.user.findUnique({
@@ -333,6 +340,21 @@ const resolvers = {
             });
             return gameCreated;
         }),
+        joinGame: (root, { profileId, gId }, ctx) => __awaiter(void 0, void 0, void 0, function* () {
+            console.log(`root${root} , CTX: ${ctx}`);
+            yield prisma.userOnGames.create({
+                data: {
+                    profileId: profileId,
+                    gId: gId
+                }
+            });
+            let p = yield prisma.profile.findUnique({
+                where: {
+                    id: profileId
+                }
+            });
+            return p;
+        })
     },
     User: {
         device: ({ dID }) => __awaiter(void 0, void 0, void 0, function* () {
@@ -353,6 +375,24 @@ const resolvers = {
             return p;
         })
     },
+    Profile: {
+        games: ({ id }) => __awaiter(void 0, void 0, void 0, function* () {
+            let p = yield prisma.userOnGames.findMany({
+                select: {
+                    game: true
+                },
+                where: {
+                    profileId: id
+                }
+            });
+            let g = [];
+            p.forEach(row => {
+                g.push(row.game);
+            });
+            console.log(g);
+            return g;
+        })
+    },
     Game: {
         teams: ({ id }) => __awaiter(void 0, void 0, void 0, function* () {
             let teams = yield prisma.team.findMany({
@@ -361,6 +401,22 @@ const resolvers = {
                 }
             });
             return teams;
+        }),
+        users: ({ id }) => __awaiter(void 0, void 0, void 0, function* () {
+            let p = yield prisma.userOnGames.findMany({
+                select: {
+                    profile: true
+                },
+                where: {
+                    gId: id
+                }
+            });
+            let g = [];
+            p.forEach(row => {
+                g.push(row.profile);
+            });
+            console.log(g);
+            return g;
         })
     },
     Team: {
