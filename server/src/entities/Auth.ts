@@ -1,9 +1,24 @@
 import { gql } from "apollo-server-core";
 
-export const Auth = gql `
+export const typeDef = gql `
+    enum AuthType{
+        GOOGLE
+        FACEBOOK
+        EMAIL
+    }
 
-    type Auth{
-        
+    enum AuthStage{
+        SIGNUP
+        USERNAME
+        SUB
+        FINAL
+    }
+    
+
+
+    type AuthPayload{
+        user: User!
+        auth_token: String!
     }
 
 `

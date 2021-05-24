@@ -1,9 +1,12 @@
 import { gql } from "apollo-server-core";
 
-export const Device = gql `
+export const typeDef = gql `
 
     type Device{
-        
+        id: ID!
+        deviceId: ID!
+        createdAt: DateTime!
     }
+
 
 `
