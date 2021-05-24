@@ -29,6 +29,7 @@ export default class UserController{
             this.userModel.error.next(null)
             let currentUser = null 
             try{
+               
                 currentUser = await GoogleAuth.getCurrentUser()
             }catch(e){
                 console.log(e)
@@ -107,7 +108,7 @@ export default class UserController{
 
 
     async logout(){
-
+        await GoogleSignin.signOut()
     }
 
     async setUsername(username){
