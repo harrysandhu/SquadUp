@@ -1,5 +1,5 @@
 import { gql } from "apollo-server-core";
-
+import { prisma } from "src/prisma";
 export const user = gql`
  type User{
         id: ID!
@@ -26,3 +26,31 @@ export const setUsernamePayload = gql`
     }
 
 `
+
+
+
+export const resolvers = {
+    User: {
+        device: async ({dID}: any)  =>{
+            console.log("device:::", dID)
+            let d = await prisma.device.findUnique({
+                where : {
+                    id: dID
+                }
+            })
+            
+            // console.log("device get result: ", device)
+            return d
+        },
+        profile: async ({id}:any) =>{
+            let p = await prisma.profile.findFirst({
+                where : {
+                    uID: id
+                }
+            })
+            
+            // console.log("device get result: ", device)
+            return p
+        }
+    }
+}

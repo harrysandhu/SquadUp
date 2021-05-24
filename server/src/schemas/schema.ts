@@ -5,34 +5,42 @@ import {
 } from 'graphql-iso-date'
 
 import { makeExecutableSchema } from "graphql-tools"
-import {PrismaClient} from '@prisma/client'
+
+import { merge } from 'lodash';
 
 import {chat as Chat} from "../types/Chat"
 import {device as Device} from "../types/Device"
-import {game as Game} from "../types/Game"
+import {
+    game as Game,
+    resolvers as GameResolvers
+} from "../types/Game"
 import {message as Message} from "../types/Message"
-import {profile as Profile} from "../types/Profile"
-import {user as User} from "../types/User"
+import {
+    profile as Profile,
+    resolvers as ProfileResolvers
+} from "../types/Profile"
+
+import {
+    user as User,
+    resolvers as UserResolvers
+} from "../types/User"
 import {setUsernamePayload as SetUsernamePayload} from "../types/User"
-import {team as Team} from "../types/Team"
-import {googleUserInput as GoogleUserInput} from "../types/Inputs"
-import {userInputSignUp as UserInputSignUp} from "../types/Inputs"
-import {gameInput as GameInput} from "../types/Inputs"
-import {teamInput as TeamInput} from "../types/Inputs"
+import {
+    team as Team,
+    resolvers as TeamResolvers
+} from "../types/Team"
+
+import {
+    googleUserInput as GoogleUserInput,
+    userInputSignUp as UserInputSignUp,
+    gameInput as GameInput,
+    teamInput as TeamInput,
+} from "../types/Inputs"
+
 import {authType as AuthType} from "../types/Auth"
 import {authStage as AuthStage} from "../types/Auth"
 import {authPayload as AuthPayload} from "../types/Auth"
-
-
-
-
-const prisma = new PrismaClient()
-
-/**
- * we would import other entities here and combine entities
- * testimport { message } from '../types/Message';
-
- */
+import { prisma } from "src/prisma";
 
 
 export const schema = gql `
@@ -68,8 +76,7 @@ export const schema = gql `
         setUsername(data: SetUsername!): SetUsernamePayload
         createGame(game: GameInput!): Game
         joinGame(profileId: ID!, gId: ID!): User
-        # game
-        # createGame(game: GameInput): Game
+        createGame(game: GameInput): Game
         # createTeam(team: T)
     }
 
@@ -302,125 +309,37 @@ const resolvers:any = {
             return p
         }
     },
-    User: {
-        device: async ({dID}: any)  =>{
-            console.log("device:::", dID)
-            let d = await prisma.device.findUnique({
-                where : {
-                    id: dID
-                }
-            })
-            
-            // console.log("device get result: ", device)
-            return d
-        },
-        profile: async ({id}:any) =>{
-            let p = await prisma.profile.findFirst({
-                where : {
-                    uID: id
-                }
-            })
-            
-            // console.log("device get result: ", device)
-            return p
-        }
-    },
-    Profile: {
-        games: async ({id}:any) =>{
-            let p = await prisma.userOnGames.findMany({
-                select:{
-                    game: true
-                },
-                where : {
-                    profileId: id
-                }
-            })
-            let g:any = []
-            p.forEach(row => {
-                g.push(row.game)
-            })
-            console.log(g)
-            // console.log("device get result: ", device)
-            return g
-        },
-        teams: async ({id}:any) =>{
-            let p = await prisma.usersOnTeam.findMany({
-                select:{
-                    team: true
-                },
-                where : {
-                    profileId: id
-                }
-            })
-            let g:any = []
-            p.forEach(row => {
-                g.push(row.team)
-            })
-            console.log(g)
-            // console.log("device get result: ", device)
-            return g
-        }
-    },
-    Game: {
-        teams: async ({id}: any) => {
-            let teams  = await prisma.team.findMany({
-                where:{
-                    gId: id
-                }
-            })
-            return teams
-        },
-        users: async ({id}: any) => {
-            let p = await prisma.userOnGames.findMany({
-                select:{
-                    profile: true
-                },
-                where : {
-                    gId: id
-                }
-            })
-            let g:any = []
-            p.forEach(row => {
-                g.push(row.profile)
-            })
-            console.log(g)
-            // console.log("device get result: ", device)
-            return g
-        }
-    },
-    Team: {
-        game: async ({gId}: any) => {
-            let game = await prisma.game.findFirst({
-                where:{
-                    id: gId
-                }
-            })
-            return game
-        },
-        users: async ({id}: any) => {
-            let p = await prisma.usersOnTeam.findMany({
-                select:{
-                    profile: true
-                },
-                where : {
-                    tId: id
-                }
-            })
-            let g:any = []
-            p.forEach(row => {
-                g.push(row.profile)
-            })
-            console.log(g)
-            // console.log("device get result: ", device)
-            return g
-        }
-    }
+    
+
 }
 
 // export resolved schema
 export const squadup_schema_v1 = makeExecutableSchema({
-    typeDefs: [schema],
-    resolvers,
+    typeDefs: [schema, 
+        Chat, 
+        Device, 
+        Game, 
+        Message, 
+        Profile, 
+        User, 
+        Team, 
+        GoogleUserInput, 
+        UserInputSignUp, 
+        GameInput, 
+        TeamInput, 
+        SetUsernamePayload,
+        AuthType, 
+        AuthStage, 
+        AuthPayload
+    ],
+    resolvers: merge(
+        resolvers,
+        GameResolvers,
+        ProfileResolvers,
+        UserResolvers,
+        TeamResolvers,
+
+    ),
     directiveResolvers
 })
 
