@@ -1,5 +1,5 @@
 import { gql } from "apollo-server-core";
-import { prisma } from "src/prisma";
+import { prisma } from "../prisma/index";
 export const profile = gql`
  type Profile{
         id: ID!

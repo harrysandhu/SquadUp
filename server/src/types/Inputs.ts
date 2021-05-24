@@ -37,3 +37,10 @@ export const teamInput = gql`
         gId: String!
     }
 `
+
+export const setUsername = gql`
+      input SetUsername{
+        username: String!,
+        profile_id: ID!
+    }
+`
