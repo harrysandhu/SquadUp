@@ -35,12 +35,13 @@ import {
     userInputSignUp as UserInputSignUp,
     gameInput as GameInput,
     teamInput as TeamInput,
+    setUsername as SetUsername,
 } from "../types/Inputs"
 
 import {authType as AuthType} from "../types/Auth"
 import {authStage as AuthStage} from "../types/Auth"
 import {authPayload as AuthPayload} from "../types/Auth"
-import { prisma } from "src/prisma";
+import { prisma } from "../prisma/index";
 
 
 export const schema = gql `
@@ -76,7 +77,6 @@ export const schema = gql `
         setUsername(data: SetUsername!): SetUsernamePayload
         createGame(game: GameInput!): Game
         joinGame(profileId: ID!, gId: ID!): User
-        createGame(game: GameInput): Game
         # createTeam(team: T)
     }
 
@@ -327,6 +327,7 @@ export const squadup_schema_v1 = makeExecutableSchema({
         UserInputSignUp, 
         GameInput, 
         TeamInput, 
+        SetUsername,
         SetUsernamePayload,
         AuthType, 
         AuthStage, 
