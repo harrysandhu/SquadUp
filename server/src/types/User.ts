@@ -1,6 +1,6 @@
 import { gql } from "apollo-server-core";
 
-export const typeDef = gql`
+export const user = gql`
  type User{
         id: ID!
         userId: ID @isAuth
@@ -15,6 +15,9 @@ export const typeDef = gql`
         profile: Profile!
     }
 
+`
+
+export const setUsernamePayload = gql`
 
     type SetUsernamePayload{
         username: String!,

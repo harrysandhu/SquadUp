@@ -7,11 +7,31 @@ import {
 import { makeExecutableSchema } from "graphql-tools"
 import {PrismaClient} from '@prisma/client'
 
+import {chat as Chat} from "../types/Chat"
+import {device as Device} from "../types/Device"
+import {game as Game} from "../types/Game"
+import {message as Message} from "../types/Message"
+import {profile as Profile} from "../types/Profile"
+import {user as User} from "../types/User"
+import {setUsernamePayload as SetUsernamePayload} from "../types/User"
+import {team as Team} from "../types/Team"
+import {googleUserInput as GoogleUserInput} from "../types/Inputs"
+import {userInputSignUp as UserInputSignUp} from "../types/Inputs"
+import {gameInput as GameInput} from "../types/Inputs"
+import {teamInput as TeamInput} from "../types/Inputs"
+import {authType as AuthType} from "../types/Auth"
+import {authStage as AuthStage} from "../types/Auth"
+import {authPayload as AuthPayload} from "../types/Auth"
+
+
+
+
 const prisma = new PrismaClient()
 
 /**
  * we would import other entities here and combine entities
- * test
+ * testimport { message } from '../types/Message';
+
  */
 
 

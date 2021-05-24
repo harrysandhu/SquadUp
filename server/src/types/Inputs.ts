@@ -1,7 +1,7 @@
 
 import { gql } from "apollo-server-core";
 
-export const typeDef = gql`
+export const googleUserInput = gql`
     input GoogleUserInput{
         userId: ID!
         name: String!
@@ -9,7 +9,9 @@ export const typeDef = gql`
         dob: DateTime!
         avatarUrl: String!
     }
+`
 
+export const userInputSignUp = gql`
     input UserInputSignUp{
         userId: ID!
         name: String!
@@ -18,15 +20,17 @@ export const typeDef = gql`
         authType: AuthType
         dID: ID!
     }
-
-    input GameInput{
+`
+export const gameInput = gql`
+   input GameInput{
         name: String!
         gameId:String!
         maxSize: Int!
         coverUrl: String!
     }
-
-    input TeamInput{
+`
+export const teamInput = gql`
+   input TeamInput{
         name: String!
         teamId:String!
         coverUrl: String!

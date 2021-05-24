@@ -1,6 +1,6 @@
 import { gql } from "apollo-server-core";
 
-export const typeDef = gql`
+export const chat = gql`
   type Chat{
         id: ID!
         team: Team!

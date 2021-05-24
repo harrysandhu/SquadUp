@@ -1,6 +1,6 @@
 import { gql } from "apollo-server-core";
 
-export const typeDef = gql`
+export const profile = gql`
  type Profile{
         id: ID!
         name: String!
