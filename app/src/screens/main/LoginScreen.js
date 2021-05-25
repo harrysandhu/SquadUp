@@ -236,9 +236,9 @@ export function LoginScreen({navigation}){
             statusBarProps={{}}
     />
     
-        <VFlex style={{paddingTop:'15%'}}>
-            <Image source={require("../../../assets/images/login.png")} 
-                   style={{height:360, width:360, resizeMode:"contain"}}/>
+        <VFlex style={{padding: '1%'}}>
+            <Image source={require("../../../assets/images/logo6.png")} 
+                   style={{height:400, width:400, resizeMode:"contain", marginBottom: '150%'}}/>
         </VFlex>
         <ButtonView>
             <ButtonGoogle onPress={() => onGoogleButtonPress()}>

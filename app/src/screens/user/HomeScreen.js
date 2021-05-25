@@ -46,7 +46,7 @@ export function HomeScreen({navigation}){
     
    useEffect(( ) => {
        console.log("home screen")
-    AppModel.userProfileModel.userId.next(4)
+    AppModel.userProfileModel.userId.next(4) 
    }, [])
 
 

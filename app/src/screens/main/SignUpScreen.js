@@ -131,8 +131,8 @@ export function SignUpScreen({navigation}){
         />
     
         <VFlex>
-            <Image source={require("../../../assets/images/getstarted.png")} 
-                   style={{height:450, width:450, resizeMode:"contain"}}/>
+            <Image source={require("../../../assets/images/logo6.png")} 
+                   style={{height:400, width:400, resizeMode:"contain", marginBottom:"100%"}}/>
         </VFlex>
         <ButtonView>
             <ButtonGoogle onPress={() => onGoogleButtonPress()}>
