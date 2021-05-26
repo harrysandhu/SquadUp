@@ -321,9 +321,13 @@ export const TeamScreen = () => {
                         }
                     </ImgContainer>
                 
+                <ButtonPrimary>
+                   <Text style ={{color: 'white'}}>Next</Text> 
+                </ButtonPrimary>
                 </VFlex>
-    
+                
             </ScrollView>
+        
    
     </View>
   );
