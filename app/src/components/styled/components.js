@@ -282,5 +282,12 @@ export const ButtonJoin = styled.TouchableOpacity`
     font-family: 'Roboto';
     opacity:${props => (props.disabledStyle == true) ? '0.5': '1'}; 
     background-color: ${props => (props.state === false) ? 'grey' : 'black'};
-
 `;
+
+export const UserContainer = styled.View`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 5px 7px;
+    align-items:flex-start;
+`

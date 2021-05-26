@@ -40,7 +40,7 @@ const usergames = {
         name: "Overwatch",
         gameId: "overwatch",
         maxSize: 6,
-        coverURL: require("../../../assets/images/goatSimulator.jpg")
+        coverURL: require("../../../assets/images/overwatch.jpeg")
     },
     "969": {
         id: "969",
