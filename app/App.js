@@ -6,9 +6,10 @@ import {apolloClient} from "apollo/apollo"
 import { AuthNavigator } from 'navigation/main/AuthNavigator';
 import { UserNavigator } from './src/navigation/user/UserNavigator';
 import { Alert } from 'react-native'
-import AppController from 'controllers/AppController'
+import AppController from './src/controllers/AppController'
 import { View } from 'react-native'
 import { Text } from 'react-native'
+
 
 
 // here

@@ -44,14 +44,9 @@ useEffect(()=>{
 
 
     async function handleContinue(){
-      await GoogleSignin.signOut()
-        auth().signOut().then(() => {
-          AppModel.userModel.route.next("Main")
-            console.log("signed out yo")
-            navigation.popToTop('Main')
-        })
-      
-
+      await AppController.user.logout()
+        navigation.popToTop('Main')
+  
     }
 
 

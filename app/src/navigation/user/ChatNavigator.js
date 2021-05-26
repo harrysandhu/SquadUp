@@ -1,15 +1,23 @@
-// stack navigator
-// also drawer
 
 import React, {useState} from 'react'
-import { HomeScreen } from 'screens/user/HomeScreen'
-import { NavigationContainer } from "@react-navigation/native"
+import { ChatScreen } from 'screens/user/ChatScreen'
 import { createStackNavigator } from "@react-navigation/stack"
 
 const Stack = createStackNavigator()
 
-export const ChatNavigator = () => {
+export const ChatNavigator = ({navigation}) => {
     return (
-        <Text>Chat</Text>
+        <Stack.Navigator>
+            <Stack.Screen 
+                name="ChatScreen" 
+                component={ChatScreen} 
+                options={{
+                    title: '',
+                    headerLeft: null,
+                    gestureEnabled: false,
+                    headerTransparent: true
+                }}
+            />
+        </Stack.Navigator>
     );
 }
