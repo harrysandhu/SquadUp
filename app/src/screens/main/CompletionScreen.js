@@ -12,7 +12,7 @@ import * as SecureStore from 'expo-secure-store'
 import {useQuery, useMutation, gql, useApolloClient } from "@apollo/client"
 import DeviceInfo from 'react-native-device-info';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
-import AppController from 'controllers/AppController';
+import AppController from '../../controllers/AppController';
 import useObservable from '../../utils/useObservable';
 import AppModel from '../../models/AppModel';
 

@@ -21,7 +21,7 @@ import useObservable from '../../utils/useObservable';
 
 export function ProfileScreen({route, navigation}){
     const [initializing, setInitializing] = useState(true);
-    AppModel.userProfileModel.userId.next(1)
+      AppModel.userProfileModel.userId.next(1)
     const client = useApolloClient();
     let userProfile = {
       id: useObservable(AppModel.userProfileModel.id),
@@ -58,32 +58,78 @@ useEffect(()=>{
                   <VFlex>
                     <TopTitle>Profile</TopTitle>
                   </VFlex>
-                  }
+              }
               centerContainerStyle={{}}
-              containerStyle={{width: '100%', 
-                                backgroundColor: 'none', 
-                                position: "absolute", 
-                                borderBottomColor: "transparent"}}
+              containerStyle={{
+                width: '100%', 
+                backgroundColor: 'none', 
+                position: "absolute", 
+                borderBottomColor: "transparent"
+              }}
               leftComponent={{}}
               rightComponent={{}}
               rightContainerStyle={{}}
-              
               statusBarProps={{}}
           />
           <ProfileFlex>
-            <ProfilePictureView style={{top: "20%"}}>
-                <Image source={{ uri: userProfile.avatarUrl}} style={{height: 80, width: 80, borderRadius: 50, marginBottom: 10}} />  
-                <Text style={{color:"white", top: "0%"}}>@{userProfile.username}</Text>
+            <ProfilePictureView 
+              style={{top: "20%"
+              }}
+            >
+                <Image 
+                  source={{ 
+                    uri: userProfile.avatarUrl
+                  }} 
+                  style={{
+                    height: 120, 
+                    width: 120
+                  }} 
+                />  
+                <Text 
+                  style={{
+                    color:"white", 
+                    top: "0%"
+                  }}
+                >@{userProfile.username}
+                </Text>
             </ProfilePictureView>
-                <Text style={{ display: "flex", color:"lightgrey"}}>{userProfile.userId}</Text>
-                <Text style={{ display: "flex", color:"lightgrey"}}>{userProfile.name}</Text>
-                <Text style={{ display: "flex", color:"lightgrey"}}>{"" ? userProfile.bio == null : userProfile.bio}</Text>
+              <Text 
+                style={{ 
+                  display: "flex", 
+                  color:"lightgrey"
+                }}
+              >
+                {userProfile.userId}
+              </Text>
+              <Text 
+                style={{ 
+                  display: "flex", 
+                  color:"lightgrey"}}
+              >
+                {userProfile.name}
+              </Text>
+              <Text 
+                style={{ 
+                  display: "flex", 
+                  color:"lightgrey"
+                }}
+              >
+                {"" ? userProfile.bio == null : userProfile.bio}
+              </Text>
 
-              <ButtonLogOut style={{bottom: "15%"}}>
-                <Text style={{color:"white"}}>Selected Games</Text>
-              </ButtonLogOut>
-              <ButtonLogOut style={{bottom: "5%"}} onPress={async () => await handleContinue()}>
-                <Text style={{color:"white"}}>Logout</Text>
+              <ButtonLogOut 
+                style={{
+                  bottom: "5%"
+                }} 
+                onPress={async () => await handleContinue()}
+              >
+                <Text 
+                  style={{
+                    color:"white"
+                  }}
+                >
+                  Logout
+                </Text>
               </ButtonLogOut>
           </ProfileFlex>
         </View>

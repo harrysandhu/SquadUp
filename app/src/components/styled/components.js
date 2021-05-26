@@ -278,3 +278,41 @@ export const TopBar = styled.View`
     opacity:${props => (props.message == "") ? '0': '1'}; 
     background-color: ${props => (props.state === true) ? success_green : error_red};
 `
+
+export const ImgSize = styled.View`
+    margin: 20px;
+    flex-direction: row;
+    margin-top: 20px;
+
+
+`
+
+export const ImgContainer = styled.View`
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    height: auto;
+    justify-content: center;
+`
+
+
+export const ButtonJoin = styled.TouchableOpacity`
+    width: 100%;
+    height: 55px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Roboto';
+    opacity:${props => (props.disabledStyle == true) ? '0.5': '1'}; 
+    background-color: ${props => (props.state === false) ? 'grey' : 'black'};
+`;
+
+export const UserContainer = styled.View`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 5px 7px;
+    align-items:flex-start;
+`

@@ -17,6 +17,7 @@ import { CompletionScreen } from 'screens/main/CompletionScreen';
 //user
 import { HomeScreen } from 'screens/user/HomeScreen'
 import { UserNavigator } from '../user/UserNavigator';
+import { TeamScreen} from 'screens/user/TeamScreen';
 
 
 
@@ -41,8 +42,8 @@ export function AuthNavigator(){
                 {/*Main Screen stack*/}
 
                 <Stack.Screen 
-                    name="Main" 
-                    component={MainScreen}
+                    name="TeamScreen" 
+                    component={TeamScreen}
                     options={{ 
                             title: '',
                             headerTransparent: true

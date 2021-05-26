@@ -109,40 +109,65 @@ export function SignUpScreen({navigation}){
     return (
         
         <View style={{flex: 1, backgroundColor: '#070A1E'}}>
-       <Header
-            barStyle="default"
-            centerComponent={
-                <VFlex>
-                    <TopTitle>SIGN UP</TopTitle>
-                </VFlex>
-                }
-                centerContainerStyle={{}}
-                containerStyle={{ width: '100%', backgroundColor: 'none', borderBottomColor: "transparent"}}
-                leftComponent={   
-                    <BackArrow onPress={() => navigation.goBack()}>
-                        <Icon name='angle-left' size={25} style={{color:"white"}}/>
-                    </BackArrow>
-                    }
-                placement="center"
-                rightComponent={{}}
-                rightContainerStyle={{}}
-                
-                statusBarProps={{}}
-        />
+            <Header
+                    barStyle="default"
+                    centerComponent={
+                        <VFlex>
+                            <TopTitle>SIGN UP</TopTitle>
+                        </VFlex>
+                        }
+                        centerContainerStyle={{}}
+                        containerStyle={{ width: '100%', backgroundColor: 'none', borderBottomColor: "transparent"}}
+                        leftComponent={   
+                            <BackArrow onPress={() => navigation.goBack()}>
+                                <Icon name='angle-left' size={25} style={{color:"white"}}/>
+                            </BackArrow>
+                            }
+                        placement="center"
+                        rightComponent={{}}
+                        rightContainerStyle={{}}
+                        
+                        statusBarProps={{}}
+            />
     
-        <VFlex>
-            <Image source={require("../../../assets/images/logo6.png")} 
-                   style={{height:400, width:400, resizeMode:"contain", marginBottom:"100%"}}/>
-        </VFlex>
-        <ButtonView>
-            <ButtonGoogle onPress={() => onGoogleButtonPress()}>
-            <HFlex>
-                <Icon name='google' size={20} style={{color:"white", paddingRight:20}}/>
-                <Text style={{color:"white"}}>Sign Up with Google</Text>
+            <VFlex 
+                style={{
+                    paddingTop:'15%'
+                }}
+            >
+                <Image 
+                    source={
+                        require("../../../assets/images/getstarted.png")
+                    } 
+                    style={{
+                        height:360, width:360, resizeMode:"contain"
+                    }}
+                />
+            </VFlex>
+            <ButtonView>
+                <ButtonGoogle 
+                    onPress={() => onGoogleButtonPress()}
+                >
+                <HFlex>
+                    <Icon 
+                        name='google' 
+                        size={20} 
+                        style={{
+                            color:"white", 
+                            paddingRight:20
+                        }}
+                    />
+                    <Text 
+                        style={{
+                            color:"white"
+                        }}
+                    >
+                        Sign Up with Google
+                    </Text>
                 </HFlex>
-                
-            </ButtonGoogle>
-        </ButtonView>
+                    
+                </ButtonGoogle>
+            </ButtonView>
         </View>
     )
 }

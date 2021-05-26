@@ -71,37 +71,47 @@ export function HomeScreen({navigation}){
 }
 
     return (
-        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#070A1E'}}>
-            <Animated.View
-                style={[{zIndex: 100, width:"100%"}], {
-                    transform: [
-                        {translateX: x}
-                    ]
-                }}>
-                    <DrawerView  /> 
-                    
-                </Animated.View>
-        <Header
-            barStyle="default"
-            centerComponent={
-                <VFlex>
-                <TopTitle style={drawerOpen ? {opacity: 0}: {opacity: 1}}>Home</TopTitle>
-                </VFlex>
+        <View 
+            style={{
+                flex: 1, 
+                alignItems: 'center', 
+                justifyContent: 'center', 
+                backgroundColor: '#070A1E'
+            }}
+        >
+            <Header
+                barStyle="default"
+                centerComponent={
+                    <VFlex>
+                    <TopTitle>
+                        Home
+                    </TopTitle>
+                    </VFlex>
                 }
-            centerContainerStyle={{}}
-            containerStyle={{ zIndex: 0, position: "absolute", width: '100%', backgroundColor: 'none',top:0, borderBottomColor: "transparent"}}
-            leftComponent={getLeftComponent()}
-            leftContainerStyle={{paddingLeft: 10}}
-            placement="center"
-            rightComponent={getRightComponent()}
-            rightContainerStyle={{paddingRight: 10}}
-            
-            statusBarProps={{}}
-    />
+                centerContainerStyle={{}}
+                containerStyle={{ 
+                    width: '100%', 
+                    backgroundColor: 'none',
+                    top:0, 
+                    position: "absolute", 
+                    borderBottomColor: "transparent"
+                }}
+                leftComponent={ {}}
+                placement="center"
+                rightComponent={{}}
+                rightContainerStyle={{}}
+                
+                statusBarProps={{}}
+            />
     
-           <VFlex style={{zIndex: -1}}>
-            <Text style={{color:"white"}}>Hi!, this is your default news feed.</Text>    
-           </VFlex>
+            <VFlex>
+                <Text 
+                    style={{
+                        color:"white"
+                    }}
+                >Hi!, this is your default news feed.
+                </Text>    
+            </VFlex>
             
         </View>
     )
