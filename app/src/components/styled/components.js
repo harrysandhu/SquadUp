@@ -108,6 +108,23 @@ export const ServerButton = styled.TouchableOpacity`
 `;
 
 
+export const TeamButton = styled.TouchableOpacity`
+    width: 120px;
+    height: 40px;
+    text-align:center;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    padding-left: 20px;
+    border-radius:10px;
+    backgroundColor: ${props => props.active=='true' ? 'rgba(255, 255, 255, 0.2)': 'transparent'};
+`;
+
+
 export const HamArrow = styled.TouchableOpacity`
     width: 25px;
     height: 25px;

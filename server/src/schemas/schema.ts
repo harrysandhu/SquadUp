@@ -307,6 +307,7 @@ const resolvers:any = {
                     name: "Default"
                 }
             })
+            console.log(defaultTeam)
 
             await prisma.usersOnTeam.create({
                 data:{

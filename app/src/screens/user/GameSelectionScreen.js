@@ -168,12 +168,13 @@ export const GameSelectionScreen = ({navigation, route}) => {
                                                     gId: game.id
                                                 }
                                             })
-                                            console.log("Success")
+                                            console.log(game)
                                         }catch(e){
                                             console.log("ERROR AT JOINGAME", e)
                                         }
                                         route.params.onGoBack()
-                                        navigation.navigate('ProfileScreen')}
+                                        navigation.pop()
+                                    }
                                 },
                                 {
                                     text: "Cancel",

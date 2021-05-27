@@ -240,6 +240,7 @@ const resolvers = {
                     name: "Default"
                 }
             });
+            console.log(defaultTeam);
             yield index_1.prisma.usersOnTeam.create({
                 data: {
                     profileId: profileId,

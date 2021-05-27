@@ -29,6 +29,10 @@ export const GET_USER_BY_EMAIL = gql`
                     name
                     teamId
                     coverUrl
+                    game{
+                        id
+                        name
+                    }
                 }
             }
             device{
