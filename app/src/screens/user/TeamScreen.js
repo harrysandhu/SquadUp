@@ -71,7 +71,12 @@ if (loading) {
     for(let team of allteams){
         console.log(team)
 
-        if(team.users.filter(u => u.id != AppModel.userProfileModel.id.getValue()).length > 0){
+        let arr = []
+        for(let u in team.users){
+            arr.push(team.users[u].id)
+        }
+        console.log(arr)
+        if(!arr.includes(AppModel.userProfileModel.id.getValue())){
             if(team.name != "Default"){
         let i = (
                     <ImgSize 
@@ -164,7 +169,7 @@ if (loading) {
     
       
          teams.push(i)
-        }
+                                }
                                 }
     }
 
