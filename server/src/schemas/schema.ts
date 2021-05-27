@@ -77,7 +77,7 @@ export const schema = gql `
         setUsername(data: SetUsername!): SetUsernamePayload
         createGame(game: GameInput!): Game
         joinGame(profileId: ID!, gId: ID!): User
-        createTeam(name: String!, teamID: String!, gId: ID!, profileId: ID!): Team
+        createTeam(name: String!, teamId: String!, gId: ID!, profileId: ID!): Team
     }
 
 
@@ -341,7 +341,7 @@ const resolvers:any = {
             ctx: any
         ) => {
             console.log(`root${root} , CTX: ${ctx}`)
-            
+
             let team = await prisma.team.create({
                 data: {
                     name: name,

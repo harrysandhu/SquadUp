@@ -60,7 +60,7 @@ exports.schema = apollo_server_core_1.gql `
         setUsername(data: SetUsername!): SetUsernamePayload
         createGame(game: GameInput!): Game
         joinGame(profileId: ID!, gId: ID!): User
-        createTeam(name: String!, teamID: String!, gId: ID!, profileId: ID!): Team
+        createTeam(name: String!, teamId: String!, gId: ID!, profileId: ID!): Team
     }
 
 
