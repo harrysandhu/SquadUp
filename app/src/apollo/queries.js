@@ -19,11 +19,22 @@ export const GET_USER_BY_EMAIL = gql`
                 username
                 avatarUrl
                 bio
+                games{
+                    id
+                    name
+                    coverUrl
+                }
+                teams{
+                    id
+                    name
+                    teamId
+                    coverUrl
+                }
             }
             device{
-                id
-                deviceId
-                createdAt
+            id
+            deviceId
+            createdAt
             }
         }
     }
@@ -38,3 +49,5 @@ export const GET_DEVICE = gql `
     }
 `
 
+
+// export const 
