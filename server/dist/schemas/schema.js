@@ -29,9 +29,12 @@ const Auth_3 = require("../types/Auth");
 const index_1 = require("../prisma/index");
 const graphql_subscriptions_1 = require("graphql-subscriptions");
 const pubsub = new graphql_subscriptions_1.PubSub();
-const TEAM_CREATED = 'team_createed';
+const TEAM_CREATED = 'team_created';
 const TEAM_JOINED = 'team_joined';
 const TEAM_LEFT = 'team_left';
+const MESSAGE_ADDED = 'team_createed';
+const MESSAGE_DELETED = 'team_createed';
+const MESSAGE_UPDATED = 'team_createed';
 exports.schema = apollo_server_core_1.gql `
 
     scalar DateTime
@@ -56,6 +59,7 @@ exports.schema = apollo_server_core_1.gql `
         userByEmail(email: String!): User
         teamByTeamId(teamId: String!): Team
         get_available_teams(gId: ID!): [Team]
+        # get_all_messages
     }
 
   
@@ -255,7 +259,10 @@ const resolvers = {
                     teams: {
                         create: {
                             name: "Default",
-                            teamId: String(game.gameId).toLowerCase() + "default"
+                            teamId: String(game.gameId).toLowerCase() + "default",
+                            chat: {
+                                create: {}
+                            }
                         }
                     }
                 }
@@ -301,6 +308,9 @@ const resolvers = {
                         create: {
                             profileId: profileId
                         }
+                    },
+                    chat: {
+                        create: {}
                     }
                 }
             });

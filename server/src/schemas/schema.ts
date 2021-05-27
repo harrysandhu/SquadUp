@@ -45,13 +45,15 @@ import { prisma } from "../prisma/index";
 import { PubSub, withFilter } from 'graphql-subscriptions';
 
 const pubsub = new PubSub()
-const TEAM_CREATED = 'team_createed'
+const TEAM_CREATED = 'team_created'
 const TEAM_JOINED = 'team_joined'
 const TEAM_LEFT = 'team_left'
 // const TEAM_DELETED = 'team_createed'
-// const MESSAGE_ADDED = 'team_createed'
-// const MESSAGE_DELETED = 'team_createed'
-// const MESSAGE_UPDATED = 'team_createed'
+
+
+const MESSAGE_ADDED = 'team_createed'
+const MESSAGE_DELETED = 'team_createed'
+const MESSAGE_UPDATED = 'team_createed'
 
 
 export const schema = gql `
@@ -78,6 +80,7 @@ export const schema = gql `
         userByEmail(email: String!): User
         teamByTeamId(teamId: String!): Team
         get_available_teams(gId: ID!): [Team]
+        # get_all_messages
     }
 
   
@@ -332,7 +335,12 @@ const resolvers:any = {
                     teams: {
                         create: {
                             name: "Default",
-                            teamId:  String(game.gameId).toLowerCase() +"default"
+                            teamId:  String(game.gameId).toLowerCase() +"default",
+                            chat: {
+                                create:{
+
+                                }
+                            }
                         }
                     }
                 }
@@ -388,6 +396,11 @@ const resolvers:any = {
                     users:{
                         create:{
                             profileId: profileId
+                        }
+                    },
+                    chat: {
+                        create: {
+                           
                         }
                     }
                 }
