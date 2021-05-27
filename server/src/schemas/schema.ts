@@ -295,10 +295,23 @@ const resolvers:any = {
             ctx: any
         ) => {
             console.log(`root${root} , CTX: ${ctx}`)
-            await prisma.userOnGames.create({
+            let g = await prisma.userOnGames.create({
                 data:{
                     profileId: profileId,
                     gId: gId
+                }
+            })
+            let defaultTeam = await prisma.team.findFirst({
+                where:{
+                    gId: g.gId,
+                    name: "Default"
+                }
+            })
+
+            await prisma.usersOnTeam.create({
+                data:{
+                    profileId:profileId,
+                    tId: String(defaultTeam?.id)        
                 }
             })
             let p =  await prisma.profile.findUnique({

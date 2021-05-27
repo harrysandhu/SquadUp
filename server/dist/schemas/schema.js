@@ -228,10 +228,22 @@ const resolvers = {
         }),
         joinGame: (root, { profileId, gId }, ctx) => __awaiter(void 0, void 0, void 0, function* () {
             console.log(`root${root} , CTX: ${ctx}`);
-            yield index_1.prisma.userOnGames.create({
+            let g = yield index_1.prisma.userOnGames.create({
                 data: {
                     profileId: profileId,
                     gId: gId
+                }
+            });
+            let defaultTeam = yield index_1.prisma.team.findFirst({
+                where: {
+                    gId: g.gId,
+                    name: "Default"
+                }
+            });
+            yield index_1.prisma.usersOnTeam.create({
+                data: {
+                    profileId: profileId,
+                    tId: String(defaultTeam === null || defaultTeam === void 0 ? void 0 : defaultTeam.id)
                 }
             });
             let p = yield index_1.prisma.profile.findUnique({
