@@ -17,10 +17,11 @@ import auth from '@react-native-firebase/auth';
 import { NavigationContainer } from '@react-navigation/native';
 import AppModel from 'models/AppModel';
 import { ServerButton } from './styled/components';
+import { ButtonSecondary } from './styled/components';
 
 
 
-export default function DrawerView(){
+export default function DrawerView({ navigation }){
     const usergames = {
         "123":{
             id: "123",
@@ -145,7 +146,9 @@ export default function DrawerView(){
 
                     }
                 </VFlex>
-                <VFlex style={{paddingRight: "30%", paddingLeft: "5%", alignItems: 'flex-start', height: "100%", width: windowWidth}}>
+                <VFlex style={{paddingRight: "30%", paddingLeft: "5%", 
+                                alignItems: 'flex-start', height: "100%", 
+                                width: windowWidth}}>
                     <VFlex style={{alignItems: 'flex-start', paddingLeft: "5%", top: windowHeight/6, position: "absolute"}}>
                             <Text style={{color: "white", fontSize: 25, fontWeight: "500"}}>{usergames[selectedGame].name}</Text>
                             <Text style={{color: "white", fontSize: 16, fontWeight: "100"}}>!Teams</Text>
@@ -164,18 +167,22 @@ export default function DrawerView(){
                         })
 
                     }
-
-                    <VFlex style={{}}>
-                        <ButtonPrimary style={{position: 'absolute', bottom: 0}}>
+                    <VFlex style={{bottom: 40, position: 'absolute', marginLeft: 24,
+                                alignItems: 'flex-start', height: "20%"}}>
+                        <ButtonPrimary 
+                            style={{position: 'absolute', bottom: 0, width: '100%'}}
+                            onPress={() => navigation.navigate('JoinTeam')}>
                             <Text>
                                 Join a Team
                             </Text>
                         </ButtonPrimary>
-                        <ButtonPrimary>
+                        <ButtonSecondary
+                            style={{position: 'absolute', bottom: 80 , width: '100%'}}
+                            onPress={() => navigation.navigate('CreateTeam')}>
                             <Text>
                                 Create a Team
                             </Text>
-                        </ButtonPrimary>
+                        </ButtonSecondary>
                     </VFlex>
                 </VFlex>
             </HFlex>

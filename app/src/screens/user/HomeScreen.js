@@ -78,7 +78,7 @@ export function HomeScreen({navigation}){
                         {translateX: x}
                     ]
                 }}>
-                    <DrawerView  /> 
+                    <DrawerView navigation={navigation} /> 
                     
                 </Animated.View>
         <Header

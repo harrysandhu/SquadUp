@@ -15,9 +15,10 @@ import { CompletionScreen } from 'screens/main/CompletionScreen';
 
 
 //user
-import { HomeScreen } from 'screens/user/HomeScreen'
 import { UserNavigator } from '../user/UserNavigator';
-import { TeamScreen} from 'screens/user/TeamScreen';
+import { GameSelectionScreen } from 'screens/user/GameSelectionScreen';
+import { TeamScreen } from '../../screens/user/TeamScreen';
+import { CreateTeamScreen } from '../../screens/teams/CreateTeamScreen';
 
 
 
@@ -96,8 +97,36 @@ export function AuthNavigator(){
                          headerTransparent: true
                         }}
                 />
-
-                
+                <Stack.Screen 
+                    name="JoinTeam" 
+                    component={TeamScreen}
+                    options={{
+                        title: '',
+                        headerLeft: null,
+                        gestureEnabled: false,
+                         headerTransparent: true
+                        }}
+                />
+                <Stack.Screen 
+                    name="SelectedGames" 
+                    component={GameSelectionScreen}
+                    options={{
+                        title: '',
+                        headerLeft: null,
+                        gestureEnabled: false,
+                         headerTransparent: true
+                        }}
+                />
+                <Stack.Screen 
+                    name="CreateTeam" 
+                    component={CreateTeamScreen}
+                    options={{
+                        title: '',
+                        headerLeft: null,
+                        gestureEnabled: false,
+                         headerTransparent: true
+                        }}
+                />
 
 
             </Stack.Navigator>

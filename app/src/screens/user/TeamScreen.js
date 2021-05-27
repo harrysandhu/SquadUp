@@ -106,7 +106,7 @@ const userteams = {
 
 
 
-export const TeamScreen = () => {
+export const TeamScreen = ({navigation}) => {
 
     let count = 0
     const teams = []
@@ -286,7 +286,7 @@ export const TeamScreen = () => {
                 }}
                 leftComponent={   
                     <BackArrow 
-                        onPress={() => {}}
+                        onPress={() => navigation.goBack()}
                     >
                         <Icon 
                             name='angle-left' 
