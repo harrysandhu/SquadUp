@@ -341,6 +341,7 @@ const resolvers:any = {
             ctx: any
         ) => {
             console.log(`root${root} , CTX: ${ctx}`)
+            
             let team = await prisma.team.create({
                 data: {
                     name: name,
