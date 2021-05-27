@@ -22,8 +22,12 @@ import useObservable from '../../utils/useObservable';
 export function CreateTeamScreen({route, navigation}){
 
     const client = useApolloClient();
-    const [usernameText, setUsernameText]  = useState("")
-    const [usernameIsActive, setUsernameIsActive] = useState(false)
+
+    const [teamnameText, setTeamnameText]  = useState("")
+    const [teamnameIsActive, setTeamNameIsActive] = useState(false)
+
+    const [teamIDText, setTeamIDText]  = useState("")
+    const [teamIDIsActive, setTeamIDIsActive] = useState(false)
 
     return (
 
@@ -82,18 +86,18 @@ export function CreateTeamScreen({route, navigation}){
                   <InputTF
                           placeholder="Team Name"
                           placeholderTextColor="#a9a9a9"
-                          active={usernameIsActive} 
-                          value={usernameText}
+                          active={teamnameIsActive} 
+                          value={teamnameText}
                           autocorrect="false"
                           onFocus={()=>{
-                              setUsernameIsActive(true)
+                            setTeamNameIsActive(true)
                           }}
 
                           onBlur={() =>{
-                              setUsernameIsActive(false)
+                            setTeamNameIsActive(false)
                           }}
                               onChangeText={async (value) =>{
-                              setUsernameText(value)
+                                setTeamnameText(value)
                               await handleUsernameValueChange(value)
                           }}
 
@@ -103,18 +107,18 @@ export function CreateTeamScreen({route, navigation}){
                     <InputTF
                           placeholder="Team ID"
                           placeholderTextColor="#a9a9a9"
-                          active={usernameIsActive} 
-                          value={usernameText}
+                          active={teamIDIsActive} 
+                          value={teamIDText}
                           autocorrect="false"
                           onFocus={()=>{
-                              setUsernameIsActive(true)
+                            setTeamIDIsActive(true)
                           }}
 
                           onBlur={() =>{
-                              setUsernameIsActive(false)
+                            setTeamIDIsActive(false)
                           }}
                               onChangeText={async (value) =>{
-                              setUsernameText(value)
+                                setTeamIDText(value)
                               await handleUsernameValueChange(value)
                           }}
 
