@@ -41,7 +41,7 @@ export default function DrawerView(){
             name: "Valheim",
             gameId: "valheim",
             maxSize: 10,
-            coverURL: require("../../assets/images/valheim.png")
+            coverURL: require("../../assets/images/valheim.jpeg")
         },
         "012":{
             id: "012",
@@ -55,7 +55,7 @@ export default function DrawerView(){
             name: "Overwatch",
             gameId: "overwatch",
             maxSize: 6,
-            coverURL: require("../../assets/images/goatSimulator.jpg")
+            coverURL: require("../../assets/images/overwatch.jpeg")
         }
     }
     
@@ -164,6 +164,19 @@ export default function DrawerView(){
                         })
 
                     }
+
+                    <VFlex style={{}}>
+                        <ButtonPrimary style={{position: 'absolute', bottom: 0}}>
+                            <Text>
+                                Join a Team
+                            </Text>
+                        </ButtonPrimary>
+                        <ButtonPrimary>
+                            <Text>
+                                Create a Team
+                            </Text>
+                        </ButtonPrimary>
+                    </VFlex>
                 </VFlex>
             </HFlex>
         </View>

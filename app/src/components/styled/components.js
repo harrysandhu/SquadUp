@@ -316,3 +316,51 @@ export const UserContainer = styled.View`
     padding: 5px 7px;
     align-items:flex-start;
 `
+
+export const VFlexT = styled.View `
+    display:flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width:60%;
+    height: auto;
+`
+export const PicFlex = styled.View `
+    display: flex;
+    flex-direction: row;
+    background-color: #0b81ff;
+    justify-content: flex-start;
+    width:auto;
+    height: auto;
+    padding-right: 20px;
+    padding-left: 15px;
+    flex-wrap: wrap;
+    color: white;
+    border-radius: 20px;
+
+`
+export const HFlexT = styled.View `
+    display: flex;
+    flex-direction: row;
+    background-color: #0b81ff;
+    justify-content: flex-start;
+    width:auto;
+    height: auto;
+    margin-top: 10px;
+
+    padding-right: 15px;
+    border-radius: 20px;
+    color: white;
+    `
+
+export const Message = styled.Text `
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    color: white;
+    justify-content: flex-start;
+    width: 120%;
+    height: auto;
+    padding-bottom: 5px;
+    padding-top: 3px;
+    `
