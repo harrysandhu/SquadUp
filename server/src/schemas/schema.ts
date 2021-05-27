@@ -85,7 +85,7 @@ export const schema = gql `
         registerDevice(deviceId: ID!): Device
         signUpGoogle(userInput: GoogleUserInput!): User
         signUpUser(userInput: UserInputSignUp!): User
-        setUsername(data: SetUsername!): SetUsernamePayload
+        setUsername(data: SetUsername!): SetUsernamePayload 
         createGame(game: GameInput!): Game
 
         joinGame(profileId: ID!, gId: ID!): User
@@ -401,28 +401,30 @@ const resolvers:any = {
 
         
             return team
-        }
+        },
+        joinTeam: async (
+            root: any,
+            {profileId, gId, tId}: any,
+            ctx: any
+        ) => {
+            console.log(`root${root} , CTX: ${ctx}`)
+            console.log(gId)
+            let g = await prisma.usersOnTeam.create({
+                data:{
+                    profileId: profileId,
+                    tId: tId
+                }
+            })
+    
+            let p =  await prisma.team.findUnique({
+                where:{
+                    id: tId
+                }
+            })
+            return p
+        },
     },
-    joinTeam: async (
-        root: any,
-        {profileId, gId, tId}: any,
-        ctx: any
-    ) => {
-        console.log(`root${root} , CTX: ${ctx}`)
-        let g = await prisma.usersOnTeam.create({
-            data:{
-                profileId: profileId,
-                tId: tId
-            }
-        })
-
-        let p =  await prisma.team.findUnique({
-            where:{
-                id: tId
-            }
-        })
-        return p
-    },
+    
     Subscription: {
         teamCreated: {
             subscribe : withFilter(

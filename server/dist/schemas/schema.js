@@ -63,7 +63,7 @@ exports.schema = apollo_server_core_1.gql `
         registerDevice(deviceId: ID!): Device
         signUpGoogle(userInput: GoogleUserInput!): User
         signUpUser(userInput: UserInputSignUp!): User
-        setUsername(data: SetUsername!): SetUsernamePayload
+        setUsername(data: SetUsername!): SetUsernamePayload 
         createGame(game: GameInput!): Game
 
         joinGame(profileId: ID!, gId: ID!): User
@@ -308,23 +308,24 @@ const resolvers = {
                 pubsub.publish(TEAM_CREATED, { teamCreated: team });
             }
             return team;
-        })
+        }),
+        joinTeam: (root, { profileId, gId, tId }, ctx) => __awaiter(void 0, void 0, void 0, function* () {
+            console.log(`root${root} , CTX: ${ctx}`);
+            console.log(gId);
+            let g = yield index_1.prisma.usersOnTeam.create({
+                data: {
+                    profileId: profileId,
+                    tId: tId
+                }
+            });
+            let p = yield index_1.prisma.team.findUnique({
+                where: {
+                    id: tId
+                }
+            });
+            return p;
+        }),
     },
-    joinTeam: (root, { profileId, gId, tId }, ctx) => __awaiter(void 0, void 0, void 0, function* () {
-        console.log(`root${root} , CTX: ${ctx}`);
-        let g = yield index_1.prisma.usersOnTeam.create({
-            data: {
-                profileId: profileId,
-                tId: tId
-            }
-        });
-        let p = yield index_1.prisma.team.findUnique({
-            where: {
-                id: tId
-            }
-        });
-        return p;
-    }),
     Subscription: {
         teamCreated: {
             subscribe: graphql_subscriptions_1.withFilter(() => pubsub.asyncIterator(TEAM_CREATED), (payload, variables) => {
