@@ -30,11 +30,6 @@ const index_1 = require("../prisma/index");
 const graphql_subscriptions_1 = require("graphql-subscriptions");
 const pubsub = new graphql_subscriptions_1.PubSub();
 const TEAM_CREATED = 'team_created';
-const TEAM_JOINED = 'team_joined';
-const TEAM_LEFT = 'team_left';
-const MESSAGE_ADDED = 'team_createed';
-const MESSAGE_DELETED = 'team_createed';
-const MESSAGE_UPDATED = 'team_createed';
 exports.schema = apollo_server_core_1.gql `
 
     scalar DateTime
@@ -322,7 +317,7 @@ const resolvers = {
         joinTeam: (root, { profileId, gId, tId }, ctx) => __awaiter(void 0, void 0, void 0, function* () {
             console.log(`root${root} , CTX: ${ctx}`);
             console.log(gId);
-            let g = yield index_1.prisma.usersOnTeam.create({
+            yield index_1.prisma.usersOnTeam.create({
                 data: {
                     profileId: profileId,
                     tId: tId

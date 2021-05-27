@@ -46,14 +46,14 @@ import { PubSub, withFilter } from 'graphql-subscriptions';
 
 const pubsub = new PubSub()
 const TEAM_CREATED = 'team_created'
-const TEAM_JOINED = 'team_joined'
-const TEAM_LEFT = 'team_left'
-// const TEAM_DELETED = 'team_createed'
+// const TEAM_JOINED = 'team_joined'
+// const TEAM_LEFT = 'team_left'
+// // const TEAM_DELETED = 'team_createed'
 
 
-const MESSAGE_ADDED = 'team_createed'
-const MESSAGE_DELETED = 'team_createed'
-const MESSAGE_UPDATED = 'team_createed'
+// const MESSAGE_ADDED = 'team_createed'
+// const MESSAGE_DELETED = 'team_createed'
+// const MESSAGE_UPDATED = 'team_createed'
 
 
 export const schema = gql `
@@ -422,13 +422,13 @@ const resolvers:any = {
         ) => {
             console.log(`root${root} , CTX: ${ctx}`)
             console.log(gId)
-            let g = await prisma.usersOnTeam.create({
+           await prisma.usersOnTeam.create({
                 data:{
                     profileId: profileId,
                     tId: tId
                 }
             })
-    
+
             let p =  await prisma.team.findUnique({
                 where:{
                     id: tId
