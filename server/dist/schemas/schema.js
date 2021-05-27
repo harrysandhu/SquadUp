@@ -49,7 +49,7 @@ exports.schema = apollo_server_core_1.gql `
         profile(username: String!): Profile
         signInGoogle(userId: ID!): AuthPayload
         userByEmail(email: String!): User
-        
+        teamByTeamId(teamId: String!): Team
     }
 
   
@@ -155,6 +155,16 @@ const resolvers = {
             });
             console.log(user);
             return user;
+        }),
+        teamByTeamId: (root, { teamId }, ctx) => __awaiter(void 0, void 0, void 0, function* () {
+            console.log(`root${root} , CTX: ${ctx}`);
+            let team = yield index_1.prisma.team.findUnique({
+                where: {
+                    teamId: teamId
+                }
+            });
+            console.log(team);
+            return team;
         })
     },
     Mutation: {

@@ -66,7 +66,7 @@ export const schema = gql `
         profile(username: String!): Profile
         signInGoogle(userId: ID!): AuthPayload
         userByEmail(email: String!): User
-        
+        teamByTeamId(teamId: String!): Team
     }
 
   
@@ -200,7 +200,20 @@ const resolvers:any = {
                 })
                 console.log(user)
                 return user
-            }
+            },
+            teamByTeamId: async (
+                root: any, 
+                {teamId}: any,
+                ctx: any) => {
+                    console.log(`root${root} , CTX: ${ctx}`)
+                    let team = await prisma.team.findUnique({
+                        where: {
+                            teamId: teamId
+                        }
+                    })
+                    console.log(team)
+                    return team
+                }
     },
 
     Mutation: {
