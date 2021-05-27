@@ -27,6 +27,11 @@ const Auth_1 = require("../types/Auth");
 const Auth_2 = require("../types/Auth");
 const Auth_3 = require("../types/Auth");
 const index_1 = require("../prisma/index");
+const graphql_subscriptions_1 = require("graphql-subscriptions");
+const pubsub = new graphql_subscriptions_1.PubSub();
+const TEAM_CREATED = 'team_createed';
+const TEAM_JOINED = 'team_joined';
+const TEAM_LEFT = 'team_left';
 exports.schema = apollo_server_core_1.gql `
 
     scalar DateTime
@@ -50,6 +55,7 @@ exports.schema = apollo_server_core_1.gql `
         signInGoogle(userId: ID!): AuthPayload
         userByEmail(email: String!): User
         teamByTeamId(teamId: String!): Team
+        get_available_teams(gId: ID!): [Team]
     }
 
   
@@ -59,10 +65,15 @@ exports.schema = apollo_server_core_1.gql `
         signUpUser(userInput: UserInputSignUp!): User
         setUsername(data: SetUsername!): SetUsernamePayload
         createGame(game: GameInput!): Game
+
         joinGame(profileId: ID!, gId: ID!): User
         createTeam(name: String!, teamId: String!, gId: ID!, profileId: ID!): Team
+        joinTeam(tId: ID!, gId: ID!, profileId: ID!): Team
     }
 
+    type Subscription{
+        teamCreated(gId: ID!): Team
+    }
 
     # type Subscription{
     #     # teamCreated(team: Team)
@@ -165,6 +176,21 @@ const resolvers = {
             });
             console.log(team);
             return team;
+        }),
+        get_available_teams: (root, { gId }, ctx) => __awaiter(void 0, void 0, void 0, function* () {
+            console.log(`root${root} , CTX: ${ctx}`);
+            let teams = yield index_1.prisma.team.findMany({
+                where: {
+                    gId: gId
+                },
+                include: {
+                    users: true,
+                    chat: true,
+                    game: true
+                },
+            });
+            let t = teams.filter(team => team.users.length < team.game.maxSize);
+            return t;
         })
     },
     Mutation: {
@@ -278,9 +304,19 @@ const resolvers = {
                     }
                 }
             });
+            if (team.id) {
+                pubsub.publish(TEAM_CREATED, { teamCreated: team });
+            }
             return team;
         })
     },
+    Subscription: {
+        teamCreated: {
+            subscribe: graphql_subscriptions_1.withFilter(() => pubsub.asyncIterator(TEAM_CREATED), (payload, variables) => {
+                return (payload.teamCreated.game.id == variables.gId);
+            })
+        }
+    }
 };
 exports.squadup_schema_v1 = graphql_tools_1.makeExecutableSchema({
     typeDefs: [exports.schema,

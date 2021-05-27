@@ -42,6 +42,16 @@ import {authType as AuthType} from "../types/Auth"
 import {authStage as AuthStage} from "../types/Auth"
 import {authPayload as AuthPayload} from "../types/Auth"
 import { prisma } from "../prisma/index";
+import { PubSub, withFilter } from 'graphql-subscriptions';
+
+const pubsub = new PubSub()
+const TEAM_CREATED = 'team_createed'
+const TEAM_JOINED = 'team_joined'
+const TEAM_LEFT = 'team_left'
+// const TEAM_DELETED = 'team_createed'
+// const MESSAGE_ADDED = 'team_createed'
+// const MESSAGE_DELETED = 'team_createed'
+// const MESSAGE_UPDATED = 'team_createed'
 
 
 export const schema = gql `
@@ -67,6 +77,7 @@ export const schema = gql `
         signInGoogle(userId: ID!): AuthPayload
         userByEmail(email: String!): User
         teamByTeamId(teamId: String!): Team
+        get_available_teams(gId: ID!): [Team]
     }
 
   
@@ -76,10 +87,15 @@ export const schema = gql `
         signUpUser(userInput: UserInputSignUp!): User
         setUsername(data: SetUsername!): SetUsernamePayload
         createGame(game: GameInput!): Game
+
         joinGame(profileId: ID!, gId: ID!): User
         createTeam(name: String!, teamId: String!, gId: ID!, profileId: ID!): Team
+        joinTeam(tId: ID!, gId: ID!, profileId: ID!): Team
     }
 
+    type Subscription{
+        teamCreated(gId: ID!): Team
+    }
 
     # type Subscription{
     #     # teamCreated(team: Team)
@@ -201,7 +217,7 @@ const resolvers:any = {
                 console.log(user)
                 return user
             },
-            teamByTeamId: async (
+        teamByTeamId: async (
                 root: any, 
                 {teamId}: any,
                 ctx: any) => {
@@ -213,7 +229,29 @@ const resolvers:any = {
                     })
                     console.log(team)
                     return team
-                }
+        },
+        get_available_teams: async (
+            root: any, 
+            {gId}: any,
+            ctx: any
+        ) => {
+            console.log(`root${root} , CTX: ${ctx}`)
+            let teams = await prisma.team.findMany({
+                where:{
+                    gId :gId
+                },
+                include :{
+                    users: true,
+                    chat: true,
+                    game: true
+                },
+                
+            })
+
+            let t = teams.filter(team => team.users.length < team.game.maxSize)
+            return t
+
+        }
     },
 
     Mutation: {
@@ -356,10 +394,25 @@ const resolvers:any = {
 
             })
 
+            if (team.id){
+                pubsub.publish(TEAM_CREATED, {teamCreated: team})
+            }
+            
+
+        
             return team
         }
     },
-    
+    Subscription: {
+        teamCreated: {
+            subscribe : withFilter(
+                () => pubsub.asyncIterator(TEAM_CREATED),
+                (payload, variables) => {
+                    return (payload.teamCreated.game.id == variables.gId)
+                }
+            )
+        }
+    }
 
 }
 
