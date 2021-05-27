@@ -90,6 +90,7 @@ export function HomeScreen({navigation}){
 
     let user = data.userByEmail
     if(user == null){
+        refetch()
         return (
             <VFlex>
               <ActivityIndicator />

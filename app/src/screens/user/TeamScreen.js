@@ -144,7 +144,7 @@ if (loading) {
                                     }}
                                     
                                 >
-                                    ! {team.name}
+                                    ! {team.teamId}
                                 </Text>
                                 </HFlex>
                                 <HFlex style={{justifyContent:'flex-start'}}>

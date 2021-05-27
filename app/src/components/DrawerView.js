@@ -103,7 +103,7 @@ export default function DrawerView({ navigation, games, teams, slideOut, refetch
                                 alignItems: 'flex-start', height: "20%"}}>
                         <ButtonPrimary 
                             style={{position: 'absolute', bottom: 0, height:40, width: '100%'}}
-                            onPress={() => navigation.navigate('JoinTeam',)}>
+                            onPress={() => navigation.navigate('JoinTeam', {game: games.filter(g => g.id == selectedGame)[0], onGoBack: {refetch} })}>
                             <Text style={{color: '#fff'}}>
                                 Join a Team
                             </Text>
