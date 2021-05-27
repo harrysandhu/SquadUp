@@ -6,117 +6,21 @@ import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
 import { Input, Button as RNButton, Header } from "react-native-elements";
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { GET_AVAILABLE_TEAMS } from "../../apollo/queries";
-import { useQuery } from "@apollo/client";
+
+import { JOIN_TEAM } from "../../apollo/mutations";
+import { useApolloClient, useQuery } from "@apollo/client";
 import { ActivityIndicator } from "react-native";
-
-const userteams = {
-    "123":{
-        id: "123",
-        teamId: "t0mcr00se",
-        teamName: "t0mcr00se",
-        user1: require("../../../assets/images/avatar.png"),
-        user1Id: "Mobez",
-        user2: require("../../../assets/images/avatar.png"),
-        user2Id: "Shubster",
-        user3: require("../../../assets/images/avatar.png"),
-        user3Id: "Mohib",
-        user4: require("../../../assets/images/avatar.png"),
-        user4Id: "Harman"
-    },
-    "456":{
-        id: "456",
-        teamId: "riders",
-        teamName: "riders",
-        user1: require("../../../assets/images/avatar.png"),
-        user1Id: "Mobez",
-        user2: require("../../../assets/images/avatar.png"),
-        user2Id: "Shubster",
-        user3: require("../../../assets/images/avatar.png"),
-        user3Id: "Mohib",
-        user4: require("../../../assets/images/avatar.png"),
-        user4Id: "Harman"
-    },
-    "789":{
-        id: "789",
-        teamId: "defenderbots",
-        teamName: "defenderbots",
-        user1: require("../../../assets/images/avatar.png"),
-        user1Id: "Mobez",
-        user2: require("../../../assets/images/avatar.png"),
-        user2Id: "Shubster",
-        user3: require("../../../assets/images/avatar.png"),
-        user3Id: "Mohib",
-        user4: require("../../../assets/images/avatar.png"),
-        user4Id: "Harman"
-    },
-    "012":{
-        id: "012",
-        teamId: "theLeaguers",
-        teamName: "theLeaguers",
-        user1: require("../../../assets/images/avatar.png"),
-        user1Id: "Mobez",
-        user2: require("../../../assets/images/avatar.png"),
-        user2Id: "Shubster",
-        user3: require("../../../assets/images/avatar.png"),
-        user3Id: "Mohib",
-        user4: require("../../../assets/images/avatar.png"),
-        user4Id: "Harman"
-    },
-    "696":{
-        id: "696",
-        teamId: "overwatchb",
-        teamName: "overwatchb",
-        user1: require("../../../assets/images/avatar.png"),
-        user1Id: "Mobez",
-        user2: require("../../../assets/images/avatar.png"),
-        user2Id: "Shubster",
-        user3: require("../../../assets/images/avatar.png"),
-        user3Id: "Mohib",
-        user4: require("../../../assets/images/avatar.png"),
-        user4Id: "Harman"
-    },
-    "969": {
-        id: "969",
-        teamId: "grizbois",
-        teamName: "grizbois",
-        user1: require("../../../assets/images/avatar.png"),
-        user1Id: "Mobez",
-        user2: require("../../../assets/images/avatar.png"),
-        user2Id: "Shubster",
-        user3: require("../../../assets/images/avatar.png"),
-        user3Id: "Mohib",
-        user4: require("../../../assets/images/avatar.png"),
-        user4Id: "Harman"
-        
-    },
-    "444": {
-        id: "444",
-        teamId: "goated team",
-        teamName: "goated team",
-        user1: require("../../../assets/images/avatar.png"),
-        user1Id: "Mobez",
-        user2: require("../../../assets/images/avatar.png"),
-        user2Id: "Shubster",
-        user3: require("../../../assets/images/avatar.png"),
-        user3Id: "Mohib",
-        user4: require("../../../assets/images/avatar.png"),
-        user4Id: "Harman"
-    }
-    
-}
+import AppModel from "../../models/AppModel";
 
 
 
-
-
-export const TeamScreen = ({route, navigation}) => {
+export const TeamScreen = ({navigation, route}) => {
 
     let count = 0
     const teams = []
-    
+    const client = useApolloClient();
     let {game} = route.params
-
-    let {onGoBack} = route.params
+    let {user} = route.params
 
     const {data, error, loading, refetch} = useQuery(GET_AVAILABLE_TEAMS, {
         variables:{
@@ -163,10 +67,12 @@ if (loading) {
 
 
     let allteams = data.get_available_teams
-  
-
+    console.log("alllll", allteams)
     for(let team of allteams){
-        console.log(team.name)
+        console.log(team)
+
+        if(team.users.filter(u => u.id != AppModel.userProfileModel.id.getValue()).length > 0){
+            if(team.name != "Default"){
         let i = (
                     <ImgSize 
                         key={
@@ -182,9 +88,38 @@ if (loading) {
                                 justifyContent: "center",
                                 alignItems: "center",
                                 color: "white",
-                                marginTop: -20
+                                marginTop: -20,
+                                zIndex:100
                             }} 
-                            onPress={() => console.log("pressed: ", game.id)}
+                            onPress={() => Alert.alert("Join Game", 
+                            `Do you want to join ${team.name}`, 
+                            [
+                                {
+                                    text: 'Yes',
+                                    onPress: async () => {
+                                        try{
+                                            let res = await client.mutate({
+                                                mutation: JOIN_TEAM, 
+                                                variables: {
+                                                    profileId: AppModel.userProfileModel.id.getValue(),
+                                                    gId: team.game.id,
+                                                    tId: team.id
+                                                }
+                                            })
+                                            console.log(game)
+                                        }catch(e){
+                                            console.log("ERROR AT JOINGAME", e)
+                                        }
+                                        route.params.onGoBack.refetch()
+                                        navigation.pop()
+                                    }
+                                },
+                                {
+                                    text: "Cancel",
+                                    style: "cancel",
+                                }
+                            ]
+                            )}
                         >   
                             <VFlex 
                                 style={{
@@ -225,9 +160,12 @@ if (loading) {
                         </TouchableOpacity>
                     </ImgSize>
             )
+                               
     
       
-        teams.push(i)
+         teams.push(i)
+        }
+                                }
     }
 
 
@@ -290,10 +228,7 @@ if (loading) {
                             teams
                         }
                     </ImgContainer>
-                
-                <ButtonPrimary>
-                   <Text style ={{color: 'white'}}>Next</Text> 
-                </ButtonPrimary>
+            
                 </VFlex>
                 
             </ScrollView>

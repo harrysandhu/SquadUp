@@ -58,6 +58,14 @@ export const JOIN_GAME = gql`
     }
 `
 
+export const JOIN_TEAM = gql`
+    mutation joinTeam($profileId: ID!, $gId: ID!, $tId: ID!){
+        joinTeam(profileId: $profileId, gId: $gId, tId: $tId){
+            id
+        }
+    }
+`
+
 
 export const CREATE_TEAM = gql`
     mutation createTeam($name: String!, $teamId: String!, $gId: ID!, $profileId: ID!){
