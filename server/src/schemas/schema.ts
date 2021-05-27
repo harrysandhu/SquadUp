@@ -403,6 +403,26 @@ const resolvers:any = {
             return team
         }
     },
+    joinTeam: async (
+        root: any,
+        {profileId, gId, tId}: any,
+        ctx: any
+    ) => {
+        console.log(`root${root} , CTX: ${ctx}`)
+        let g = await prisma.usersOnTeam.create({
+            data:{
+                profileId: profileId,
+                tId: tId
+            }
+        })
+
+        let p =  await prisma.team.findUnique({
+            where:{
+                id: tId
+            }
+        })
+        return p
+    },
     Subscription: {
         teamCreated: {
             subscribe : withFilter(

@@ -310,6 +310,21 @@ const resolvers = {
             return team;
         })
     },
+    joinTeam: (root, { profileId, gId, tId }, ctx) => __awaiter(void 0, void 0, void 0, function* () {
+        console.log(`root${root} , CTX: ${ctx}`);
+        let g = yield index_1.prisma.usersOnTeam.create({
+            data: {
+                profileId: profileId,
+                tId: tId
+            }
+        });
+        let p = yield index_1.prisma.team.findUnique({
+            where: {
+                id: tId
+            }
+        });
+        return p;
+    }),
     Subscription: {
         teamCreated: {
             subscribe: graphql_subscriptions_1.withFilter(() => pubsub.asyncIterator(TEAM_CREATED), (payload, variables) => {
