@@ -25,6 +25,7 @@ export function HomeScreen({navigation}){
         variables:{
           email:AppModel.userModel.email.value
         },
+        fetchPolicy: 'cache-first'
     })
 
     const windowWidth = Dimensions.get('window').width;
@@ -84,13 +85,25 @@ export function HomeScreen({navigation}){
           <ActivityIndicator />
         </VFlex>
       )
-    }
+    }else if('userByEmail' in data){
+
+
     let user = data.userByEmail
+    if(user == null){
+        return (
+            <VFlex>
+              <ActivityIndicator />
+            </VFlex>
+          )
+    }
     let userProfile = user.profile
     let games = userProfile.games
     let teams = userProfile.teams
-     
-    let [selectedGame, setSelectedGame] = useState(games[0].id)
+     if(games.length == 0){
+         games = [{id: ""}]
+         teams = [{game: {id: ""}}]
+     }
+    let [selectedGame, setSelectedGame] = useState(games.length > 0 ? games[0].id: "")
     let [activeTeam, setActiveTeam] = useState(teams.filter(t => t.game.id == selectedGame)[0].id)
     
     console.log("GAMES", games, teams)
@@ -133,5 +146,5 @@ export function HomeScreen({navigation}){
         </View>
     )
 
-
+}
 }

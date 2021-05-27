@@ -60,6 +60,7 @@ useEffect(() =>{
 
 
     async function handleContinue(){
+      await  auth().signOut()
       await AppController.user.logout()
         navigation.popToTop('Main')
   
