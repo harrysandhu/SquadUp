@@ -49,3 +49,11 @@ export const SET_USERNAME = gql`
         }
     }
 `
+
+export const JOIN_GAME = gql`
+    mutation joinGame($profileId: ID!, $gId: ID!){
+        joinGame(profileId: $profileId, gId: $gId){
+            id
+        }
+    }
+`
