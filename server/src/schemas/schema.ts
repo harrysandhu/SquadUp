@@ -478,10 +478,15 @@ const resolvers:any = {
                     text: message.text,
                     senderId: message.senderId,
                     chatId: message.chatId
+                },
+                include:{
+                    sender: true,
+                    chat: true
                 }
             })
+            
             if (m.id){
-                pubsub.publish(MESSAGE_CREATED, {messageCreated:message})
+                pubsub.publish(MESSAGE_CREATED, {messageCreated:m})
             }
             return m
         }
