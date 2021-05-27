@@ -7,3 +7,23 @@ export const TEAM_CREATED = gql`
         }
    }
 `
+
+
+export const MESSAGE_CREATEAD = gql`
+   subscription messageCreated($chatId: String!){
+      messageCreated(chatId: $chatId){
+         id
+        text
+        sender{
+            id
+            name
+            username
+            avatarUrl
+        }
+        sentAt
+        chat{
+            id
+        }
+      }
+   }
+`

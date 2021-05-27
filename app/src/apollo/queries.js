@@ -33,6 +33,9 @@ export const GET_USER_BY_EMAIL = gql`
                         id
                         name
                     }
+                    chat{
+                        id
+                    }
                 }
             }
             device{
@@ -92,6 +95,26 @@ export const GET_AVAILABLE_TEAMS = gql`
                 username
                 name
             }
+        }
+    }
+`
+
+
+export const GET_ALL_MESSAGES = gql`
+    query messages($chatId:String!){
+        messages(chatId: $chatId){
+        id
+        text
+        sender{
+            id
+            name
+            username
+            avatarUrl
+        }
+        sentAt
+        chat{
+            id
+        }
         }
     }
 `

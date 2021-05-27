@@ -74,3 +74,23 @@ export const CREATE_TEAM = gql`
         }
     }
 `
+
+
+export const CREATE_MESSAGE = gql`
+    mutation createMessage($message: MessageInput!){
+        createMessage(message: $message){
+            id
+            text
+            sender{
+                id
+                name
+                username
+                avatarUrl
+            }
+            sentAt
+            chat{
+                id
+            }
+        }
+    }
+`
