@@ -50,4 +50,13 @@ export const GET_DEVICE = gql `
 `
 
 
-// export const 
+export const GET_ALL_GAMES = gql`
+    query games{
+        games{
+            id
+            name
+            gameId
+            coverUrl
+        }
+    }
+`
