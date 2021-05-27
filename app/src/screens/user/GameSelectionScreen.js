@@ -16,11 +16,16 @@ export const GameSelectionScreen = ({navigation, route}) => {
     const client = useApolloClient();
     let {user} = route.params
     console.log(route.params)
+    let gg = user.profile.games
     console.log(user.profile.id, user.profile.games)
     let count = 0
 
     const games = []
     
+    if(gg.length == 0){
+        gg = [{id: ""}]
+        teams = [{game: {id: ""}}]
+    }
     if (loading) {
         return (
           <VFlex>
@@ -30,7 +35,7 @@ export const GameSelectionScreen = ({navigation, route}) => {
       }
     
     for(let game of data.games){
-    if (user.profile.games.filter(g => g.name == game.name).length == 0){
+    if (gg.filter(g => g.name == game.name).length == 0){
 
         let i = (
                     <ImgSize 

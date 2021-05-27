@@ -23,9 +23,8 @@ export function HomeScreen({navigation}){
 
     const {data, error, loading, refetch} = useQuery(GET_USER_BY_EMAIL, {
         variables:{
-          email:AppModel.userModel.email.value
+          email:AppModel.userModel.email.getValue()
         },
-        fetchPolicy: 'cache-first'
     })
 
     const windowWidth = Dimensions.get('window').width;
@@ -90,12 +89,13 @@ export function HomeScreen({navigation}){
 
     let user = data.userByEmail
     if(user == null){
-        refetch()
+     
         return (
             <VFlex>
               <ActivityIndicator />
             </VFlex>
           )
+          refetch()
     }
     let userProfile = user.profile
     let games = userProfile.games

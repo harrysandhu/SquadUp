@@ -22,9 +22,10 @@ import { ButtonSecondary } from './styled/components';
 
 
 export default function DrawerView({ navigation, games, teams, slideOut, refetch}){
-    teams.map(g => {
-        console.log(g)
-    })
+    if(games.length == 0){
+        games = [{id: ""}]
+        teams = [{game: {id: ""}}]
+    }
  
     const windowWidth = Dimensions.get('window').width;
     const windowHeight = Dimensions.get('window').height;
