@@ -51,7 +51,7 @@ const TEAM_CREATED = 'team_created'
 // // const TEAM_DELETED = 'team_createed'
 
 
-// const MESSAGE_ADDED = 'team_createed'
+ const MESSAGE_CREATED = 'message_created'
 // const MESSAGE_DELETED = 'team_createed'
 // const MESSAGE_UPDATED = 'team_createed'
 
@@ -65,7 +65,7 @@ export const schema = gql `
     schema{
         query: Query
         mutation: Mutation
-        # subscription: Subscription
+        subscription: Subscription
     }
 
     
@@ -75,6 +75,7 @@ export const schema = gql `
         game(id: ID!): Game
         team(id: ID!): Team
         games: [Game]
+        messages(chatId: String!): [Message]
         profile(username: String!): Profile
         signInGoogle(userId: ID!): AuthPayload
         userByEmail(email: String!): User
@@ -90,14 +91,23 @@ export const schema = gql `
         signUpUser(userInput: UserInputSignUp!): User
         setUsername(data: SetUsername!): SetUsernamePayload 
         createGame(game: GameInput!): Game
-
+       
         joinGame(profileId: ID!, gId: ID!): User
         createTeam(name: String!, teamId: String!, gId: ID!, profileId: ID!): Team
         joinTeam(tId: ID!, gId: ID!, profileId: ID!): Team
+        createMessage(message: MessageInput!): Message
     }
 
     type Subscription{
         teamCreated(gId: ID!): Team
+        messageCreated(chatId: String!): Message
+    }
+
+
+    input MessageInput{
+        text: String!
+        senderId: String!
+        chatId: String!
     }
 
     # type Subscription{
@@ -254,7 +264,28 @@ const resolvers:any = {
             let t = teams.filter(team => team.users.length < team.game.maxSize)
             return t
 
-        }
+        },
+        messages: async (
+            root: any, 
+            {chatId}: any,
+            ctx: any
+        ) => {
+            console.log(`root${root} , CTX: ${ctx}`)
+
+            let ms = await prisma.message.findMany({
+                where:{
+                    chatId: chatId
+                },
+                orderBy: {
+                    sentAt: 'asc'
+                },
+                include:{
+                    sender: true,
+                    chat: true
+                }
+            })
+         return ms
+        },
     },
 
     Mutation: {
@@ -436,6 +467,24 @@ const resolvers:any = {
             })
             return p
         },
+        createMessage: async (
+            root: any,
+            {message}: any,
+            ctx: any
+        ) => {
+            console.log(`root${root} , CTX: ${ctx}`)
+           let m =  await prisma.message.create({
+                data:{
+                    text: message.text,
+                    senderId: message.senderId,
+                    chatId: message.chatId
+                }
+            })
+            if (m.id){
+                pubsub.publish(MESSAGE_CREATED, {messageCreated:message})
+            }
+            return m
+        }
     },
     
     Subscription: {
@@ -446,7 +495,16 @@ const resolvers:any = {
                     return (payload.teamCreated.game.id == variables.gId)
                 }
             )
+        },
+        messageCreated: {
+            subscribe: withFilter(
+                () => pubsub.asyncIterator(MESSAGE_CREATED),
+                (payload, variables) => {
+                    return (payload.messageCreated.chatId == variables.chatId)
+                }
+            )
         }
+
     }
 
 }

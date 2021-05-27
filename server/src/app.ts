@@ -28,7 +28,10 @@ app.set('json spaces', 2);
 const server = new ApolloServer({
     schema: squadup_schema_v1,
     subscriptions: { path: "/websockets" },
-    context: async ({ req }) => {
+    context: async ({ req, connection }) => {
+        if (connection){
+            return connection.context
+        }
         let apitoken = req.headers["x-api-key"]
         if(validClient != apitoken){
             throw new ForbiddenError("This client is unauthorized.")

@@ -30,6 +30,7 @@ const index_1 = require("../prisma/index");
 const graphql_subscriptions_1 = require("graphql-subscriptions");
 const pubsub = new graphql_subscriptions_1.PubSub();
 const TEAM_CREATED = 'team_created';
+const MESSAGE_CREATED = 'message_created';
 exports.schema = apollo_server_core_1.gql `
 
     scalar DateTime
@@ -39,7 +40,7 @@ exports.schema = apollo_server_core_1.gql `
     schema{
         query: Query
         mutation: Mutation
-        # subscription: Subscription
+        subscription: Subscription
     }
 
     
@@ -49,6 +50,7 @@ exports.schema = apollo_server_core_1.gql `
         game(id: ID!): Game
         team(id: ID!): Team
         games: [Game]
+        messages(chatId: String!): [Message]
         profile(username: String!): Profile
         signInGoogle(userId: ID!): AuthPayload
         userByEmail(email: String!): User
@@ -64,14 +66,23 @@ exports.schema = apollo_server_core_1.gql `
         signUpUser(userInput: UserInputSignUp!): User
         setUsername(data: SetUsername!): SetUsernamePayload 
         createGame(game: GameInput!): Game
-
+       
         joinGame(profileId: ID!, gId: ID!): User
         createTeam(name: String!, teamId: String!, gId: ID!, profileId: ID!): Team
         joinTeam(tId: ID!, gId: ID!, profileId: ID!): Team
+        createMessage(message: MessageInput!): Message
     }
 
     type Subscription{
         teamCreated(gId: ID!): Team
+        messageCreated(chatId: String!): Message
+    }
+
+
+    input MessageInput{
+        text: String!
+        senderId: String!
+        chatId: String!
     }
 
     # type Subscription{
@@ -190,7 +201,23 @@ const resolvers = {
             });
             let t = teams.filter(team => team.users.length < team.game.maxSize);
             return t;
-        })
+        }),
+        messages: (root, { chatId }, ctx) => __awaiter(void 0, void 0, void 0, function* () {
+            console.log(`root${root} , CTX: ${ctx}`);
+            let ms = yield index_1.prisma.message.findMany({
+                where: {
+                    chatId: chatId
+                },
+                orderBy: {
+                    sentAt: 'asc'
+                },
+                include: {
+                    sender: true,
+                    chat: true
+                }
+            });
+            return ms;
+        }),
     },
     Mutation: {
         registerDevice: (root, { deviceId }, ctx) => __awaiter(void 0, void 0, void 0, function* () {
@@ -330,11 +357,30 @@ const resolvers = {
             });
             return p;
         }),
+        createMessage: (root, { message }, ctx) => __awaiter(void 0, void 0, void 0, function* () {
+            console.log(`root${root} , CTX: ${ctx}`);
+            let m = yield index_1.prisma.message.create({
+                data: {
+                    text: message.text,
+                    senderId: message.senderId,
+                    chatId: message.chatId
+                }
+            });
+            if (m.id) {
+                pubsub.publish(MESSAGE_CREATED, { messageCreated: message });
+            }
+            return m;
+        })
     },
     Subscription: {
         teamCreated: {
             subscribe: graphql_subscriptions_1.withFilter(() => pubsub.asyncIterator(TEAM_CREATED), (payload, variables) => {
                 return (payload.teamCreated.game.id == variables.gId);
+            })
+        },
+        messageCreated: {
+            subscribe: graphql_subscriptions_1.withFilter(() => pubsub.asyncIterator(MESSAGE_CREATED), (payload, variables) => {
+                return (payload.messageCreated.chatId == variables.chatId);
             })
         }
     }

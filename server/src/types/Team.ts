@@ -26,6 +26,14 @@ export const resolvers = {
             })
             return game
         },
+        chat: async ({id} : any) =>{
+            let chat = await prisma.chat.findFirst({
+                where: {
+                    teamId: id
+                }
+            })
+            return chat
+        },
         users: async ({id}: any) => {
             let p = await prisma.usersOnTeam.findMany({
                 select:{
