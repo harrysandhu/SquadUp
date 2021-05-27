@@ -57,3 +57,12 @@ export const JOIN_GAME = gql`
         }
     }
 `
+
+
+export const CREATE_TEAM = gql`
+    mutation createTeam($name: String!, $teamId: String!, $gId: ID!, $profileId: ID!){
+        createTeam(name: $name, teamId: $teamId, gId: $gId, profileId: $profileId ){
+            id
+        }
+    }
+`

@@ -97,16 +97,7 @@ export function AuthNavigator(){
                          headerTransparent: true
                         }}
                 />
-                <Stack.Screen 
-                    name="JoinTeam" 
-                    component={TeamScreen}
-                    options={{
-                        title: '',
-                        headerLeft: null,
-                        gestureEnabled: false,
-                         headerTransparent: true
-                        }}
-                />
+              
                 <Stack.Screen 
                     name="SelectedGames" 
                     component={GameSelectionScreen}
@@ -117,16 +108,7 @@ export function AuthNavigator(){
                          headerTransparent: true
                         }}
                 />
-                <Stack.Screen 
-                    name="CreateTeam" 
-                    component={CreateTeamScreen}
-                    options={{
-                        title: '',
-                        headerLeft: null,
-                        gestureEnabled: false,
-                         headerTransparent: true
-                        }}
-                />
+                
 
 
             </Stack.Navigator>

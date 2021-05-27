@@ -26,7 +26,9 @@ export const UserNavigator = ({navigation}) => {
             options={{
                 tabBarLabel: 'Home',
                 tabBarIcon: () => <Icon name="home" color="white" size={24} />,
+                
               }}
+
             />
 
             <Tab.Screen 
@@ -38,14 +40,7 @@ export const UserNavigator = ({navigation}) => {
               }}
             />
             
-            <Tab.Screen 
-            name ="Chat" 
-            component={ChatNavigator}
-            options={{
-                tabBarLabel: 'Chat',
-                tabBarIcon: () => <Icon name="comment" color="white" size={24} />,
-              }}
-            />
+      
         </Tab.Navigator>
     );
 };

@@ -2,9 +2,12 @@ import React, {useState} from "react";
 import { View, Button, Text, StyleSheet, Image, Alert, ScrollView } from "react-native";
 import { CheckBox } from "react-native-elements/dist/checkbox/CheckBox";
 import {HFlex, VFlex, ImgSize, TopTitle, BackArrow, ButtonView, ButtonPrimary, ImgContainer, ButtonJoin, UserContainer} from '../../components/styled/components'
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
 import { Input, Button as RNButton, Header } from "react-native-elements";
 import Icon from 'react-native-vector-icons/FontAwesome'
+import { GET_AVAILABLE_TEAMS } from "../../apollo/queries";
+import { useQuery } from "@apollo/client";
+import { ActivityIndicator } from "react-native";
 
 const userteams = {
     "123":{
@@ -106,12 +109,64 @@ const userteams = {
 
 
 
-export const TeamScreen = ({navigation}) => {
+export const TeamScreen = ({route, navigation}) => {
 
     let count = 0
     const teams = []
     
-    for(let team of Object.values(userteams)){
+    let {game} = route.params
+
+    let {onGoBack} = route.params
+
+    const {data, error, loading, refetch} = useQuery(GET_AVAILABLE_TEAMS, {
+        variables:{
+         gId: game.id
+        },
+        fetchPolicy: 'network-only'
+    })
+if (loading) {
+      return (
+        <VFlex>
+          <ActivityIndicator />
+        </VFlex>
+      )
+    }
+
+    renderUser = ({item}) => {
+        return (
+            <UserContainer key={item.id}>
+                <VFlex style={{width:'auto'}}>
+                                        <Image 
+                                            source={{uri: item.avatarUrl}}
+                                            style={{
+                                                resizeMode:"contain",
+                                                width: 50,
+                                                height:50,
+                                                
+                                            }}
+                                        >
+                                        </Image>
+                                        <Text 
+                                            style={{
+                                                color:"white"
+                                            }}
+                                        >
+                                            {item.username}
+                                        </Text>
+                                        </VFlex>
+                                      
+                                       
+            </UserContainer>
+        )
+    }
+
+
+
+    let allteams = data.get_available_teams
+  
+
+    for(let team of allteams){
+        console.log(team.name)
         let i = (
                     <ImgSize 
                         key={
@@ -149,105 +204,20 @@ export const TeamScreen = ({navigation}) => {
                                     }}
                                     
                                 >
-                                    ! {team.teamName}
+                                    ! {team.name}
                                 </Text>
                                 </HFlex>
                                 <HFlex style={{justifyContent:'flex-start'}}>
-                                    <UserContainer 
+
+                                <FlatList 
+                                horizontal={true}
+                                data={team.users}
+                                keyExtractor={(user) => user.length > 0 ? user.id : ""}
+                                renderItem={renderUser}
+                            />
+                                        
                                     
-                                    >
-                                        <VFlex style={{width:'auto'}}>
-                                        <Image 
-                                            source={
-                                                team.user1
-                                            }
-                                            style={{
-                                                resizeMode:"contain",
-                                                width: 50,
-                                                height:50,
-                                                
-                                            }}
-                                        >
-                                        </Image>
-                                        <Text 
-                                            style={{
-                                                color:"white"
-                                            }}
-                                        >
-                                            {team.user1Id}
-                                        </Text>
-                                        </VFlex>
-                                      
-                                       
-                                    </UserContainer>
-                                    <UserContainer>  
-                                    <VFlex style={{width:'auto'}}>
-                                        <Image 
-                                            source={
-                                                team.user1
-                                            }
-                                            style={{
-                                                resizeMode:"contain",
-                                                width: 50,
-                                                height:50
-                                            }}
-                                        >
-                                        </Image>
-                                        <Text
-                                            style={{
-                                                color:"white"
-                                            }}
-                                        >
-                                            {team.user2Id}
-                                        </Text>
-                                        </VFlex>
-                                    </UserContainer>
-                                    <UserContainer
-                                    
-                                    >
-                                           <VFlex style={{width:'auto'}}>
-                                        <Image 
-                                            source={
-                                                team.user1
-                                            }
-                                            style={{
-                                                resizeMode:"contain",
-                                                width: 50,
-                                                height:50
-                                            }}
-                                        >
-                                        </Image>
-                                        <Text 
-                                            style={{
-                                                color:"white"
-                                            }}
-                                        >
-                                            {team.user3Id}
-                                        </Text>
-                                        </VFlex>
-                                    </UserContainer>
-                                    <UserContainer>
-                                    <VFlex style={{width:'auto'}}>
-                                        <Image 
-                                            source={
-                                                team.user1
-                                            }
-                                            style={{
-                                                resizeMode:"contain",
-                                                width: 50,
-                                                height:50
-                                            }}
-                                        >
-                                        </Image>
-                                        <Text 
-                                            style={{
-                                                color:"white"
-                                            }}
-                                        >
-                                            {team.user4Id}
-                                        </Text>
-                                        </VFlex>
-                                    </UserContainer>    
+                            
 
                                 </HFlex>
                             </VFlex>

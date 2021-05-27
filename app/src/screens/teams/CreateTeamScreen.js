@@ -18,16 +18,70 @@ import { ProfileFlex } from '../../components/styled/components';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import AppModel from '../../models/AppModel';
 import useObservable from '../../utils/useObservable';
+import { GET_TEAM_BY_TEAMID } from '../../apollo/queries';
+import { CREATE_TEAM } from '../../apollo/mutations';
 
 export function CreateTeamScreen({route, navigation}){
 
-    const client = useApolloClient();
+  
 
+    const client = useApolloClient();
+  
     const [teamnameText, setTeamnameText]  = useState("")
     const [teamnameIsActive, setTeamNameIsActive] = useState(false)
 
     const [teamIDText, setTeamIDText]  = useState("")
     const [teamIDIsActive, setTeamIDIsActive] = useState(false)
+
+    const [teamState, setTeamState ] = useState({message: "", state: false})
+
+    let {game} = route.params
+
+    let {onGoBack} = route.params
+  console.log("GAME TO:: ", route.params)
+
+
+  async function handleTeamIDChange(value) {
+
+    try {
+      let result = await client.query({
+        query: GET_TEAM_BY_TEAMID,
+        variables: {teamId: value},
+        fetchPolicy: "network-only"
+      })
+      console.log("WHAT::", result.data)
+      if(result.data.teamByTeamId == null){
+        setTeamState({message: "Team ID is available", state: true})
+      }else{
+        setTeamState({message: "Team ID not available", state: false})
+      }
+    }
+    catch(e){
+      alert("network error")
+    }
+  } 
+
+
+  async function createTeam(){
+    console.log("yo this::: ", game.id, AppModel.userProfileModel.id)
+    try{
+      let result = await client.mutate({
+        mutation: CREATE_TEAM,
+        variables: {name: teamnameText, teamId: String(teamIDText).toLowerCase(), gId: game.id, profileId: AppModel.userProfileModel.id.getValue()}
+      })
+        
+      console.log(result)
+
+      if(result.data.createTeam != null){
+         await onGoBack.refetch()
+          navigation.navigate('HomeScreen')
+      }else{
+        alert("Something went wrong")
+      }
+    }catch(e){
+      alert(e)
+    }
+  }
 
     return (
 
@@ -42,24 +96,31 @@ export function CreateTeamScreen({route, navigation}){
             backgroundColor: '#070A1E'
           }}
         >
-          <View style={{flex: 1, alignItems: 'center', backgroundColor: '#070A1E'}}>
-            <Header
+             <Header
                 barStyle="default"
                 centerComponent={
                     <VFlex>
-                      <TopTitle>CREATE A TEAM</TopTitle>
+                    <TopTitle 
+                        style={{
+                            fontSize:18,
+                            color: "white"
+                        }}
+                    >
+                            Create Team
+                    </TopTitle>
                     </VFlex>
                 }
                 centerContainerStyle={{}}
-                containerStyle={{
-                  width: '100%', 
-                  height: 100, 
-                  backgroundColor: 'none', 
-                  position: "absolute", 
-                  borderBottomColor: "transparent"
+                containerStyle={{ 
+                    width: '100%', 
+                    height: 100, 
+                    backgroundColor:'transparent',
+                    borderBottomColor: "transparent"
                 }}
-                leftComponent={
-                    <BackArrow onPress={() => navigation.goBack()}>
+                leftComponent={   
+                    <BackArrow 
+                        onPress={() => {navigation.pop()}}
+                    >
                         <Icon 
                             name='angle-left' 
                             size={25} 
@@ -68,19 +129,29 @@ export function CreateTeamScreen({route, navigation}){
                             }}
                         />
                     </BackArrow>
-                }
+                    }
                 placement="center"
                 rightComponent={{}}
                 rightContainerStyle={{}}
+                
                 statusBarProps={{}}
-            />
+                />
+                 <TopBar state={teamState.state} message={teamState.message} style={{position:"absolute", top: 0}}>
+            <Text style={{color:"white"}}>{teamState.message}</Text>
+        </TopBar>
+          <View style={{flex: 1, alignItems: 'center', backgroundColor: '#070A1E'}}>
+          
             <ProfileFlex>
-              <ProfilePictureView 
-                style={{top: "20%"
-                }}
-              >
-                  <Image/>  
-              </ProfilePictureView>
+            <Image 
+                                source={{uri : game.coverUrl}} 
+                                style={{
+                                    width: 150, 
+                                    height: 200,  
+                                    zIndex: 0, 
+                                    marginTop:'-80%',
+                                    borderRadius: 15
+                                }} 
+                            />
 
             <VFlex style={{width:"90%"}}>
                   <InputTF
@@ -98,7 +169,6 @@ export function CreateTeamScreen({route, navigation}){
                           }}
                               onChangeText={async (value) =>{
                                 setTeamnameText(value)
-                              await handleUsernameValueChange(value)
                           }}
 
                       />
@@ -119,13 +189,13 @@ export function CreateTeamScreen({route, navigation}){
                           }}
                               onChangeText={async (value) =>{
                                 setTeamIDText(value)
-                              await handleUsernameValueChange(value)
+                              await handleTeamIDChange(value)
                           }}
 
                       />
             </VFlex>
             <VFlex style={{bottom: 50, position: "absolute"}}>
-                <ButtonPrimary style={{width: "80%"}}>
+                <ButtonPrimary onPress={async () => await createTeam()} style={{width: "80%"}} state={teamState.state} disable={teamState.state}>
                     <Text 
                         style={{
                         color:"white"

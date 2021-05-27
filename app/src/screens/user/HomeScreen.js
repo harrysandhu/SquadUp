@@ -105,7 +105,7 @@ export function HomeScreen({navigation}){
                     <DrawerView navigation={navigation} games={games} teams={teams} slideOut={ (tId, gId) => {
                         setActiveTeam(tId)  
                         setSelectedGame(gId)
-                        slideOut()}}/> 
+                        slideOut()}} refetch={refetch}/> 
                     
                 </Animated.View>
         <Header
@@ -113,7 +113,7 @@ export function HomeScreen({navigation}){
             centerComponent={
                 <VFlex style={drawerOpen ? {display: 'none'} :  {display: 'flex'}} >
                 <Text style={{color: "white", fontSize: 18, fontWeight: "500"}}>{games.filter(g => g.id == selectedGame)[0].name}</Text>
-                            <Text style={{color: "white", fontSize: 16, fontWeight: "300"}}>!{teams.filter(t => t.id == activeTeam)[0].name}</Text>
+                            <Text style={{color: "white", fontSize: 16, fontWeight: "300"}}>!{teams.filter(t => t.id == activeTeam)[0].teamId}</Text>
                             </VFlex>
                 }
                 centerContainerStyle={{alignItems: 'flex-start', justifyContent:'flex-start', marginLeft: "20%", top: 40, position: "absolute", width:'50%'}}

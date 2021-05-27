@@ -64,3 +64,34 @@ export const GET_ALL_GAMES = gql`
         }
     }
 `
+
+
+export const GET_TEAM_BY_TEAMID = gql`
+    query teamByTeamId($teamId: String!){
+        teamByTeamId(teamId:$teamId){
+            id
+        }
+    }
+`
+
+export const GET_AVAILABLE_TEAMS = gql`
+    query  get_available_teams($gId: ID!){
+        get_available_teams(gId: $gId){
+            id
+            teamId
+            name
+            game{
+                id
+                name
+                gameId
+                coverUrl
+            }
+            users{
+                id
+                avatarUrl
+                username
+                name
+            }
+        }
+    }
+`

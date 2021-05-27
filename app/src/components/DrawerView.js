@@ -12,7 +12,7 @@ import { Header, Icon as Icc } from "react-native-elements";
 import * as SecureStore from 'expo-secure-store'
 import {useQuery, useMutation, gql, useApolloClient } from "@apollo/client"
 import DeviceInfo from 'react-native-device-info';
-import { FlatList, TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { FlatList, ScrollView, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import auth from '@react-native-firebase/auth';
 import { NavigationContainer } from '@react-navigation/native';
 import AppModel from 'models/AppModel';
@@ -21,101 +21,11 @@ import { ButtonSecondary } from './styled/components';
 
 
 
-export default function DrawerView({ navigation, games, teams, slideOut }){
+export default function DrawerView({ navigation, games, teams, slideOut, refetch}){
     teams.map(g => {
         console.log(g)
     })
-    const usergames = {
-        "123":{
-            id: "123",
-            name: "Among Us",
-            gameId: "amongus",
-            maxSize: 10,
-            coverURL: require("../../assets/images/amongUs.jpg")
-        },
-        "456":{
-            id: "456",
-            name: "Fall Guys",
-            gameId: "fallguys",
-            maxSize: 4,
-            coverURL: require("../../assets/images/fallGuy.jpeg")
-        },
-        "789":{
-            id: "789",
-            name: "Valheim",
-            gameId: "valheim",
-            maxSize: 10,
-            coverURL: require("../../assets/images/valheim.jpeg")
-        },
-        "012":{
-            id: "012",
-            name: "Rocket League",
-            gameId: "rocketleague",
-            maxSize: 10,
-            coverURL: require("../../assets/images/rocketLeague.jpg")
-        },
-        "696":{
-            id: "696",
-            name: "Overwatch",
-            gameId: "overwatch",
-            maxSize: 6,
-            coverURL: require("../../assets/images/overwatch.jpeg")
-        }
-    }
-    
-    
-    const userTeams = 
-    {
-        "901" : {
-            id: "901",
-            name: "KILL BILL",
-            teamId: "kill_bill",
-            gameId: "456",
-            isActive: true,
-            createdAt: null
-        },
-        "420" : {
-            id: "420",
-            name: "Khiladis",
-            teamId: "akshaykumar420",
-            gameId: "456",
-            isActive: true,
-            createdAt: null
-        },
-        "669" : {
-            id: "669",
-            name: "Chain Smokers",
-            teamId: "chain_s",
-            gameId: "456",
-            isActive: true,
-            createdAt: null
-        },
-        "323" : {
-            id: "901",
-            name: "One Direction",
-            teamId: "nozaynnohomo",
-            gameId: "012",
-            isActive: true,
-            createdAt: null
-        },
-        "344" : {
-            id: "344",
-            name: "Viking Squad",
-            teamId: "vikes",
-            gameId: "789",
-            isActive: true,
-            createdAt: null
-        },
-        "111" : {
-            id: "111",
-            name: "WhoIsImposter",
-            teamId: "imposters",
-            gameId: "123",
-            isActive: true,
-            createdAt: null
-        },
-    
-    }
+ 
     const windowWidth = Dimensions.get('window').width;
     const windowHeight = Dimensions.get('window').height;
     
@@ -123,15 +33,21 @@ export default function DrawerView({ navigation, games, teams, slideOut }){
     let [activeTeam, setActiveTeam] = useState(teams.filter(t => t.game.id == selectedGame)[0].id)
 
     console.log("activeeeee:::", activeTeam)
-    getGames = () => {
-        let teams = Object.values(userTeams).filter(game => game.gameId == selectedGame)
-        return teams
-    }
+
+
 
     renderGame = ({item}) => {
         return (
-            <ServerButton key={item.id} onPress={() => setSelectedGame(item.id)}>
-            <Image source={{uri: item.coverUrl}} style={{top: -windowHeight/10, height: 70, width: 60, borderRadius: 25}}/>
+            <ServerButton key={item.id} onPress={() => setSelectedGame(item.id)} style={item.id == selectedGame? {shadowColor: "#000",
+            shadowOffset: {
+                width: 0,
+                height: 12,
+            },
+            shadowOpacity: 0.58,
+            shadowRadius: 16.00,
+            
+            elevation: 24} : {}}>
+            <Image source={{uri: item.coverUrl}} style={item.id == selectedGame? {top: -windowHeight/10, height: 70, width: 60, borderRadius: 25, opacity: 1} : {top: -windowHeight/10, height: 70, width: 60, borderRadius: 25,opacity: 0.5}}/>
         </ServerButton>  
         )
     }
@@ -163,7 +79,8 @@ export default function DrawerView({ navigation, games, teams, slideOut }){
                     <VFlex style={{alignItems: 'flex-start', paddingLeft: "5%", top: windowHeight/6, position: "absolute"}}>
                             <Text style={{color: "white", fontSize: 25, fontWeight: "500"}}>{games.filter(g => g.id == selectedGame)[0].name}</Text>
                             <Text style={{color: "white", fontSize: 16, fontWeight: "100"}}>!Teams</Text>
-                 
+                    
+                    <ScrollView style={{width:'100%', height:windowHeight-400}}>
                     {
                         // display the teams (loop through them), for the game that is selected.
                        
@@ -172,27 +89,28 @@ export default function DrawerView({ navigation, games, teams, slideOut }){
                             console.log("thisisisis: ", t.id == activeTeam)
                             return (
                         
-                                <TeamButton key={t.id} active={t.id === activeTeam ? 'true' : 'false'} onPress={() => {setActiveTeam(t.id); slideOut(activeTeam, selectedGame)}}>
-                                    <Text style={{flex: 1, color: "white"}}>{"!" + t.name}</Text>
+                                <TeamButton key={t.id} active={t.id === activeTeam ? 'true' : 'false'} onPress={() => {setActiveTeam(t.id); slideOut(t.id, selectedGame)}}>
+                                    <Text style={{flex: 1, color: "white"}}>{"!" + t.teamId}</Text>
                                 </TeamButton>
                                 
                             )   
                         })
 
                     }
+                    </ScrollView>
                     </VFlex>
                     <VFlex style={{bottom: 40, position: 'absolute', marginLeft: 24,
                                 alignItems: 'flex-start', height: "20%"}}>
                         <ButtonPrimary 
                             style={{position: 'absolute', bottom: 0, height:40, width: '100%'}}
-                            onPress={() => navigation.navigate('JoinTeam')}>
+                            onPress={() => navigation.navigate('JoinTeam', {game: games.filter(g => g.id == selectedGame)[0], onGoBack: {refetch} })}>
                             <Text style={{color: '#fff'}}>
                                 Join a Team
                             </Text>
                         </ButtonPrimary>
                         <ButtonSecondary
                             style={{position: 'absolute', bottom: 60 , height:40, width: '100%'}}
-                            onPress={() => navigation.navigate('CreateTeam')}>
+                            onPress={() => navigation.navigate('CreateTeam', {game: games.filter(g => g.id == selectedGame)[0], onGoBack: {refetch} })}>
                             <Text style={{color: '#fff'}}>
                                 Create a Team
                             </Text>

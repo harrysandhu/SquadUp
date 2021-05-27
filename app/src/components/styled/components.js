@@ -109,7 +109,7 @@ export const ServerButton = styled.TouchableOpacity`
 
 
 export const TeamButton = styled.TouchableOpacity`
-    width: 120px;
+    width: 80%;
     height: 40px;
     text-align:center;
     justify-content: center;
