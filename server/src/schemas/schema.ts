@@ -77,7 +77,7 @@ export const schema = gql `
         setUsername(data: SetUsername!): SetUsernamePayload
         createGame(game: GameInput!): Game
         joinGame(profileId: ID!, gId: ID!): User
-        # createTeam(team: T)
+        createTeam(name: String!, teamID: String!, gId: ID!, profileId: ID!): Team
     }
 
 
@@ -334,6 +334,28 @@ const resolvers:any = {
                 }
             })
             return p
+        },
+        createTeam: async (
+            root: any,
+            {name, teamId, gId, profileId}: any,
+            ctx: any
+        ) => {
+            console.log(`root${root} , CTX: ${ctx}`)
+            let team = await prisma.team.create({
+                data: {
+                    name: name,
+                    teamId: teamId,
+                    gId: gId,
+                    users:{
+                        create:{
+                            profileId: profileId
+                        }
+                    }
+                }
+
+            })
+
+            return team
         }
     },
     

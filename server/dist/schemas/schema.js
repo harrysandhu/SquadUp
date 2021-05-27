@@ -60,7 +60,7 @@ exports.schema = apollo_server_core_1.gql `
         setUsername(data: SetUsername!): SetUsernamePayload
         createGame(game: GameInput!): Game
         joinGame(profileId: ID!, gId: ID!): User
-        # createTeam(team: T)
+        createTeam(name: String!, teamID: String!, gId: ID!, profileId: ID!): Team
     }
 
 
@@ -263,6 +263,22 @@ const resolvers = {
                 }
             });
             return p;
+        }),
+        createTeam: (root, { name, teamId, gId, profileId }, ctx) => __awaiter(void 0, void 0, void 0, function* () {
+            console.log(`root${root} , CTX: ${ctx}`);
+            let team = yield index_1.prisma.team.create({
+                data: {
+                    name: name,
+                    teamId: teamId,
+                    gId: gId,
+                    users: {
+                        create: {
+                            profileId: profileId
+                        }
+                    }
+                }
+            });
+            return team;
         })
     },
 };
