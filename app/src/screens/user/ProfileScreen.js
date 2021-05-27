@@ -81,8 +81,10 @@ useEffect(()=>{
                     uri: userProfile.avatarUrl
                   }} 
                   style={{
-                    height: 120, 
-                    width: 120
+                    height: 100, 
+                    width: 100,
+                    borderRadius: 50,
+                    marginBottom: 10
                   }} 
                 />  
                 <Text 
@@ -116,6 +118,19 @@ useEffect(()=>{
               >
                 {"" ? userProfile.bio == null : userProfile.bio}
               </Text>
+
+              <ButtonLogOut style={{
+                  bottom: "15%"
+                }}>
+                  <Text 
+                  style={{
+                    color:"white"
+                  }}
+                >
+                  Selected Games
+                </Text>
+
+              </ButtonLogOut>
 
               <ButtonLogOut 
                 style={{

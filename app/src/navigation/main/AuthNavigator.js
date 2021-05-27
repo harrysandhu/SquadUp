@@ -42,12 +42,14 @@ export function AuthNavigator(){
                 {/*Main Screen stack*/}
 
                 <Stack.Screen 
-                    name="TeamScreen" 
-                    component={TeamScreen}
-                    options={{ 
-                            title: '',
-                            headerTransparent: true
-                            }}
+                    name="Main" 
+                    component={MainScreen}
+                    options={{
+                        title: '',
+                        headerLeft: null,
+                        gestureEnabled: false,
+                         headerTransparent: true
+                        }}
                 />
                 {/*Sign Up Screen stack*/}
                  <Stack.Screen 
@@ -84,17 +86,16 @@ export function AuthNavigator(){
                          headerTransparent: true
                         }}
                 />
-
-                <Stack.Screen 
-                    name="UserNav" 
-                    component={UserNavigator}
-                    options={{
-                        title: '',
-                        headerLeft: null,
-                        gestureEnabled: false,
-                         headerTransparent: true
-                        }}
-                />
+                <Stack.Screen 
+                    name="UserNav" 
+                    component={UserNavigator}
+                    options={{
+                        title: '',
+                        headerLeft: null,
+                        gestureEnabled: false,
+                         headerTransparent: true
+                        }}
+                />
 
                 
 
