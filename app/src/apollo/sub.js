@@ -1,12 +1,12 @@
 import {gql } from "@apollo/client"
 
-export const TEAM_CREATED = gql`
-   subscription teamCreated($gId: ID!){
-        teamCreated(gId: $gId){
+// export const TEAM_CREATED = gql`
+//    subscription teamCreated($gId: ID!){
+//         teamCreated(gId: $gId){
             
-        }
-   }
-`
+//         }
+//    }
+// `
 
 
 export const MESSAGE_CREATEAD = gql`

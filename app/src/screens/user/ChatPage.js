@@ -3,7 +3,7 @@ import React, {useState, useEffect} from "react";
 import { View, Button, Text, StyleSheet, Image, KeyboardAvoidingView, Platform,
   TouchableWithoutFeedback, Keyboard, ScrollView, useWindowDimensions, TextInput, FlatList } from "react-native";
 import { TextBox, Current, Friend, HFlexT, VFlexT, TextColor, Message, VFlex } from 'components/styled/components';
-import { HFlex, PicFlex,ButtonSecondary, TopTitle, BackArrow } from './../../components/styled/components';
+import { HFlex, PicFlex,ButtonSecondary, TopTitle, BackArrow, UserContainer } from './../../components/styled/components';
 import { Input, Button as RNButton, Header } from "react-native-elements";
 import Icon from 'react-native-vector-icons/FontAwesome'
 
@@ -11,14 +11,14 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 
 
 
-export function ChatPage(res) {
+export function ChatPage(props) {
     const windowHeight = useWindowDimensions().height;
     const windowWidth = useWindowDimensions().width;
     let [inputPadding, setInputPadding] = useState(0)
     const [term, updateTerm] = useState('');
 
-
-    let {data, error, loading } = res
+    console.log("this", props)
+    let {data, error, loading } = props
     if(error) console.log("error", error)
     if (loading){
         return ( 
@@ -26,12 +26,42 @@ export function ChatPage(res) {
             <Text>Loading</Text>
         </VFlex>)
     }
+    if (!('messages' in data)) return null
     console.log(data)
+    useEffect(() => {
+        props.subscribeToNewMessages()       
+    }, [props])
 
-    // useEffect(() => {
-       
-    //     console.log("GOT THEM PR", data)
-    // }, [])
+    renderMessage = ({item}) => {
+
+        return (
+            <UserContainer key={item.id}>
+                {/* <VFlex style={{width:'auto'}}>
+                                        <Image 
+                                            source={{uri: item.avatarUrl}}
+                                            style={{
+                                                resizeMode:"contain",
+                                                width: 50,
+                                                height:50,
+                                                
+                                            }}
+                                        >
+                                        </Image>
+                                        <Text 
+                                            style={{
+                                                color:"white"
+                                            }}
+                                        >
+                                            {item.username}
+                                        </Text>
+                                        </VFlex>
+                                       */}
+
+        <Text>{item.text}</Text>                                       
+            </UserContainer>
+        )
+    }
+
 
     return (
        
@@ -65,24 +95,29 @@ export function ChatPage(res) {
             
             statusBarProps={{}}
     />
+     
       <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={{flex: 1}}
     >
-      
+        <ScrollView style={{backgroundColor:'#070A1E', width:'100%', position:'absolute', top:-windowHeight/2 + 50, minHeight: windowHeight}}>
+        <FlatList
+                bounce={false}
+                horizontal={false}
+                data={data.messages}
+                keyExtractor={(message) => message.id}
+                renderItem={renderMessage}
+               />
+        </ScrollView>
       <TouchableWithoutFeedback onPress={() => {
          setInputPadding(0)
         Keyboard.dismiss
          }
       }>
       <VFlex>
-        <ScrollView>
-          <View>
-            <Text>fsdfsd</Text>
-          </View>
-        </ScrollView>
+    
 
-      <VFlex style={{ position: "absolute", bottom: 0, backgroundColor: '#070A1E'}}>
+      <VFlex style={{ position: "absolute", bottom: -windowHeight/2 + 150, backgroundColor: '#070A1E'}}>
         <HFlex style={{width:'80%'}}>
           <Input
             containerStyle={{color:'#fff'}}

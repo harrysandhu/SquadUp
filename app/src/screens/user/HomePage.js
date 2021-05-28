@@ -19,6 +19,7 @@ import DrawerView from "components/DrawerView"
 import { GET_ALL_MESSAGES, GET_USER_BY_EMAIL } from '../../apollo/queries';
 import { ActivityIndicator } from 'react-native';
 import { ChatPage } from './ChatPage';
+import { MESSAGE_CREATEAD } from '../../apollo/sub';
 
 
 
@@ -99,6 +100,9 @@ export function HomePage({navigation}){
     let [activeGame, setActiveGame] = useState("")
     let [activeTeam, setActiveTeam] = useState("")
     let [activeChatId,setActiveChatId] = useState("")
+    let [activeGameName, setActiveGameName] = useState("Game")
+    let [activeTeamName, setActiveTeamName] = useState("team")
+
 
     useEffect(() => {
         if (Object.entries(teams).length > 0 && Object.entries(games).length > 0){
@@ -118,7 +122,13 @@ export function HomePage({navigation}){
     useEffect(() => {
         if (Object.entries(teams).length > 0 && Object.entries(games).length > 0){
             console.log("SHIT CHANGED", activeGame)
-
+            for(let team of teams){
+                console.log("chko", team)
+                if(team.game.id == activeGame){
+                    setActiveGameName(team.game.name)
+                    break;
+                }
+            }
         }
     }, [activeGame])
 
@@ -131,20 +141,29 @@ export function HomePage({navigation}){
                     break;
                 }
             }
+            for(let team of teams){
+                console.log("chko", team)
+                if(team.id == activeTeam){
+                    setActiveTeamName(team.teamId)
+                    break;
+                }
+            }
 
 
         }
     }, [activeTeam])
 
 
-    const chatResult = useQuery(GET_ALL_MESSAGES, {
+    const {subscribeToMore, ...chatResult} = useQuery(GET_ALL_MESSAGES, {
             variables: {
                 chatId: activeChatId
-            }
+            },
+            fetchPolicy: 'network-only'
     })
 
 
-
+    if (chatResult.error) {console.log("ERROR FETCHING")}
+    if (chatResult.loading) return null
 
 
     console.log("ACTIVE GAME CHANGED", activeGame)
@@ -172,12 +191,12 @@ export function HomePage({navigation}){
             </Animated.View>
             <Header
             barStyle="default"
-            centerComponent={{}}
-                // <VFlex style={drawerOpen ? {display: 'none'} :  {display: 'flex'}} >
-                // <Text style={{color: "white", fontSize: 18, fontWeight: "500"}}>{games.filter(g => g.id == selectedGame)[0].name}</Text>
-                //             <Text style={{color: "white", fontSize: 16, fontWeight: "300"}}>!{teams.filter(t => t.id == activeTeam)[0].teamId}</Text>
-                //             </VFlex>
-                
+            centerComponent={
+                <VFlex style={drawerOpen ? {display: 'none'} :  {display: 'flex'}} >
+                <Text style={{color: "white", fontSize: 18, fontWeight: "500"}}>{activeGameName}</Text>
+                            <Text style={{color: "white", fontSize: 16, fontWeight: "300"}}>!{activeTeamName}</Text>
+                            </VFlex>
+                        }
                 centerContainerStyle={{alignItems: 'flex-start', justifyContent:'flex-start', marginLeft: "20%", top: 40, position: "absolute", width:'50%'}}
                 containerStyle={{ zIndex: 0, position: "absolute", width: '100%', backgroundColor: 'none',top:0, borderBottomColor: "transparent"}}
                 leftComponent={getLeftComponent()}
@@ -189,7 +208,22 @@ export function HomePage({navigation}){
                 statusBarProps={{}}
         />
          <VFlex style={{zIndex: -1}}>
-           <ChatPage {...chatResult} /> 
+           <ChatPage {...chatResult}  subscribeToNewMessages={() =>
+        subscribeToMore({
+          document: MESSAGE_CREATEAD,
+          variables: { chatId: activeChatId},
+          updateQuery: (prev, { subscriptionData }) => {
+            if (!subscriptionData.data) return prev;
+            const newMessage = subscriptionData.data;
+            console.log("GOT NEW", newMessage)
+            // return Object.assign({}, prev, {
+            //   message: {
+            //     messages: [newMessage, ...prev.messages]
+            //   }
+            // });
+          }
+        })
+      } /> 
         </VFlex>
         </View>
     )

@@ -36,10 +36,7 @@ const httpLink = new HttpLink({
 const wsLink = new WebSocketLink({
   uri: 'ws://truffen.com/squadup/websockets',
   options: {
-    reconnect: true,
-    connectionParams: {
-      "x-api-key": API_TOKEN
-    }
+    reconnect: true
   }
 });
 const splitLink = split(
