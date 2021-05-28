@@ -108,6 +108,23 @@ export const ServerButton = styled.TouchableOpacity`
 `;
 
 
+export const TeamButton = styled.TouchableOpacity`
+    width: 80%;
+    height: 40px;
+    text-align:center;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    padding-left: 20px;
+    border-radius:10px;
+    backgroundColor: ${props => props.active=='true' ? 'rgba(255, 255, 255, 0.2)': 'transparent'};
+`;
+
+
 export const HamArrow = styled.TouchableOpacity`
     width: 25px;
     height: 25px;
@@ -278,3 +295,89 @@ export const TopBar = styled.View`
     opacity:${props => (props.message == "") ? '0': '1'}; 
     background-color: ${props => (props.state === true) ? success_green : error_red};
 `
+
+export const ImgSize = styled.View`
+    margin: 20px;
+    flex-direction: row;
+    margin-top: 20px;
+
+
+`
+
+export const ImgContainer = styled.View`
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    height: auto;
+    justify-content: center;
+`
+
+
+export const ButtonJoin = styled.TouchableOpacity`
+    width: 100%;
+    height: 55px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Roboto';
+    opacity:${props => (props.disabledStyle == true) ? '0.5': '1'}; 
+    background-color: ${props => (props.state === false) ? 'grey' : 'black'};
+`;
+
+export const UserContainer = styled.View`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 5px 7px;
+    align-items:flex-start;
+`
+
+export const VFlexT = styled.View `
+    display:flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width:60%;
+    height: auto;
+`
+export const PicFlex = styled.View `
+    display: flex;
+    flex-direction: row;
+    background-color: #0b81ff;
+    justify-content: flex-start;
+    width:auto;
+    height: auto;
+    padding-right: 20px;
+    padding-left: 15px;
+    flex-wrap: wrap;
+    color: white;
+    border-radius: 20px;
+
+`
+export const HFlexT = styled.View `
+    display: flex;
+    flex-direction: row;
+    background-color: #0b81ff;
+    justify-content: flex-start;
+    width:auto;
+    height: auto;
+    margin-top: 10px;
+
+    padding-right: 15px;
+    border-radius: 20px;
+    color: white;
+    `
+
+export const Message = styled.Text `
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    color: white;
+    justify-content: flex-start;
+    width: 120%;
+    height: auto;
+    padding-bottom: 5px;
+    padding-top: 3px;
+    `

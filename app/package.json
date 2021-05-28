@@ -34,6 +34,7 @@
     "react-native-web": "~0.13.12",
     "rxjs": "^7.0.0",
     "styled-components": "^5.2.3",
+    "subscriptions-transport-ws": "^0.9.18",
     "yarn": "^1.22.10"
   },
   "devDependencies": {

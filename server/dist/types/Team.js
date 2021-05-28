@@ -33,6 +33,14 @@ exports.resolvers = {
             });
             return game;
         }),
+        chat: ({ id }) => __awaiter(void 0, void 0, void 0, function* () {
+            let chat = yield index_1.prisma.chat.findFirst({
+                where: {
+                    teamId: id
+                }
+            });
+            return chat;
+        }),
         users: ({ id }) => __awaiter(void 0, void 0, void 0, function* () {
             let p = yield index_1.prisma.usersOnTeam.findMany({
                 select: {

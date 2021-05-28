@@ -18,7 +18,7 @@ const Stack = createStackNavigator()
 // App component always stays here
 export default function App(){
     const [isLoading, setIsLoading] = useState(true)
-
+   
     async function load(){
         try{
             await AppController.load()

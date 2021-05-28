@@ -15,8 +15,10 @@ import { CompletionScreen } from 'screens/main/CompletionScreen';
 
 
 //user
-import { HomeScreen } from 'screens/user/HomeScreen'
 import { UserNavigator } from '../user/UserNavigator';
+import { GameSelectionScreen } from 'screens/user/GameSelectionScreen';
+import { TeamScreen } from '../../screens/user/TeamScreen';
+import { CreateTeamScreen } from '../../screens/teams/CreateTeamScreen';
 
 
 
@@ -43,10 +45,12 @@ export function AuthNavigator(){
                 <Stack.Screen 
                     name="Main" 
                     component={MainScreen}
-                    options={{ 
-                            title: '',
-                            headerTransparent: true
-                            }}
+                    options={{
+                        title: '',
+                        headerLeft: null,
+                        gestureEnabled: false,
+                         headerTransparent: true
+                        }}
                 />
                 {/*Sign Up Screen stack*/}
                  <Stack.Screen 
@@ -83,18 +87,27 @@ export function AuthNavigator(){
                          headerTransparent: true
                         }}
                 />
-
-                <Stack.Screen 
-                    name="UserNav" 
-                    component={UserNavigator}
-                    options={{
-                        title: '',
-                        headerLeft: null,
-                        gestureEnabled: false,
-                         headerTransparent: true
-                        }}
-                />
-
+                <Stack.Screen 
+                    name="UserNav" 
+                    component={UserNavigator}
+                    options={{
+                        title: '',
+                        headerLeft: null,
+                        gestureEnabled: false,
+                         headerTransparent: true
+                        }}
+                />
+              
+                <Stack.Screen 
+                    name="SelectedGames" 
+                    component={GameSelectionScreen}
+                    options={{
+                        title: '',
+                        headerLeft: null,
+                        gestureEnabled: false,
+                         headerTransparent: true
+                        }}
+                />
                 
 
 

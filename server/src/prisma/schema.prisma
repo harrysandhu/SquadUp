@@ -48,17 +48,7 @@ model Chat{
   id        String          @id @default(uuid())
   team      Team            @relation(fields: [teamId], references: [id])
   teamId    String
-  messages  MessagesOnChats[]
-}
-
-
-model MessagesOnChats{
-  chatId      String
-  chat        Chat          @relation(fields: [chatId], references: [id])
-  messageId   String
-  message     Message[]
-  createdAt   DateTime      @default(now())
-  @@id([chatId, messageId])
+  messages  Message[]
 }
 
 
@@ -69,7 +59,7 @@ model Message{
   senderId      String
   sender        Profile           @relation(fields: [senderId], references: [id])
   chatId        String
-  chat          MessagesOnChats   @relation(fields: [chatId], references: [chatId])
+  chat          Chat   @relation(fields: [chatId], references: [id])
   sentAt        DateTime          @default(now())
 }
 

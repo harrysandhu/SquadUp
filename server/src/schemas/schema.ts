@@ -42,6 +42,18 @@ import {authType as AuthType} from "../types/Auth"
 import {authStage as AuthStage} from "../types/Auth"
 import {authPayload as AuthPayload} from "../types/Auth"
 import { prisma } from "../prisma/index";
+import { PubSub, withFilter } from 'graphql-subscriptions';
+
+const pubsub = new PubSub()
+const TEAM_CREATED = 'team_created'
+// const TEAM_JOINED = 'team_joined'
+// const TEAM_LEFT = 'team_left'
+// // const TEAM_DELETED = 'team_createed'
+
+
+ const MESSAGE_CREATED = 'message_created'
+// const MESSAGE_DELETED = 'team_createed'
+// const MESSAGE_UPDATED = 'team_createed'
 
 
 export const schema = gql `
@@ -53,7 +65,7 @@ export const schema = gql `
     schema{
         query: Query
         mutation: Mutation
-        # subscription: Subscription
+        subscription: Subscription
     }
 
     
@@ -63,10 +75,13 @@ export const schema = gql `
         game(id: ID!): Game
         team(id: ID!): Team
         games: [Game]
+        messages(chatId: String!): [Message]
         profile(username: String!): Profile
         signInGoogle(userId: ID!): AuthPayload
         userByEmail(email: String!): User
-        
+        teamByTeamId(teamId: String!): Team
+        get_available_teams(gId: ID!): [Team]
+        # get_all_messages
     }
 
   
@@ -74,12 +89,26 @@ export const schema = gql `
         registerDevice(deviceId: ID!): Device
         signUpGoogle(userInput: GoogleUserInput!): User
         signUpUser(userInput: UserInputSignUp!): User
-        setUsername(data: SetUsername!): SetUsernamePayload
+        setUsername(data: SetUsername!): SetUsernamePayload 
         createGame(game: GameInput!): Game
+       
         joinGame(profileId: ID!, gId: ID!): User
-        # createTeam(team: T)
+        createTeam(name: String!, teamId: String!, gId: ID!, profileId: ID!): Team
+        joinTeam(tId: ID!, gId: ID!, profileId: ID!): Team
+        createMessage(message: MessageInput!): Message
     }
 
+    type Subscription{
+        teamCreated(gId: ID!): Team
+        messageCreated(chatId: String!): Message
+    }
+
+
+    input MessageInput{
+        text: String!
+        senderId: String!
+        chatId: String!
+    }
 
     # type Subscription{
     #     # teamCreated(team: Team)
@@ -200,7 +229,63 @@ const resolvers:any = {
                 })
                 console.log(user)
                 return user
-            }
+            },
+        teamByTeamId: async (
+                root: any, 
+                {teamId}: any,
+                ctx: any) => {
+                    console.log(`root${root} , CTX: ${ctx}`)
+                    let team = await prisma.team.findUnique({
+                        where: {
+                            teamId: teamId
+                        }
+                    })
+                    console.log(team)
+                    return team
+        },
+        get_available_teams: async (
+            root: any, 
+            {gId}: any,
+            ctx: any
+        ) => {
+            console.log(`root${root} , CTX: ${ctx}`)
+            let teams = await prisma.team.findMany({
+                where:{
+                    gId :gId
+                },
+                include :{
+                    users: true,
+                    chat: true,
+                    game: true
+                },
+                
+            })
+
+            let t = teams.filter(team => team.users.length < team.game.maxSize)
+            return t
+
+        },
+        messages: async (
+            root: any, 
+            {chatId}: any,
+            ctx: any
+        ) => {
+            console.log(`root${root} , CTX: ${ctx}`)
+
+            let ms = await prisma.message.findMany({
+                where:{
+                    chatId: chatId
+                },
+                orderBy: {
+                    sentAt: 'asc'
+                },
+                include:{
+                    sender: true,
+                    chat: true
+                }
+            })
+         return ms
+        },
     },
 
     Mutation: {
@@ -281,7 +366,12 @@ const resolvers:any = {
                     teams: {
                         create: {
                             name: "Default",
-                            teamId:  String(game.gameId).toLowerCase() +"default"
+                            teamId:  String(game.gameId).toLowerCase() +"default",
+                            chat: {
+                                create:{
+
+                                }
+                            }
                         }
                     }
                 }
@@ -295,10 +385,24 @@ const resolvers:any = {
             ctx: any
         ) => {
             console.log(`root${root} , CTX: ${ctx}`)
-            await prisma.userOnGames.create({
+            let g = await prisma.userOnGames.create({
                 data:{
                     profileId: profileId,
                     gId: gId
+                }
+            })
+            let defaultTeam = await prisma.team.findFirst({
+                where:{
+                    gId: g.gId,
+                    name: "Default"
+                }
+            })
+            console.log(defaultTeam)
+
+            await prisma.usersOnTeam.create({
+                data:{
+                    profileId:profileId,
+                    tId: String(defaultTeam?.id)        
                 }
             })
             let p =  await prisma.profile.findUnique({
@@ -307,9 +411,106 @@ const resolvers:any = {
                 }
             })
             return p
+        },
+        createTeam: async (
+            root: any,
+            {name, teamId, gId, profileId}: any,
+            ctx: any
+        ) => {
+            console.log(`root${root} , CTX: ${ctx}`)
+
+            let team = await prisma.team.create({
+                data: {
+                    name: name,
+                    teamId: teamId,
+                    gId: gId,
+                    users:{
+                        create:{
+                            profileId: profileId
+                        }
+                    },
+                    chat: {
+                        create: {
+                           
+                        }
+                    }
+                }
+
+            })
+
+            if (team.id){
+                pubsub.publish(TEAM_CREATED, {teamCreated: team})
+            }
+            
+
+        
+            return team
+        },
+        joinTeam: async (
+            root: any,
+            {profileId, gId, tId}: any,
+            ctx: any
+        ) => {
+            console.log(`root${root} , CTX: ${ctx}`)
+            console.log(gId)
+           await prisma.usersOnTeam.create({
+                data:{
+                    profileId: profileId,
+                    tId: tId
+                }
+            })
+
+            let p =  await prisma.team.findUnique({
+                where:{
+                    id: tId
+                }
+            })
+            return p
+        },
+        createMessage: async (
+            root: any,
+            {message}: any,
+            ctx: any
+        ) => {
+            console.log(`root${root} , CTX: ${ctx}`)
+           let m =  await prisma.message.create({
+                data:{
+                    text: message.text,
+                    senderId: message.senderId,
+                    chatId: message.chatId
+                },
+                include:{
+                    sender: true,
+                    chat: true
+                }
+            })
+            
+            if (m.id){
+                pubsub.publish(MESSAGE_CREATED, {messageCreated:m})
+            }
+            return m
         }
     },
     
+    Subscription: {
+        teamCreated: {
+            subscribe : withFilter(
+                () => pubsub.asyncIterator(TEAM_CREATED),
+                (payload, variables) => {
+                    return (payload.teamCreated.game.id == variables.gId)
+                }
+            )
+        },
+        messageCreated: {
+            subscribe: withFilter(
+                () => pubsub.asyncIterator(MESSAGE_CREATED),
+                (payload, variables) => {
+                    return (payload.messageCreated.chatId == variables.chatId)
+                }
+            )
+        }
+
+    }
 
 }
 

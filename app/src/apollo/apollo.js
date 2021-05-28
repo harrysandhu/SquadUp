@@ -1,5 +1,8 @@
-import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client';
+import { ApolloClient, HttpLink, InMemoryCache, split } from '@apollo/client';
 import { setContext } from '@apollo/link-context';
+import { getMainDefinition } from '@apollo/client/utilities';
+
+import { WebSocketLink } from '@apollo/client/link/ws';
 
 // see: https://github.com/graphql/swapi-graphql
 const GRAPHQL_API_URL = 'https://truffen.com/squadup/graphql';
@@ -30,8 +33,26 @@ const httpLink = new HttpLink({
   uri: GRAPHQL_API_URL,
 });
 
+const wsLink = new WebSocketLink({
+  uri: 'ws://truffen.com/squadup/websockets',
+  options: {
+    reconnect: true
+  }
+});
+const splitLink = split(
+  ({ query }) => {
+    const definition = getMainDefinition(query);
+    return (
+      definition.kind === 'OperationDefinition' &&
+      definition.operation === 'subscription'
+    );
+  },
+  wsLink,
+  httpLink,
+);
+
 export const apolloClient = new ApolloClient({
   cache: new InMemoryCache(),
-  link: httpLink,
+  link: splitLink,
   link: asyncAuthLink.concat(httpLink),
 });

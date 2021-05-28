@@ -1,5 +1,6 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React, {useState} from 'react'
+import Icon from 'react-native-vector-icons/FontAwesome'
 import { HomeNavigator } from './HomeNavigator';
 import { ProfileNavigator } from './ProfileNavigator';
 import { ChatNavigator } from './ChatNavigator';
@@ -11,16 +12,35 @@ export const UserNavigator = ({navigation}) => {
     // if not navigation.popToTop()
     return (
       
-        <Tab.Navigator>
-            <Tab.Screen name ="Home" 
+        <Tab.Navigator
+            tabBarOptions={{
+                style:{
+                    backgroundColor: '#00001a'
+                }
+            }}
+        >
+
+            <Tab.Screen 
+            name ="Home" 
             component={HomeNavigator}
+            options={{
+                tabBarLabel: 'Home',
+                tabBarIcon: () => <Icon name="home" color="white" size={24} />,
+                
+              }}
+
             />
-            <Tab.Screen name ="Profile" 
+
+            <Tab.Screen 
+            name ="Profile" 
             component={ProfileNavigator}
+            options={{
+                tabBarLabel: 'Profile',
+                tabBarIcon: () => <Icon name="user-circle" color="white" size={24} />,
+              }}
             />
-            <Tab.Screen name ="Chat" 
-            component={ChatNavigator}
-            />
+            
+      
         </Tab.Navigator>
     );
 };

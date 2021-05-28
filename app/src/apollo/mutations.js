@@ -49,3 +49,48 @@ export const SET_USERNAME = gql`
         }
     }
 `
+
+export const JOIN_GAME = gql`
+    mutation joinGame($profileId: ID!, $gId: ID!){
+        joinGame(profileId: $profileId, gId: $gId){
+            id
+        }
+    }
+`
+
+export const JOIN_TEAM = gql`
+    mutation joinTeam($profileId: ID!, $gId: ID!, $tId: ID!){
+        joinTeam(profileId: $profileId, gId: $gId, tId: $tId){
+            id
+        }
+    }
+`
+
+
+export const CREATE_TEAM = gql`
+    mutation createTeam($name: String!, $teamId: String!, $gId: ID!, $profileId: ID!){
+        createTeam(name: $name, teamId: $teamId, gId: $gId, profileId: $profileId ){
+            id
+        }
+    }
+`
+
+
+export const CREATE_MESSAGE = gql`
+    mutation createMessage($message: MessageInput!){
+        createMessage(message: $message){
+            id
+            text
+            sender{
+                id
+                name
+                username
+                avatarUrl
+            }
+            sentAt
+            chat{
+                id
+            }
+        }
+    }
+`
