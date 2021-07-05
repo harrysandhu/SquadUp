@@ -26,7 +26,7 @@ export const resolvers = {
                 }
             })
             let g:any = []
-            p.forEach(row => {
+            p.forEach((row:any):any => {
                 g.push(row.game)
             })
             console.log(g)
@@ -43,7 +43,7 @@ export const resolvers = {
                 }
             })
             let g:any = []
-            p.forEach(row => {
+            p.forEach((row:any):any => {
                 g.push(row.team)
             })
             console.log(g)

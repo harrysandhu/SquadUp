@@ -44,7 +44,7 @@ exports.resolvers = {
                 }
             });
             let g = [];
-            p.forEach(row => {
+            p.forEach((row) => {
                 g.push(row.profile);
             });
             console.log(g);

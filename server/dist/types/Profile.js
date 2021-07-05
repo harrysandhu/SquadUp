@@ -37,7 +37,7 @@ exports.resolvers = {
                 }
             });
             let g = [];
-            p.forEach(row => {
+            p.forEach((row) => {
                 g.push(row.game);
             });
             console.log(g);
@@ -53,7 +53,7 @@ exports.resolvers = {
                 }
             });
             let g = [];
-            p.forEach(row => {
+            p.forEach((row) => {
                 g.push(row.team);
             });
             console.log(g);

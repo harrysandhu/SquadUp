@@ -35,7 +35,7 @@ export const resolvers = {
                 }
             })
             let g:any = []
-            p.forEach(row => {
+            p.forEach((row:any):any => {
                 g.push(row.profile)
             })
             console.log(g)

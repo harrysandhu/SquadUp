@@ -261,7 +261,7 @@ const resolvers:any = {
                 
             })
 
-            let t = teams.filter(team => team.users.length < team.game.maxSize)
+            let t = teams.filter((team:any):any => team.users.length < team.game.maxSize)
             return t
 
         },

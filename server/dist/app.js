@@ -27,6 +27,9 @@ app.use(cors_1.default());
 app.use(body_parser_1.default.json({ limit: '5mb' }));
 app.use(body_parser_1.default.urlencoded({ limit: '5mb', extended: false }));
 app.set('json spaces', 2);
+app.get("/merchant", (_, res) => {
+    return res.json({ "data": "hi" });
+});
 const server = new apollo_server_express_1.ApolloServer({
     schema: schema_1.squadup_schema_v1,
     subscriptions: { path: "/websockets" },

@@ -199,7 +199,7 @@ const resolvers = {
                     game: true
                 },
             });
-            let t = teams.filter(team => team.users.length < team.game.maxSize);
+            let t = teams.filter((team) => team.users.length < team.game.maxSize);
             return t;
         }),
         messages: (root, { chatId }, ctx) => __awaiter(void 0, void 0, void 0, function* () {

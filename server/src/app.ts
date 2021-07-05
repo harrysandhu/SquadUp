@@ -10,7 +10,7 @@ import { squadup_schema_v1 } from './schemas/schema';
 // import {PrismaClient} from '@prisma/client'
 
 // const prisma = new PrismaClient()
-
+let merchant  = require("./gp/merchant")
 const validClient = "squadup69"
 
 const app:express.Application = express()
@@ -22,6 +22,9 @@ app.use(cors())
 app.use(bodyParser.json({ limit: '5mb' }))
 app.use(bodyParser.urlencoded({ limit: '5mb', extended: false }))
 app.set('json spaces', 2);
+
+
+app.use("/gp/merchant", merchant);
 
 
 
